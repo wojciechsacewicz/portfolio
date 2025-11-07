@@ -1,15 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio of Wojciech Sacewicz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portfolio of Wojciech Sacewicz" />
     <title>Wojciech Sacewicz - Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <main>
+      <section class="terminal-card">
+        <div
+          class="terminal-lang-switch"
+          role="group"
+          aria-label="Language switch"
+        >
+          <button type="button" class="lang-btn is-active" data-lang="pl">
+            lang=pl
+          </button>
+          <span class="lang-separator">|</span>
+          <button type="button" class="lang-btn" data-lang="en">lang=en</button>
+          <span class="lang-separator">|</span>
+          <button
+            type="button"
+            class="theme-btn"
+            data-theme="light"
+            aria-label="Toggle theme"
+          >
+            <span class="theme-icon">☀</span>
+            <span class="theme-tooltip">watch out for the flashbang!</span>
+          </button>
+        </div>
         <h1 class="main-title">wojciech sacewicz</h1>
+        <div class="prompt-line">
+          <span class="prompt">&gt;</span>
+          <span class="typed-output">
+            <span class="typed-text"></span>
+            <span class="cursor"></span>
+          </span>
+        </div>
+      </section>
+      <div class="terminal-actions">
+        <a class="terminal-btn" data-translate="ctaWork" href="#work"
+          >zobacz projekty</a
+        >
+        <a class="terminal-btn" data-translate="ctaContact" href="#contact"
+          >skontaktuj się</a
+        >
+      </div>
     </main>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
