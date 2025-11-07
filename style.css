@@ -8,6 +8,7 @@
 html, body {
     height: 100%;
     width: 100%;
+    overflow-x: hidden; /* prevent horizontal scroll from tooltip */
 }
 
 body {
@@ -186,6 +187,18 @@ body.light-mode .theme-tooltip {
     background: rgba(255, 255, 255, 0.95);
     color: #16a34a;
     border-color: rgba(2, 132, 199, 0.4);
+}
+
+@media (max-width: 600px) {
+    .theme-tooltip {
+        left: auto;
+        right: 0;
+        top: calc(100% + 0.5rem);
+        transform: none;
+        max-width: min(240px, 80vw);
+        white-space: normal;
+        padding: 0.45rem 0.6rem;
+    }
 }
 
 .main-title {
