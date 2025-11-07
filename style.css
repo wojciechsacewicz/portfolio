@@ -8,13 +8,11 @@
 html, body {
     height: 100%;
     width: 100%;
-    overflow: hidden;
 }
 
 body {
     font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
     background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-    background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
