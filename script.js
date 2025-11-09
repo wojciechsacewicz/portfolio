@@ -9,6 +9,7 @@ const translations = {
     ui: {
       ctaWork: 'zobacz projekty',
       ctaContact: 'skontaktuj się',
+      ctaAboutMe: 'o mnie',
       flashbang: 'uważaj na flashbanga!'
     }
   },
@@ -22,10 +23,13 @@ const translations = {
     ui: {
       ctaWork: 'see my work',
       ctaContact: 'get in touch',
+      ctaAboutMe: 'about me',
       flashbang: 'watch out for the flashbang!'
     }
   }
 };
+
+let lang = 'en';
 
 const typingEl = document.querySelector('.typed-text');
 const cursorEl = document.querySelector('.cursor');
@@ -35,7 +39,6 @@ const themeIcon = document.querySelector('.theme-icon');
 const themeTooltip = document.querySelector('.theme-tooltip');
 const translatables = document.querySelectorAll('[data-translate]');
 
-let lang = 'pl';
 let queue = [];
 let last = '';
 let cycleToken = 0;
@@ -130,13 +133,17 @@ function initTheme() {
 langBtns.forEach(btn => btn.addEventListener('click', () => applyLang(btn.dataset.lang)));
 themeBtn.addEventListener('click', toggleTheme);
 
+// Init UI text defaults
 translatables.forEach(el => {
-  const k = el.dataset.translate;
-  if (translations[lang].ui[k]) el.textContent = translations[lang].ui[k];
+  const key = el.dataset.translate;
+  const val = translations[lang].ui[key];
+  if (val) el.textContent = val;
 });
 if (themeTooltip) {
   themeTooltip.textContent = translations[lang].ui.flashbang;
 }
+// Mark active button correctly
+langBtns.forEach(b => b.classList.toggle('is-active', b.dataset.lang === lang));
 
 initTheme();
 startCycle();
