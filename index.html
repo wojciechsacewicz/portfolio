@@ -1,61 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Portfolio of Wojciech Sa3cewicz" />
-    <title>Wojciech Sacewicz - Portfolio</title>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
-    />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <main>
-      <section class="terminal-card">
-        <div
-          class="terminal-lang-switch"
-          role="group"
-          aria-label="Language switch"
-        >
-          <button type="button" class="lang-btn" data-lang="pl">lang=pl</button>
-          <span class="lang-separator">|</span>
-          <button type="button" class="lang-btn is-active" data-lang="en">
-            lang=en
-          </button>
-          <span class="lang-separator">|</span>
-          <button
-            type="button"
-            class="theme-btn"
-            data-theme="light"
-            aria-label="Toggle theme"
-          >
-            <span class="theme-icon">☀</span>
-            <span class="theme-tooltip">watch out for the flashbang!</span>
-          </button>
-        </div>
-        <h1 class="main-title">wojciech sacewicz</h1>
-        <div class="prompt-line">
-          <span class="prompt">&gt;</span>
-          <span class="typed-output">
-            <span class="typed-text"></span>
-            <span class="cursor"></span>
-          </span>
-        </div>
-      </section>
-      <div class="terminal-actions">
-        <a class="terminal-btn" data-translate="ctaWork" href="/work"
-          >zobacz projekty</a
-        >
-        <a class="terminal-btn" data-translate="ctaContact" href="/contact"
-          >skontaktuj się</a
-        >
-        <a class="terminal-btn" data-translate="ctaAboutMe" href="/about"
-          >o mnie</a
-        >
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of Wojciech Sa3cewicz" />
+  <title>Wojciech Sacewicz - Portfolio</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="/assets/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="shortcut icon" href="/assets/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="sacewi.cz" />
+  <link rel="manifest" href="/assets/site.webmanifest" />
+</head>
+
+<body>
+  <main>
+    <section class="terminal-card">
+      <div class="terminal-lang-switch" role="group" aria-label="Language switch">
+        <button type="button" class="lang-btn" id="lang-toggle" aria-label="Switch language">
+          lang=en
+        </button>
+        <span class="lang-separator">|</span>
+        <button type="button" class="theme-btn" data-theme="light" aria-label="Toggle theme">
+          <span class="theme-icon">☀</span>
+          <span class="theme-tooltip" data-translate="flashbang">watch out for the flashbang!</span>
+        </button>
       </div>
-    </main>
-    <script src="script.js"></script>
-  </body>
+      <h1 class="main-title">wojciech sacewicz</h1>
+      <div class="prompt-line">
+        <span class="prompt">&gt;</span>
+        <span class="typed-output">
+          <span class="typed-text"></span>
+          <span class="cursor"></span>
+        </span>
+      </div>
+    </section>
+    <div class="terminal-actions">
+      <a class="terminal-btn" data-translate="ctaWork" href="/work">see my work</a>
+      <a class="terminal-btn" data-translate="ctaContact" href="/contact">get in touch</a>
+      <a class="terminal-btn" data-translate="ctaAboutMe" href="/about">about me</a>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+
 </html>

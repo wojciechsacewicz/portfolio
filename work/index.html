@@ -1,23 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Work – Wojciech Sacewicz</title>
+  <title>My Work | sacewi.cz</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="../style.css" />
+  <link rel="icon" type="image/png" href="../assets/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <link rel="shortcut icon" href="../assets/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="sacewi.cz" />
+  <link rel="manifest" href="../assets/site.webmanifest" />
 </head>
+
 <body>
   <main class="slide slide--hero">
     <section class="terminal-card">
+      <h1 class="main-title" data-translate="workTitle">> my work</h1>
+
+      <div class="work-section">
+        <h2 class="section-title" data-translate="secVideo">video editing</h2>
+        <div class="video-container">
+          <div class="video-placeholder">
+            <span class="placeholder-text" data-translate="vidPlaceholder">[ video placeholder ]</span>
+            <p class="placeholder-sub" data-translate="vidSub">later i'll add the proper video here</p>
+          </div>
+        </div>
       </div>
-      <h1 class="main-title">> my work</h1>
-      <p>nothing here yet... // build in progress</p>
+
+      <div class="work-section">
+        <h2 class="section-title" data-translate="secCode">code</h2>
+        <div class="project-grid">
+          <a href="https://github.com/wojciechsacewicz/portfolio" target="_blank" class="project-card">
+            <h3 class="project-title" data-translate="projPortfolioTitle">portfolio website</h3>
+            <p class="project-desc" data-translate="projPortfolioDesc">the site you are looking at right now. built with
+              vanilla html/css/js.</p>
+            <span class="project-link" data-translate="linkGithub">view on github &rarr;</span>
+          </a>
+          <a href="https://github.com/wojciechsacewicz" target="_blank" class="project-card">
+            <h3 class="project-title" data-translate="projMoreTitle">more coming soon...</h3>
+            <p class="project-desc" data-translate="projMoreDesc">check my github for latest updates.</p>
+            <span class="project-link" data-translate="linkProfile">view profile &rarr;</span>
+          </a>
+        </div>
+      </div>
     </section>
-      <div class="terminal-actions">
-        <a class="terminal-btn" href="/">go back</a>
-      </div>
+    <div class="terminal-actions">
+      <a class="terminal-btn" href="/" data-translate="goBack">go back</a>
+    </div>
   </main>
   <script src="../script.js"></script>
 </body>
+
 </html>
