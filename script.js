@@ -4,7 +4,10 @@ const translations = {
       'eksploruje technologię',
       "techniczny_pasjonat = {'od kodu po wideo'}",
       'student IT z pasją do ulepszania narzędzi i procesów',
-      'analityczne myślenie. kreatywne wykonanie.'
+      'analityczne myślenie. kreatywne wykonanie.',
+      'buduję boty, które oszczędzają czas',
+      'twórca wideo (100k+ wyświetleń)',
+      'entuzjasta klawiatur mechanicznych'
     ],
     ui: {
       ctaWork: 'zobacz projekty',
@@ -12,23 +15,37 @@ const translations = {
       ctaAboutMe: 'o mnie',
       flashbang: 'uważaj na flashbanga!',
       // about page stuff
-      aboutTitle: '> o mnie',
+      aboutTitle: ' o mnie',
       aboutIntro: 'jestem studentem informatyki i ekonometrii, który uwielbia majsterkować przy różnych rzeczach, takich jak:',
       btnWorkspace: '<moje stanowisko>',
       btnWindows: '<mój setup windows>',
       goBack: 'wróć',
+      // competencies
+      compTitle: '> kompetencje',
+      compAnalyt: ':: analityczne & org.',
+      compComm: ':: komunikacja',
+      compAttr: ':: kluczowe cechy',
+      listAnalyt1: 'rozwiązywanie problemów',
+      listAnalyt2: 'samodzielność w działaniu',
+      listAnalyt3: 'zarządzanie czasem',
+      listComm1: 'duch współpracy',
+      listComm2: 'prezentacje',
+      listComm3: 'tłumaczenie tech -> biznes',
+      listAttr1: 'szybkie przyswajanie wiedzy',
+      listAttr2: 'budowanie relacji',
+      listAttr3: 'angielski (C1)',
       // contact
-      contactTitle: '> skontaktuj się',
+      contactTitle: ' skontaktuj się',
       contactIntro: 'chcesz współpracować? skontaktuj się ze mną tutaj...',
       btnEmail: 'email',
       btnLinkedin: 'linkedin',
       btnCV: 'pobierz moje cv!',
       // work stuff
-      workTitle: '> moje projekty',
+      workTitle: ' moje projekty',
       secVideo: 'montaż wideo',
       vidPlaceholder: '[ miejsce na wideo ]',
       vidSub: 'później dodam tu właściwe wideo',
-      vidTutorialTitle: 'tutorial youtube (100k+ wyświetleń)',
+      vidTutorialTitle: 'tutorial youtube',
       vidDovistaTitle: 'animacja dovista rpa',
       vidDovistaSub: 'animacja stworzona podczas stażu',
       vidCyberTitle: 'cyberwizja (edukacja + animacja)',
@@ -40,8 +57,12 @@ const translations = {
       projMoreTitle: 'więcej wkrótce...',
       projMoreDesc: 'sprawdź mój github po najnowsze aktualizacje.',
       linkProfile: 'zobacz profil →',
+      // badges
+      badgeViews: '100k+ wyświetleń',
+      badgeTime: '-40% czasu procesu',
+      badgeFinalist: 'finalista',
       // windows page
-      winTitle: '> setup windows',
+      winTitle: ' setup windows',
       winIntro: 'personalizacja windowsa dla maksymalnej produktywności i estetyki przy użyciu zewnętrznego oprogramowania!',
       winListIntro: 'oto lista oprogramowania, którego używam:',
       winZoomNote: '* kliknij zdjęcia aby powiększyć *',
@@ -59,7 +80,7 @@ const translations = {
       modCore: ':: Mody Podstawowe',
       modSystem: ':: Usprawnienia Systemowe',
       // workspace page
-      spaceTitle: '> stanowisko',
+      spaceTitle: ' stanowisko',
       spaceIntro: 'tutaj wstawię zdjęcia mojego czystego, minimalistycznego, czarnego biurka',
       spacePlaceholder: 'TO JEST PLACEHOLDER, prawdziwe zdjęcie biurka pojawi się wkrótce'
     }
@@ -69,7 +90,10 @@ const translations = {
       'exploring technology',
       "technical_enthusiast = {'from code to video'}",
       'it student focused on improving tools and processes',
-      'analytical thinking. creative execution.'
+      'analytical thinking. creative execution.',
+      'building bots that save time',
+      'video creator (100k+ views)',
+      'mechanical keyboard enthusiast'
     ],
     ui: {
       ctaWork: 'see my work',
@@ -77,23 +101,37 @@ const translations = {
       ctaAboutMe: 'about me',
       flashbang: 'watch out for the flashbang!',
       // about page
-      aboutTitle: '> about me',
+      aboutTitle: ' about me',
       aboutIntro: 'i am a computer science and econometrics student that loves tinkering with stuff, which some of them are:',
       btnWorkspace: '<my workspace>',
       btnWindows: '<my windows setup>',
       goBack: 'go back',
+      // competencies
+      compTitle: ' competencies',
+      compAnalyt: ':: analytical & org.',
+      compComm: ':: communication',
+      compAttr: ':: key attributes',
+      listAnalyt1: 'problem solving',
+      listAnalyt2: 'autonomy',
+      listAnalyt3: 'time management',
+      listComm1: 'collaborative spirit',
+      listComm2: 'presentations',
+      listComm3: 'tech -> business translation',
+      listAttr1: 'fast learner',
+      listAttr2: 'relationship building',
+      listAttr3: 'english (C1)',
       // contact page
-      contactTitle: '> get in touch',
+      contactTitle: ' get in touch',
       contactIntro: 'want to work together? contact me here...',
       btnEmail: 'email',
       btnLinkedin: 'linkedin',
       btnCV: 'download my cv!',
       // work page
-      workTitle: '> my work',
+      workTitle: ' my work',
       secVideo: 'video editing',
       vidPlaceholder: '[ video placeholder ]',
       vidSub: "later i'll add the proper video here",
-      vidTutorialTitle: 'youtube tutorial (100k+ views)',
+      vidTutorialTitle: 'youtube tutorial',
       vidDovistaTitle: 'dovista rpa animation',
       vidDovistaSub: 'animation made during my internship',
       vidCyberTitle: 'cyberwizja (educational + animation)',
@@ -105,8 +143,12 @@ const translations = {
       projMoreTitle: 'more coming soon...',
       projMoreDesc: 'check my github for latest updates.',
       linkProfile: 'view profile →',
+      // badges
+      badgeViews: '100k+ views',
+      badgeTime: '-40% process time',
+      badgeFinalist: 'finalist',
       // windows page
-      winTitle: '> windows setup',
+      winTitle: ' windows setup',
       winIntro: 'customizing windows for maximum productivity and aesthetics using third party software!',
       winListIntro: 'here is a list of some of the software I use:',
       winZoomNote: '* click images to zoom in *',
@@ -124,7 +166,7 @@ const translations = {
       modCore: ':: Core Mods',
       modSystem: ':: System Tweaks',
       // workspace page
-      spaceTitle: '> workspace',
+      spaceTitle: ' workspace',
       spaceIntro: "here i'll put some pictures of my clean, minimalistic black desk setup",
       spacePlaceholder: 'THIS IS A PLACEHOLDER, real desk picture will come soon'
     }

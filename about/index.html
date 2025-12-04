@@ -17,13 +17,56 @@
 
 <body>
   <main class="slide slide--hero">
+    <!-- Intro Card -->
     <section class="terminal-card">
       <h1 class="main-title" data-translate="aboutTitle">> about me</h1>
-      <p data-translate="aboutIntro">i am computer science and econometrics student that loves tinkering with stuff,
+      <p data-translate="aboutIntro">i am a computer science and econometrics student that loves tinkering with stuff,
         which some of them are:</p>
-      <a href="/about/workspace" class="coolbutton" data-translate="btnWorkspace">&lt;my workspace&gt;</a>
-      <a href="/about/windows" class="coolbutton" data-translate="btnWindows">&lt;my windows setup&gt;</a>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+        <a href="/about/workspace" class="coolbutton" data-translate="btnWorkspace">&lt;my workspace&gt;</a>
+        <a href="/about/windows" class="coolbutton" data-translate="btnWindows">&lt;my windows setup&gt;</a>
+      </div>
     </section>
+
+    <!-- Competencies Card -->
+    <section class="terminal-card">
+      <h2 class="main-title" style="font-size: 1.5rem; margin-bottom: 1rem;" data-translate="compTitle">> competencies</h2>
+      
+      <div class="mod-grid-container" style="background: transparent;">
+        
+        <!-- Analytical -->
+        <div class="mod-card">
+          <h3 class="mod-title" data-translate="compAnalyt">:: analytical & org.</h3>
+          <ul class="mod-list">
+            <li data-translate="listAnalyt1">problem solving</li>
+            <li data-translate="listAnalyt2">autonomy</li>
+            <li data-translate="listAnalyt3">time management</li>
+          </ul>
+        </div>
+
+        <!-- Communication -->
+        <div class="mod-card">
+          <h3 class="mod-title" data-translate="compComm">:: communication</h3>
+          <ul class="mod-list">
+            <li data-translate="listComm1">collaborative spirit</li>
+            <li data-translate="listComm2">presentations</li>
+            <li data-translate="listComm3">tech -> business translation</li>
+          </ul>
+        </div>
+
+        <!-- Attributes -->
+        <div class="mod-card">
+          <h3 class="mod-title" data-translate="compAttr">:: key attributes</h3>
+          <ul class="mod-list">
+            <li data-translate="listAttr1">fast learner</li>
+            <li data-translate="listAttr2">relationship building</li>
+            <li data-translate="listAttr3">english (C1)</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
     <div class="terminal-actions">
       <a class="terminal-btn" href="/" data-translate="goBack">go back</a>
     </div>

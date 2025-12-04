@@ -249,6 +249,8 @@ main {
 .terminal-actions {
     display: flex;
     gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .terminal-btn {
@@ -268,6 +270,29 @@ main {
     color: var(--text-main);
 }
 
+/* Impact Badge Styling */
+.impact-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    margin-left: 0.8rem;
+    font-weight: 500;
+    vertical-align: middle;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: rgba(56, 189, 248, 0.15);
+    color: #38BDF8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    white-space: nowrap;
+}
+
+body.light-mode .impact-badge {
+    background: rgba(2, 132, 199, 0.1);
+    color: #0284c7;
+    border-color: rgba(2, 132, 199, 0.3);
+}
+
 /* responsive stuff */
 @media (max-width: 768px) {
     .main-title {
@@ -285,6 +310,12 @@ main {
 
     .terminal-btn {
         text-align: center;
+    }
+    
+    .impact-badge {
+        margin-left: 0;
+        margin-top: 0.5rem;
+        display: inline-block;
     }
 }
 
@@ -339,8 +370,7 @@ main {
     border-bottom: 1px solid rgba(56, 189, 248, 0.3);
     padding-bottom: 0.5rem;
     display: inline-block;
-    transition: transform 0.2s ease,
-        border-color 0.2s ease;
+    transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 body.light-mode .gallery-item {
@@ -440,6 +470,10 @@ body.light-mode .project-card {
     font-size: 1rem;
     color: var(--text-main);
     margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 .project-desc {
