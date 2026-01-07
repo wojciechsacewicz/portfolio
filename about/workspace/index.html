@@ -1,43 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Workspace | sacewi.cz</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="../../style.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="../../assets/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
+    <link rel="shortcut icon" href="../../assets/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="../../assets/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="sacewi.cz" />
+    <link rel="manifest" href="../../assets/site.webmanifest" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Workspace | sacewi.cz</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
-  <link rel="stylesheet" href="../../style.css" />
-  <link rel="icon" type="image/png" href="../../assets/favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
-  <link rel="shortcut icon" href="../../assets/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png" />
-  <meta name="apple-mobile-web-app-title" content="sacewi.cz" />
-  <link rel="manifest" href="../../assets/site.webmanifest" />
-</head>
+  <body>
+    <main class="slide slide--hero">
+      <section class="terminal-card">
+        <h1 class="main-title" data-translate="spaceTitle">workspace</h1>
+        <p data-translate="spaceIntro">
+          here i'll put some pictures of my clean, minimalistic black desk setup
+        </p>
 
-<body>
-  <main class="slide slide--hero">
-    <section class="terminal-card">
-      <h1 class="main-title" data-translate="spaceTitle">> workspace</h1>
-      <p data-translate="spaceIntro">here i'll put some pictures of my clean, minimalistic black desk setup</p>
-      <div class="gallery-grid">
-        <div class="gallery-item">
-          <img src="../../assets/my desktop.png" alt="My IRL Setup" loading="eager">
-          <span class="caption" data-translate="spacePlaceholder">THIS IS A PLACEHOLDER, real desk picture will come
-            soon</span>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img
+              src="../../assets/mySetup1.jpg"
+              alt="My setup (angle 1)"
+              loading="lazy"
+            />
+            <span class="caption" data-translate="spaceCapSetup1"
+              >setup — angle 1</span
+            >
+          </div>
+
+          <div class="gallery-item">
+            <img
+              src="../../assets/mySetup2.jpg"
+              alt="My setup (angle 2)"
+              loading="lazy"
+            />
+            <span class="caption" data-translate="spaceCapSetup2"
+              >setup — angle 2</span
+            >
+          </div>
+
+          <div class="gallery-item">
+            <img src="../../assets/myPC.jpg" alt="My PC" loading="lazy" />
+            <span class="caption" data-translate="spaceCapPC">my pc</span>
+          </div>
         </div>
-        <div class="gallery-item">
-          <img src="../../assets/my desktop.png" alt="My IRL Setup" loading="eager">
-          <span class="caption" data-translate="spacePlaceholder">THIS IS A PLACEHOLDER, real desk picture will come
-            soon</span>
-        </div>
+      </section>
+
+      <div class="terminal-actions">
+        <a class="terminal-btn" href="/about" data-translate="goBack"
+          >go back</a
+        >
       </div>
-    </section>
-    <div class="terminal-actions">
-      <a class="terminal-btn" href="/about" data-translate="goBack">go back</a>
-    </div>
-  </main>
-  <script src="../../script.js"></script>
-</body>
-
+    </main>
+    <script src="../../script.js"></script>
+  </body>
 </html>

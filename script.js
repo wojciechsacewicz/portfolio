@@ -43,13 +43,18 @@ const translations = {
       // work stuff
       workTitle: ' moje projekty',
       secVideo: 'montaż wideo',
-      vidPlaceholder: '[ miejsce na wideo ]',
-      vidSub: 'później dodam tu właściwe wideo',
       vidTutorialTitle: 'tutorial youtube',
+      vidTutorialDesc: 'Poradnik o nagrywaniu gameplayu w 960 FPS i resamplowaniu do 60 FPS (mieszanie klatek), żeby dodać naturalnie wyglądający motion blur przy normalnej prędkości. Pokazuję ustawienia nagrywania i cały workflow — ten film zrobił się dość viralowy.',
       vidDovistaTitle: 'animacja dovista rpa',
-      vidDovistaSub: 'animacja stworzona podczas stażu',
+      vidDovistaDesc: 'Wewnętrzne wideo szkoleniowe stworzone, aby w prosty sposób wyjaśnić nietechnicznym pracownikom firmowe rozwiązanie RPA — co robi, po co powstało i jak zmienia codzienny workflow.',
       vidCyberTitle: 'cyberwizja (edukacja + animacja)',
-      vidCyberSub: 'filmy edukacyjne z tiktoka',
+      cyberTiktokLink: 'tiktok.com/@cyberwizja',
+      vidCyberDesc: 'Grupowy projekt szkolny o cyberbezpieczeństwie. Prowadziliśmy zajęcia dla dzieci w szkołach, ucząc jak bezpiecznie korzystać z internetu i unikać najczęstszych zagrożeń.',
+      vidCyberClip1Title: 'cyberwizja klip #1',
+      vidCyberClip1Desc: 'Intro przygotowane na profile social media naszego szkolnego projektu — szybkie ustawienie klimatu i identyfikacji.',
+      vidCyberClip2Title: 'cyberwizja klip #2',
+      vidCyberClip2Desc: 'Krótki TikTok nastawiony na zasięg: mocny hook + najważniejsze info, żeby odbiorcy trafili na profil i mogli później dowiedzieć się więcej o projekcie.',
+
       secCode: 'kod',
       projPortfolioTitle: 'strona portfolio',
       projPortfolioDesc: 'strona, którą teraz przeglądasz. zbudowana w czystym html/css/js.',
@@ -81,8 +86,11 @@ const translations = {
       modSystem: ':: Usprawnienia Systemowe',
       // workspace page
       spaceTitle: ' stanowisko',
-      spaceIntro: 'tutaj wstawię zdjęcia mojego czystego, minimalistycznego, czarnego biurka',
-      spacePlaceholder: 'TO JEST PLACEHOLDER, prawdziwe zdjęcie biurka pojawi się wkrótce'
+      spaceIntro: 'oto mój setup — inspirowany estetyką clean, black, minimalist.',
+      spacePlaceholder: 'TO JEST PLACEHOLDER, prawdziwe zdjęcie biurka pojawi się wkrótce',
+      spaceCapSetup1: 'setup — ujęcie 1',
+      spaceCapSetup2: 'setup — ujęcie 2',
+      spaceCapPC: 'mój pc'
     }
   },
   en: {
@@ -129,13 +137,20 @@ const translations = {
       // work page
       workTitle: ' my work',
       secVideo: 'video editing',
-      vidPlaceholder: '[ video placeholder ]',
-      vidSub: "later i'll add the proper video here",
-      vidTutorialTitle: 'youtube tutorial',
+      vidTutorialTitle: 'youtube tutorial (100k+ views)',
+      vidTutorialDesc: 'A tutorial on recording gameplay at 960 FPS, then resampling down to 60 FPS (with frame blending) to add natural-looking motion blur at normal speed. I walk through the capture settings and the workflow—this one ended up going semi-viral.',
       vidDovistaTitle: 'dovista rpa animation',
-      vidDovistaSub: 'animation made during my internship',
+      vidDovistaDesc: 'Internal training video created to explain an RPA solution to non-technical coworkers—what it does, why it matters, and how it changes the day-to-day workflow.',
       vidCyberTitle: 'cyberwizja (educational + animation)',
-      vidCyberSub: 'educational videos from tiktok',
+      cyberTiktokLink: 'tiktok.com/@cyberwizja',
+      vidCyberDesc: 'A group school project about cybersecurity. We taught children in schools how to stay safe online and avoid common digital threats.',
+
+      // add missing keys (used by work/index.html)
+      vidCyberClip1Title: 'cyberwizja clip #1',
+      vidCyberClip1Desc: 'Intro clip created for our school project’s social media profiles—meant to quickly set the tone and branding.',
+      vidCyberClip2Title: 'cyberwizja clip #2',
+      vidCyberClip2Desc: 'A short TikTok optimized for reach: quick hook + key info to help viewers discover the profile and learn more about the project later.',
+
       secCode: 'code',
       projPortfolioTitle: 'portfolio website',
       projPortfolioDesc: 'the site you are looking at right now. built with vanilla html/css/js.',
@@ -167,8 +182,11 @@ const translations = {
       modSystem: ':: System Tweaks',
       // workspace page
       spaceTitle: ' workspace',
-      spaceIntro: "here i'll put some pictures of my clean, minimalistic black desk setup",
-      spacePlaceholder: 'THIS IS A PLACEHOLDER, real desk picture will come soon'
+      spaceIntro: "here's my setup — inspired by a clean, black, minimalist aesthetic.",
+      spacePlaceholder: 'THIS IS A PLACEHOLDER, real desk picture will come soon',
+      spaceCapSetup1: 'setup — angle 1',
+      spaceCapSetup2: 'setup — angle 2',
+      spaceCapPC: 'my pc'
     }
   }
 };
@@ -176,7 +194,6 @@ const translations = {
 let lang = localStorage.getItem('lang') || 'en';
 
 const typingEl = document.querySelector('.typed-text');
-const cursorEl = document.querySelector('.cursor');
 const langToggle = document.getElementById('lang-toggle');
 const themeBtn = document.querySelector('.theme-btn');
 const themeIcon = document.querySelector('.theme-icon');
