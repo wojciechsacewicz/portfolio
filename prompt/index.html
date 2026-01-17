@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,19 +14,16 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            overflow: hidden;
             text-align: center;
         }
 
-        /* to jest ten raw tekst ktory chcesz ukryc */
         #secret-content {
-            display: none; /* domyslnie ukryte */
-            max-width: 600px;
+            display: none;
+            max-width: 80%;
             padding: 20px;
             border: 1px solid #0f0;
         }
 
-        /* nakladka z pytaniem */
         #modal-overlay {
             position: fixed;
             top: 0;
@@ -41,7 +38,7 @@
             z-index: 999;
         }
 
-        h1 { font-size: 24px; margin-bottom: 40px; }
+        h1 { font-size: 24px; margin-bottom: 30px; color: #0f0; min-height: 60px; }
         
         .btn-group { display: flex; gap: 20px; }
 
@@ -49,7 +46,7 @@
             background: transparent;
             color: #0f0;
             border: 1px solid #0f0;
-            padding: 10px 30px;
+            padding: 10px 40px;
             font-family: inherit;
             font-size: 18px;
             cursor: pointer;
@@ -58,76 +55,74 @@
 
         button:hover { background: #0f0; color: #000; }
 
-        /* alert o bledzie */
         #error-msg {
-            color: red;
-            margin-top: 20px;
-            display: none;
+            color: #ff0000;
+            margin-top: 25px;
             font-weight: bold;
+            display: none;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            background: #111;
+            color: #0f0;
+            border: 1px solid #333;
+            padding: 10px;
+            font-family: inherit;
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/gh/Joe12387/detectIncognito@main/dist/es5/detectIncognito.min.js"></script>
 </head>
 <body>
 
     <div id="secret-content">
-        <p>tutaj wklej swoj raw tekst do skopiowania.</p>
-        <textarea style="width: 100%; height: 100px; background: #111; color: #fff; border: none;">supertajnykod_do_skopiowania_123</textarea>
+        <p>dobra, masz. nie spierdol tego.</p>
+        <textarea id="copy-area" readonly>tutaj wstaw swoj raw tekst do skopiowania</textarea>
     </div>
 
     <div id="modal-overlay">
-        <h1>jestes w trybie incognito?</h1>
-        <div class="btn-group">
-            <button id="btn-yes">tak</button>
-            <button id="btn-no">nie</button>
+        <h1 id="main-question">jestes w trybie incognito?</h1>
+        <div class="btn-group" id="buttons">
+            <button onclick="handleYes()">tak</button>
+            <button onclick="handleNo()">nie</button>
         </div>
         <p id="error-msg"></p>
     </div>
 
     <script>
-        const btnYes = document.getElementById('btn-yes');
-        const btnNo = document.getElementById('btn-no');
-        const modal = document.getElementById('modal-overlay');
-        const secret = document.getElementById('secret-content');
-        const errorMsg = document.getElementById('error-msg');
+        let step = 0;
+        const questions = [
+            "ale na 100%?",
+            "jestes PEWIEN?",
+            "nie klamiesz mi tu kurwa?",
+            "serio? ostatnia szansa na odwrót...",
+            "no dobra, sprawdzam ostatni raz..."
+        ];
 
-        // funkcja pomocnicza zeby nie pisac tego samego gowna dwa razy
-        const showFuckOff = () => {
-            errorMsg.style.display = 'block';
-            errorMsg.innerText = 'wlacz mnie na incognito kurwa!!!!';
-            errorMsg.style.color = 'red';
-            btnYes.style.display = 'none'; // zabieramy przycisk zeby nie klikal bez sensu
-        };
+        function handleYes() {
+            const questionEl = document.getElementById('main-question');
+            
+            if (step < questions.length) {
+                // zmieniamy tekst na kolejny z listy
+                questionEl.innerText = questions[step];
+                step++;
+            } else {
+                // koniec meczenia buły
+                document.getElementById('modal-overlay').style.display = 'none';
+                document.getElementById('secret-content').style.display = 'block';
+            }
+        }
 
-        btnNo.addEventListener('click', () => {
-            showFuckOff();
-        });
-
-        btnYes.addEventListener('click', () => {
-            errorMsg.innerText = 'weryfikuje...';
-            errorMsg.style.color = '#0f0';
-            errorMsg.style.display = 'block';
-
-            // uzywamy biblioteki zeby sprawdzic czy user nie leci w chuja
-            detectIncognito().then((result) => {
-                if (result.isPrivate) {
-                    // sukces - jest w incognito
-                    modal.style.display = 'none';
-                    secret.style.display = 'block';
-                } else {
-                    // porazka - klamie albo przegladarka blokuje detekcje
-                    // ale zakladamy ze klamie bo chrome ma 100-120mb quota w incognito
-                    errorMsg.innerText = 'klamiesz. wykrylem normalny tryb. wypierdalaj na incognito.';
-                    errorMsg.style.color = 'red';
-                }
-            }).catch((e) => {
-                // jak cos sie wyjebie w skrypcie to dla bezpieczenstwa mozesz mu pokazac
-                // albo kazac spierdalać. tutaj dajemy kredyt zaufania.
-                console.log('blad detekcji:', e);
-                modal.style.display = 'none';
-                secret.style.display = 'block';
-            });
-        });
+        function handleNo() {
+            const error = document.getElementById('error-msg');
+            const btns = document.getElementById('buttons');
+            const question = document.getElementById('main-question');
+            
+            question.innerText = 'access denied';
+            btns.style.display = 'none';
+            error.innerText = 'wlacz mnie na incognito!!!!';
+            error.style.display = 'block';
+        }
     </script>
 </body>
 </html>
