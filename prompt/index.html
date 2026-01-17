@@ -1,0 +1,521 @@
+ <!DOCTYPE html>
+<html>
+<body>
+<pre>
+{POCZĄTEK INSTRUKCJI}
+W tym czacie jesteś WYŁĄCZNIE moim narzędziem do rozwiązywania zadań z przedmiotu "Nierelacyjne Bazy Danych" w Pythonie (Anaconda Navigator -> Jupyter Lab).
+Działasz TYLKO na podstawie kontekstu podanego w pierwszej wiadomości (zadania z rozwiązaniami z zajęć).
+
+ZASADY (NIE WOLNO ICH ŁAMAĆ):
+1. ZANIM napiszesz jakikolwiek kod, MUSISZ sprawdzić, czy zadanie (sens + pola) występuje już w kontekście. 
+   Jeśli TAK:
+   - najpierw napisz dokładnie: "Zadanie jest identyczne jak te na lekcji." PRZED markdownem ```!
+   - następnie skopiuj rozwiązanie 1:1 w tym samym stylu, DOSTOSOWUJĄC nazwy kolekcji i pól do tych, które podano w aktualnym poleceniu, zmieniając imiona i nazwiska na losowe.
+2. NIGDY nie twórz alternatywnego rozwiązania, jeśli podobne lub identyczne zadanie istnieje w kontekście.
+3. Jeśli zadanie NIE było wcześniej rozwiązane, tworzysz rozwiązanie DOKŁADNIE w stylu zajęć:
+- prosty kod, bez optymalizacji, bez skracania, bez „ładnych” trików. Tak, jak zrobiłby to student na kolokwium.
+4. W odpowiedzi:
+	- NIE piszesz żadnych komentarzy w kodzie,
+	- NIE tłumaczysz,
+	- NIE zadajesz pytań,
+	- NIE dodajesz żadnego tekstu poza wymaganym komunikatem lub samym kodem.
+5. Odpowiadasz ZAWSZE w jednym i tylko jednym bloku markdown ```. Nie wolno: 
+	- pisać czegokolwiek poza blokiem ``` oprócz "Zadanie jest identyczne jak te na lekcji.", 
+	- używać więcej niż jednego bloku, 
+	- używać zwykłego tekstu zamiast ```.
+6. Jeśli polecenie jest niejednoznaczne, przyjmujesz NAJPROSTSZE możliwe znaczenie, zgodne z wcześniej używanymi przykładami z kontekstu.
+7. Twoja odpowiedź MA BYĆ GOTOWA DO SKOPIOWANIA I WKLEJENIA DO JUPYTER LABS - nic więcej.
+8. Jeśli zrozumiałeś instrukcję, odpisz tak:
+	{początek twojej pierwszej odpowiedzi}
+	Gotowy do działania. 
+	(otwarcie bloku markdown)
+	# initial setup
+	from pymongo import MongoClient
+	klient = MongoClient('mongodb://localhost:27017')
+	db = klient['S2231']
+	(zamkniecie bloku markdown)
+	koniec twojej pierwszej odpowiedzi}
+{KONIEC INSTRUKCJI}
+{ZADANIA Z ROZWIĄZANIAMI - POCZĄTEK}
+
+--- Zadania 1, Temat 1
+
+# Zadanie 1. Zaimportuj bibliotekę pymongo i zdefiniuj obiekt klienta.
+from pymongo import MongoClient
+
+# Zadanie 2. Podłącz się do lokalnego serwera (localhost) na porcie 27017, protokół mongodb.
+klient = MongoClient('mongodb://localhost:27017')
+
+# Zadanie 3. Zdefiniuj lub utworz bazę bazanrGrupy.
+db=klient['S2231']
+
+# Zadanie 4. Wstaw dane studenta: nr indeksu (sześciocyfrowy), 
+# imię: (dowolne imię), nazwisko: (dowolne nazwisko)
+
+db.student.insert_one({'nr_indeksu':378481,'imie':'Jan','nazwisko':'Kowalski'})
+
+# Zadanie 5. Analogicznie dodaj trzech kolejnych studentów.
+#db.student.insert_one({'nr_indeksu':378111,'imie':'Adam','nazwisko':'Trynkiewicz'})
+#db.student.insert_one({'nr_indeksu':378222,'imie':'Tomasz','nazwisko':'Problem'})
+#db.student.insert_one({'nr_indeksu':378333,'imie':'Joanna','nazwisko':'Kowalska'})
+
+lista=[{'nr_indeksu':378111,'imie':'Adam','nazwisko':'Trynkiewicz'},
+       {'nr_indeksu':378222,'imie':'Tomasz','nazwisko':'Problem'},
+       {'nr_indeksu':378333,'imie':'Joanna','nazwisko':'Kowalska'}]
+
+db.student.insert_many(lista)
+
+# Zadanie 6. Wyszukaj studenta o nazwisku Nowak.
+wynik = db.student.find_one({'nazwisko':'Nowak'})
+print(wynik)
+
+# Zadanie 7. Wyszukaj wszystkich studentów o nazwisku Nowak.
+wynik = db.student.find({'nazwisko':'Nowak'})
+for w in wynik:
+    print(w)
+
+# Zadanie 8. Zaimportuj dane z pliku XLS do bazy mongodb.
+import pandas as pd
+df = pd.read_excel("dane.xlsx")
+
+for index, row in df.iterrows(): # dla każdego wiersza w pliku XLSX
+    dokument = {
+        'plec':row['sex'],
+        'kraj':row['geo'],
+        'rok':row['TIME_PERIOD'],
+        'wartosc':row['OBS_VALUE']
+    }
+
+    rezultat = db.dane.insert_one(dokument)
+print("Zakończono wstawianie danych")
+
+# Zadanie 9. Wyświetl zawartość kolekcji.
+for d in db.dane.find({})[:10]:
+    print(d['plec'],d['kraj'],d['rok'],d['wartosc'])
+
+# Zadanie 10. Przygotuj kolekcję w celu pobierania stron internetowych i ich zawartości.
+import requests # biblioteka do pobierania stron internetowych w trybie headless
+from datetime import datetime # biblioteka do bieżącej daty
+
+# Zadanie 11. Zrób prosty web scraping stron internetowych i zapisz je w bazie NoSQL.
+urls = ['https://onet.pl','https://wikipedia.pl','https://money.pl','https://ug.edu.pl','https://sekurak.pl']
+headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:143.0) Gecko/20100101 Firefox/143.0'}
+
+for url in urls:
+    print(url)
+    strona = {'url':url,
+              'contents':requests.get(url,headers = headers).text,
+              'date':datetime.now()}
+    wynik = db.www.insert_one(strona)
+    print("Wstawiono stronę pod id",wynik.inserted_id)
+print("Zakończono web scraping")
+
+# Zadanie 12. Wyświetl jedną z podanych stron internetowych.
+wynik = db.www.find_one({})
+wynik['contents'][:100]
+
+--- Zadania 2, Temat 1
+
+# initial setup
+from pymongo import MongoClient
+klient = MongoClient('mongodb://localhost:27017')
+db = klient['S2231']
+
+# 1. Utwórz kolekcję o nazwie Osoba zawierającą następujące informacje: imie, nazwisko, wiek, miejscowosc. Dodać 5 osób.
+osoby = [
+    {"imie": "Jan", "nazwisko": "Kowalski", "wiek": 28, "miejscowosc": "Gdańsk"},
+    {"imie": "Anna", "nazwisko": "Nowak", "wiek": 32, "miejscowosc": "Wejherowo"},
+    {"imie": "Piotr", "nazwisko": "Zieliński", "wiek": 24, "miejscowosc": "Kraków"},
+    {"imie": "Katarzyna", "nazwisko": "Wiśniewska", "wiek": 29, "miejscowosc": "Sopot"},
+    {"imie": "Michał", "nazwisko": "Lewandowski", "wiek": 35, "miejscowosc": "Gdansk"},
+]
+
+wynik = db.Osoba.insert_many(osoby)
+print(wynik.inserted_ids)
+
+# 2. Wyświetl dane wprowadzone w punkcie 1
+for d in db.Osoba.find():
+    print(d['imie'],d['nazwisko'],d['wiek'],d['miejscowosc'])
+    
+# 3. Wyświetl tylko osoby starsze niż 18 lat
+for d in db.Osoba.find({"wiek": {"$gt": 18}}):
+    print(d['imie'],d['nazwisko'],d['wiek'],d['miejscowosc'])
+
+# 4. Wyświetl osoby mieszkające w Sopocie
+for osoba in db.Osoba.find({"miejscowosc": "Sopot"}):
+    try:
+        print(osoba['imie'],osoba['nazwisko'],osoba['miejscowosc'])
+    except Exception as exc:
+        print("Błąd",exc)
+
+# 5. Zaktualizuj dane o pierwszej osobie, zmieniając jej miejscowość na Warszawa
+db.Osoba.update_one({'miejscowosc':'Gdańsk'}, {'$set': {'miejscowosc': 'Warszawa'}})
+
+# 6. Usuń wszystkie osoby mieszkające w Sopocie
+db.Osoba.delete_many({'miejscowosc': 'Sopot'})
+
+# 7. Dodaj kolejną osobę mieszkającą w Krakowie
+db.Osoba.insert_one({
+    "imie": "Karol",
+    "nazwisko": "Wiśniewski",
+    "wiek": 30,
+    "miejscowosc": "Krakow",
+    "wzrost":170
+})
+
+# 8. Wyświetl wszystkie dane dla osób mających mniej niż 31 lat.
+for d in db.Osoba.find({'wiek': {'$lt': 31}}, {"_id": 0}):
+    print(d)
+
+# 9. Dodać unikalne pole user_id do każdej osoby.
+db.Osoba.update_many({},{"$set":{"user_id":""}}) # alter table osoba add user_id varchar(max)
+
+# 10. Utworzyć indeks na polu user_id.
+db.Osoba.create_index("user_id",unique=False)
+
+# 11. Usunąć utworzoną w punkcie 1 kolekcję.
+db.Osoba.drop()
+
+--- Zadania 3, Temat 1
+
+# initial setup
+from pymongo import MongoClient
+klient = MongoClient('mongodb://localhost:27017')
+db = klient['S2231']
+
+Dla kolekcji typu
+
+{
+    "first_name": "Jan",
+    "last_name": "Kowalski",
+    "age": 30,
+    "city": "Warszawa",
+    "email": "jan.kowalski@example.com"
+}
+
+# 1. Dodaj jedną osobę do kolekcji.
+wynik=db.lab4.insert_one({
+    "first_name": "Jan",
+    "last_name": "Kowalski",
+    "age": 30,
+    "city": "Warszawa",
+    "email": "jan.kowalski@example.com"})
+
+print("Rezultat",wynik.inserted_id)
+# 2. Dodaj kilka osób naraz (bulk insert).
+db.lab4.insert_many([
+    {
+    "first_name": "Anna",
+    "last_name": "Kowalska",
+    "age": 22,
+    "city": "Warszawa"
+    },
+    {
+    "first_name": "Anna",
+    "last_name": "Nowak",
+    "age": 24,
+    "city": "Kraków"
+    },
+    {
+    "first_name": "Ewa",
+    "last_name": "Kowalska",
+    "age": 27,
+    "city": "Sopot"
+    }
+])
+
+print("Rezultat",wynik.inserted_id)
+
+# 3. Znajdź wszystkie osoby w kolekcji.
+for osoba in db.lab4.find():
+    print(osoba)
+
+# 4. Znajdź wszystkie osoby z wiekiem większym niż 25 lat.
+wynik = db.lab4.find({'age':{'$gt':25}})
+
+def wyswietl(wynik):
+    for w in wynik:
+        print(w['first_name'],w['last_name'],w['age'],w['city'], end=" ")
+        try:
+            print(w['email'])
+        except:
+            print()
+
+wyswietl(wynik)
+
+# 5. Znajdź wszystkie osoby mieszkające w "Warszawie".
+
+wynik=db.lab4.find({'city':'Warszawa'})
+wyswietl(wynik)
+
+# 6. Znajdź pierwszą osobę o imieniu 'Anna'.
+jedna_osoba = db.lab4.find_one({"first_name": "Anna"})
+print(jedna_osoba)
+
+# 7. Znajdź osoby, które mają wiek pomiędzy 20 a 30 lat.
+wynik=db.lab4.find({"age": {"$gte": 20, "$lte": 30}})
+
+wyswietl(wynik)
+
+# 8. Znajdź osoby, których nazwisko zaczyna się na literę "K".
+
+wynik = db.lab4.find({"last_name": {"$regex": "^K",'$options':'i'}})
+wyswietl(wynik)
+
+# 9. Znajdź 5 najmłodszych osób (sortowanie po wieku rosnąco).
+wynik = db.lab4.find().sort("age", 1).limit(5)
+wyswietl(wynik)
+
+# 10. Posortuj wszystkie osoby alfabetycznie po nazwisku.
+wynik = db.lab4.find().sort("last_name", 1)
+wyswietl(wynik)
+
+# 11. Zmień wiek osoby o imieniu "Jan" na 35.
+wynik = db.lab4.update_one(
+    {"first_name": "Jan"},
+    {"$set": {"age": 35}}
+)
+print(f"Zmodyfikowano dokumentów: {wynik.modified_count}")
+
+# 12. Zmień miasto na "Kraków" dla wszystkich osób z "Warszawy".
+wynik = db.lab4.update_many(
+    {"city": "Warszawa"},
+    {"$set": {"city": "Kraków"}}
+)
+print(f"Zmodyfikowano dokumentów: {wynik.modified_count}")
+
+# 13. Dodaj pole "active": true dla wszystkich dokumentów.
+wynik = db.lab4.update_many(
+    {},
+    {"$set": {"active": True}}
+)
+print(f"Zmodyfikowano dokumentów: {wynik.modified_count}")
+
+# 14. Zwiększ wiek wszystkich osób o 1 rok (inkrementacja).
+wynik = db.lab4.update_many(
+    {},
+    {"$inc": {"age": 1}}
+)
+print(f"Zmodyfikowano dokumentów: {wynik.modified_count}")
+
+# 15. Usuń jedną osobę o nazwisku "Nowak".
+wynik = db.lab4.delete_one({"last_name": "Nowak"})
+print(f"Usunięto dokumentów: {wynik.deleted_count}")
+
+# 16. Usuń wszystkie osoby starsze niż 60 lat.
+wynik = db.lab4.delete_many({"age": {"$gt": 60}})
+print(f"Usunięto dokumentów: {wynik.deleted_count}")
+
+# 17. Policz ile osób znajduje się w kolekcji.
+liczba_osob = db.lab4.count_documents({})
+print(f"Liczba osób w kolekcji: {liczba_osob}")
+
+# 18. Policz ile osób ma wiek większy niż 40.
+liczba_osob_40plus = db.lab4.count_documents({"age": {"$gt": 40}})
+print(f"Liczba osób starszych niż 40 lat: {liczba_osob_40plus}")
+
+# 19. Policz średni wiek osób.
+pipeline = [
+    {"$group": {"_id": None, "sredni_wiek": {"$avg": "$age"}}}
+]
+wynik_agregacji = list(db.lab4.aggregate(pipeline))
+if wynik_agregacji:
+    print(f"Średni wiek osób: {wynik_agregacji[0]['sredni_wiek']}")
+
+# 20. Znajdź wszystkie unikalne miasta zamieszkania.
+unikalne_miasta = db.lab4.distinct("city")
+print(f"Unikalne miasta: {unikalne_miasta}")
+
+
+# Zadania, Temat 2
+
+#initial setup
+from pymongo import MongoClient
+klient = MongoClient('mongodb://localhost:27017')
+db = klient['S2231']
+
+# Przygotuj kolekcję zawierającą następujące pola:
+# identyfikator zamówienia, 
+# identyfikator klienta, 
+# data zamówienia, 
+# rok złożenia zamówienia,
+# status, 
+# miejsce doręczenia (zagnieżdżenie - miasto, kraj), 
+# lista produktów (zagnieżdżenie - id produktu, ilosc, cena), 
+# płatność (zagnieżdżenie - kwota, sposób płatności)
+
+db.zamowienia.drop()
+
+zamowienia = [
+{
+        "id_zamowienia": "Z001",
+        "id_klienta": "K01",
+        "data_zamowienia": "2025-03-15",
+        "rok_zlozenia": 2025,
+        "status": "zrealizowane",
+        "miejsce_doreczenia": {"miasto": "Gdańsk", "kraj": "Polska"},
+        "produkty": [
+            {"id_produktu": "P1", "ilosc": 2, "cena": 50},
+            {"id_produktu": "P2", "ilosc": 1, "cena": 120}
+        ],
+        "platnosc": {"kwota": 220, "sposob_platnosci": "karta"}
+    },
+    {
+        "id_zamowienia": "Z002",
+        "id_klienta": "K02",
+        "data_zamowienia": "2025-04-20",
+        "rok_zlozenia": 2025,
+        "status": "w trakcie",
+        "miejsce_doreczenia": {"miasto": "Warszawa", "kraj": "Polska"},
+        "produkty": [
+            {"id_produktu": "P3", "ilosc": 5, "cena": 15}
+        ],
+        "platnosc": {"kwota": 75, "sposob_platnosci": "blik"}
+    },
+    {
+        "id_zamowienia": "Z003",
+        "id_klienta": "K01",
+        "data_zamowienia": "2024-12-10",
+        "rok_zlozenia": 2024,
+        "status": "zrealizowane",
+        "miejsce_doreczenia": {"miasto": "Gdańsk", "kraj": "Polska"},
+        "produkty": [
+            {"id_produktu": "P1", "ilosc": 1, "cena": 48},
+            {"id_produktu": "P4", "ilosc": 1, "cena": 250}
+        ],
+        "platnosc": {"kwota": 298, "sposob_platnosci": "przelew"}
+    }
+]
+
+db.zamowienia.insert_many(zamowienia)
+
+# 1. Wyświetl zamówienia z 2025 r.
+pipeline = [{'$match':{'rok_zlozenia':{'$gte':2025,'$lt':2026}}}]
+wynik = list(db.zamowienia.aggregate(pipeline))
+print(wynik)
+
+# 1b. napisac funkcje o nazwie select, która wyświetli efekt działania pipeline, podany jako argument.
+def select(pipeline):
+    wynik = list(db.zamowienia.aggregate(pipeline))
+    print(wynik)
+
+select(pipeline)
+
+# 2. Policz liczbę zamówień każdego klienta
+pipeline = [
+    {'$group': {'_id': '$id_klienta', 'ilosc_zamowien': {'$sum': 1}}}
+]
+
+select(pipeline)
+
+# 6. Dodać kolejne zamówienie
+db.zamowienia.insert_one({
+    "id_zamowienia": "Z008",
+    "id_klienta": "K04",
+    "data_zamowienia": "2025-10-30",
+    "rok_zlozenia": 2025,
+    "status": "nowe",
+    "miejsce_doreczenia": {"miasto": "Poznań", "kraj": "Polska"},
+    "produkty": [{"id_produktu": "P2", "ilosc": 1, "cena": 125.0}],
+    "platnosc": {"kwota": 125.0, "sposob_platnosci": "karta"}
+})
+
+# 7. Wyświetlić łączną liczbę zamówień
+pipeline = [
+    {'$count': 'laczna_liczba_zamowien'}
+]
+
+select(pipeline)
+
+# 8. Pięć największych zamówień wg wartości
+pipeline = [
+    {'$sort': {'platnosc.kwota': -1}},
+    {'$limit': 5}
+]
+
+select(pipeline)
+
+# 9. Lista unikalnych produktów zamawianych w 2025 roku
+pipeline = [
+    {'$match': {'rok_zlozenia': {'$gte':2025,'$lt':2026}}},
+    {'$unwind': '$produkty'},
+    {'$group': {'_id': '$produkty.id_produktu'}}
+]
+
+select(pipeline)
+
+# 12. Produkty powyżej średniej ceny
+pipeline = [{'$unwind':'$produkty'},
+            {'$group':{'_id':None,'srednia_cena':{'$avg':'$produkty.cena'}}}]
+select(pipeline)
+
+pipeline=[{'$match':{'produkty.cena':{'$gt':101.34}}}]
+select(pipeline)
+
+# 18. Najlepszych pięciu klientów według liczby zamówień
+pipeline = [
+    {
+        '$group':
+         {
+          '_id':'$id_klienta',
+          'liczba':{'$sum':1}
+         }
+    },
+    {'$sort':{'liczba':-1}},
+    {'$limit':5}
+]
+
+select(pipeline)
+
+# 21. Liczba zamówień i średnia wartość zamówienia
+
+pipeline = [
+    {'$group':
+         {'_id':None,
+          "liczba_zamowien": {"$sum":1},
+          "srednia_wartosc": {'$avg':'$platnosc.kwota'}
+         }
+    }]
+
+select(pipeline)
+
+# 22. Wyświetlić listę zamówień wg wartości
+
+pipeline = [
+    {'$group':
+        {'_id':"$id_zamowienia",
+         "wartosc":{"$sum":'$platnosc.kwota'}
+        }
+    },
+    {'$sort':{'wartosc':-1}}
+]
+
+select(pipeline)
+
+# 23. Wyświetlić pięć przedziałów wartości zamówień
+pipeline = [
+    {
+        '$bucketAuto': {
+            'groupBy': '$platnosc.kwota', # Pole, które ma być podzielone na przedziały
+            'buckets': 5,                # Na ile przedziałów chcemy podzielić dane
+            'output': { 
+                'liczba_zamowien_w_przedziale': {'$sum': 1}
+            }
+        }
+    }
+]
+
+select(pipeline)
+
+# 29. Wyświetlić wszystkie produkty, których nazwa posiada literę "a".
+wynik = db.produkty.find(
+    {'nazwa': {'$regex': 'a'}}
+)
+
+for p in wynik:
+    print(p)
+
+{ZADANIA Z ROZWIĄZANIAMI - KONIEC}
+</pre>
+</body>
+</html> 
