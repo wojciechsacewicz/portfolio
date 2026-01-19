@@ -53,6 +53,41 @@
             text-transform: lowercase;
         }
 
+		. link-buttons {
+    display:  flex;
+    flex-direction:  column;
+    gap: 15px;
+    margin-top:  20px;
+    align-items: center;
+}
+
+.link-button {
+    background: transparent;
+    color: #0f0;
+    border: 1px solid #0f0;
+    padding: 12px 30px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: lowercase;
+    transition: all 0.2s ease;
+    min-width: 300px;
+    text-align: center;
+}
+
+.link-button:hover {
+    background:  #0f0;
+    color: #000;
+}
+
+.separator {
+    color: #0f0;
+    margin:  15px 0;
+    font-size: 18px;
+}
+
         button:hover { background: #0f0; color: #000; }
 
         #error-msg {
@@ -593,11 +628,11 @@ for p in wynik:
 
 {ZADANIA Z ROZWIĄZANIAMI - KONIEC}
 </textarea>
+    <div class="link-buttons">
+        <a class="link-button" href="https://chatgpt.com/share/696e10c0-52b8-8003-a88d-eaffd4b19060" target="_blank">opcja a:  nierelacyjne bazy danych</a>
+        <div class="separator">───</div>
+        <a class="link-button" href="https://chatgpt.com/share/696e166a-2f50-8003-87f8-da8f2f8b1cac" target="_blank">opcja b:  języki skryptowe</a>
     </div>
-		<a id="button" href="https://chatgpt.com/share/696e10c0-52b8-8003-a88d-eaffd4b19060">opcja b: link do gotowego chata</a>
-<br>
-		<a id="button" href="https://chatgpt.com/share/696e166a-2f50-8003-87f8-da8f2f8b1cac">jezyki skryptowe TUTAJ</a>
-	<br>
     <div id="modal-overlay">
         <h1 id="main-question">jestes w trybie incognito?</h1>
         <div class="btn-group" id="buttons">
