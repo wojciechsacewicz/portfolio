@@ -1,18 +1,21 @@
 const translations = {
   pl: {
     messages: [
-      'eksploruje technologię',
-      "techniczny_pasjonat = {'od kodu po wideo'}",
       'student IT z pasją do ulepszania narzędzi i procesów',
       'analityczne myślenie. kreatywne wykonanie.',
       'buduję boty, które oszczędzają czas',
-      'twórca wideo (100k+ wyświetleń)',
+      'automatyzuję procesy w Make.com i UiPath',
+      'rpa + low-code: szybciej, czyściej, taniej',
+      'integracje API, webhooki, JSON',
+      'analiza danych i pipeline’y w MongoDB',
+      'automatyzacje, które realnie oszczędzają czas',
       'entuzjasta klawiatur mechanicznych'
     ],
     ui: {
       ctaWork: 'zobacz projekty',
       ctaContact: 'skontaktuj się',
       ctaAboutMe: 'o mnie',
+      mainName: 'wojciech sacewicz',
       flashbang: 'uważaj na flashbanga!',
       // about page stuff
       aboutTitle: ' o mnie',
@@ -50,18 +53,24 @@ const translations = {
       vidCyberTitle: 'cyberwizja (edukacja + animacja)',
       cyberTiktokLink: 'tiktok.com/@cyberwizja',
       vidCyberDesc: 'Grupowy projekt szkolny o cyberbezpieczeństwie. Prowadziliśmy zajęcia dla dzieci w szkołach, ucząc jak bezpiecznie korzystać z internetu i unikać najczęstszych zagrożeń.',
+      expandClosed: 'rozwiń sekcję ↴',
+      expandOpen: 'zwiń sekcję ↟',
       vidCyberClip1Title: 'cyberwizja klip #1',
       vidCyberClip1Desc: 'Intro przygotowane na profile social media naszego szkolnego projektu — szybkie ustawienie klimatu i identyfikacji.',
       vidCyberClip2Title: 'cyberwizja klip #2',
       vidCyberClip2Desc: 'Krótki TikTok nastawiony na zasięg: mocny hook + najważniejsze info, żeby odbiorcy trafili na profil i mogli później dowiedzieć się więcej o projekcie.',
 
       secCode: 'kod',
-      projPortfolioTitle: 'strona portfolio',
-      projPortfolioDesc: 'strona, którą teraz przeglądasz. zbudowana w czystym html/css/js.',
+      codeNotifTitle: 'inteligentny system powiadomień',
+      codeNotifDesc: 'Automatyzacja zbudowana w Make.com integrująca Weather API, Google Calendar i Discord przez webhooki. Parsuje JSON, aby wysyłać spersonalizowane codzienne powiadomienia.',
+      codeNotifStack: 'Make.com · Webhooki · JSON',
+      codeArchTitle: 'projekt architektury systemu',
+      codeArchDesc: 'Zaprojektowałem kompletną architekturę systemu biznesowego w Enterprise Architect. Przygotowałem diagramy UML (Use Case, Sequence), aby zoptymalizować przepływ danych i logikę aplikacji.',
+      codeArchStack: 'Enterprise Architect · UML · BPMN',
+      codeDataTitle: 'analiza i agregacja danych nosql',
+      codeDataDesc: 'Zaprojektowałem pipeline przetwarzania danych i zapytania agregujące w MongoDB. Pracowałem na złożonych strukturach JSON, aby wydobywać kluczowe insighty biznesowe.',
+      codeDataStack: 'MongoDB · JSON · NoSQL',
       linkGithub: 'zobacz na githubie →',
-      projMoreTitle: 'więcej wkrótce...',
-      projMoreDesc: 'sprawdź mój github po najnowsze aktualizacje.',
-      linkProfile: 'zobacz profil →',
       // badges
       badgeViews: '100k+ wyświetleń',
       badgeTime: '-40% czasu procesu',
@@ -87,26 +96,52 @@ const translations = {
       // workspace page
       spaceTitle: ' stanowisko',
       spaceIntro: 'oto mój setup — inspirowany estetyką clean, black, minimalist.',
-      spacePlaceholder: 'TO JEST PLACEHOLDER, prawdziwe zdjęcie biurka pojawi się wkrótce',
       spaceCapSetup1: 'setup — ujęcie 1',
       spaceCapSetup2: 'setup — ujęcie 2',
-      spaceCapPC: 'mój pc'
+      spaceCapPC: 'mój pc',
+      modCoreItem1: 'Resource Redirect',
+      modCoreNoteIcons: '(ikony macOS 26 od niivu)',
+      modCoreItem2: 'Translucent Windows',
+      modCoreItem3: 'UXTheme Hook',
+      modCoreItem4: 'Windows 11 File Explorer Styler',
+      modCoreItem5: 'Windows 11 Notification Center Styler',
+      modCoreItem6: 'Windows 11 Start Menu Styler',
+      modCoreItem7: 'Windows 11 Taskbar Styler',
+      modCoreItem8: 'Taskbar Clock Customization',
+      modCoreItem9: 'CEF/Spotify Tweaks',
+      modCoreNoteSpotify: '(bez auto-aktualizacji)',
+      modCoreItem10: 'No Focus Rectangle',
+      modCoreItem11: 'Slick Window Arrangement',
+      modCoreItem12: 'Taskbar Volume Control',
+      modSystemItem1: 'Lepsze rozmiary plików w szczegółach Eksploratora',
+      modSystemItem2: 'Otwórz za pomocą - usuń pozycję MS Store',
+      modSystemItem3: 'Zmiana położenia powiadomień Windows',
+      modSystemItem4: 'Tryb ciemny dla menu kontekstowych',
+      modSystemItem5: 'Wyłączenie grupowania na pasku zadań',
+      modSystemItem6: 'Naprawa ciemnych ListViews',
+      modSystemItem7: 'Wysokość paska i rozmiar ikon',
+      modSystemItem8: 'Pasek zadań na górze w Windows 11',
+      modSystemItem9: 'Odstępy i siatka ikon w zasobniku',
+      modSystemItem10: 'Drobne poprawki ikon zasobnika'
     }
   },
   en: {
     messages: [
-      'exploring technology',
-      "technical_enthusiast = {'from code to video'}",
       'it student focused on improving tools and processes',
       'analytical thinking. creative execution.',
       'building bots that save time',
-      'video creator (100k+ views)',
+      'automation with Make.com and UiPath',
+      'rpa + low-code: faster, cleaner, cheaper',
+      'api integrations, webhooks, json',
+      'mongodb pipelines & data aggregation',
+      'automation that saves real time',
       'mechanical keyboard enthusiast'
     ],
     ui: {
       ctaWork: 'see my work',
       ctaContact: 'get in touch',
       ctaAboutMe: 'about me',
+      mainName: 'wojciech sacewicz',
       flashbang: 'watch out for the flashbang!',
       // about page
       aboutTitle: ' about me',
@@ -144,6 +179,8 @@ const translations = {
       vidCyberTitle: 'cyberwizja (educational + animation)',
       cyberTiktokLink: 'tiktok.com/@cyberwizja',
       vidCyberDesc: 'A group school project about cybersecurity. We taught children in schools how to stay safe online and avoid common digital threats.',
+      expandClosed: 'expand section ↴',
+      expandOpen: 'collapse section ↟',
 
       // add missing keys (used by work/index.html)
       vidCyberClip1Title: 'cyberwizja clip #1',
@@ -152,12 +189,16 @@ const translations = {
       vidCyberClip2Desc: 'A short TikTok optimized for reach: quick hook + key info to help viewers discover the profile and learn more about the project later.',
 
       secCode: 'code',
-      projPortfolioTitle: 'portfolio website',
-      projPortfolioDesc: 'the site you are looking at right now. built with vanilla html/css/js.',
+      codeNotifTitle: 'smart notification system',
+      codeNotifDesc: 'Automation built in Make.com integrating Weather API, Google Calendar, and Discord via Webhooks. It parses JSON to send personalized daily notifications.',
+      codeNotifStack: 'Make.com · Webhooks · JSON',
+      codeArchTitle: 'system architecture design',
+      codeArchDesc: 'Designed a complete business system architecture using Enterprise Architect. Created UML diagrams (Use Case, Sequence) to optimize data flow and app logic.',
+      codeArchStack: 'Enterprise Architect · UML · BPMN',
+      codeDataTitle: 'nosql data analysis & aggregation',
+      codeDataDesc: 'Designed a data processing pipeline and aggregation queries in MongoDB. Worked on complex JSON structures to extract key business insights.',
+      codeDataStack: 'MongoDB · JSON · NoSQL',
       linkGithub: 'view on github →',
-      projMoreTitle: 'more coming soon...',
-      projMoreDesc: 'check my github for latest updates.',
-      linkProfile: 'view profile →',
       // badges
       badgeViews: '100k+ views',
       badgeTime: '-40% process time',
@@ -183,10 +224,33 @@ const translations = {
       // workspace page
       spaceTitle: ' workspace',
       spaceIntro: "here's my setup — inspired by a clean, black, minimalist aesthetic.",
-      spacePlaceholder: 'THIS IS A PLACEHOLDER, real desk picture will come soon',
       spaceCapSetup1: 'setup — angle 1',
       spaceCapSetup2: 'setup — angle 2',
-      spaceCapPC: 'my pc'
+      spaceCapPC: 'my pc',
+      modCoreItem1: 'Resource Redirect',
+      modCoreNoteIcons: '(macOS 26 icons by niivu)',
+      modCoreItem2: 'Translucent Windows',
+      modCoreItem3: 'UXTheme Hook',
+      modCoreItem4: 'Windows 11 File Explorer Styler',
+      modCoreItem5: 'Windows 11 Notification Center Styler',
+      modCoreItem6: 'Windows 11 Start Menu Styler',
+      modCoreItem7: 'Windows 11 Taskbar Styler',
+      modCoreItem8: 'Taskbar Clock Customization',
+      modCoreItem9: 'CEF/Spotify Tweaks',
+      modCoreNoteSpotify: '(no auto-updates)',
+      modCoreItem10: 'No Focus Rectangle',
+      modCoreItem11: 'Slick Window Arrangement',
+      modCoreItem12: 'Taskbar Volume Control',
+      modSystemItem1: 'Better file sizes in Explorer details',
+      modSystemItem2: 'Open With - Remove MS Store Menu Item',
+      modSystemItem3: 'Customize Windows notifications placement',
+      modSystemItem4: 'Dark mode context menus',
+      modSystemItem5: 'Disable grouping on the taskbar',
+      modSystemItem6: 'Fix Darkmode ListViews',
+      modSystemItem7: 'Taskbar height and icon size',
+      modSystemItem8: 'Taskbar on top for Windows 11',
+      modSystemItem9: 'Taskbar tray icon spacing and grid',
+      modSystemItem10: 'Taskbar tray system icon tweaks'
     }
   }
 };
@@ -260,7 +324,7 @@ function applyLang(newLang) {
   last = '';
   document.documentElement.setAttribute('lang', lang);
 
-  const isMainPage = !!langToggle;
+  const isMainPage = !!typingEl;
 
   // update all translatable elements
   translatables.forEach(el => {
@@ -277,6 +341,8 @@ function applyLang(newLang) {
   if (themeTooltip && translations[lang].ui.flashbang) {
     themeTooltip.textContent = translations[lang].ui.flashbang;
   }
+
+  updateExpandPills();
 
   updateLangButton();
   // restart typing cycle if on main page
@@ -447,15 +513,120 @@ function initLightbox() {
   });
 }
 
+function initExpandableDetails() {
+  const detailsList = document.querySelectorAll('details');
+  if (!detailsList.length) return;
+
+  const setOpenState = (details, open, animate = true) => {
+    const content = details.querySelector('.expand-content');
+    if (!content) return;
+
+    const openContent = () => {
+      content.style.maxHeight = `${content.scrollHeight}px`;
+      content.style.opacity = '1';
+      content.style.transform = 'translateY(0)';
+    };
+
+    const closeContent = () => {
+      content.style.maxHeight = '0px';
+      content.style.opacity = '0';
+      content.style.transform = 'translateY(-6px)';
+    };
+
+    if (!animate) {
+      content.style.transition = 'none';
+      if (open) {
+        details.open = true;
+        openContent();
+      } else {
+        closeContent();
+        details.open = false;
+      }
+      requestAnimationFrame(() => {
+        content.style.transition = '';
+        updateExpandPills();
+      });
+      return;
+    }
+
+    if (open) {
+      details.open = true;
+      requestAnimationFrame(() => {
+        openContent();
+        updateExpandPills();
+      });
+    } else {
+      const onEnd = (e) => {
+        if (e.propertyName !== 'max-height') return;
+        content.removeEventListener('transitionend', onEnd);
+        details.open = false;
+        updateExpandPills();
+      };
+      content.addEventListener('transitionend', onEnd);
+      requestAnimationFrame(() => {
+        content.style.maxHeight = `${content.scrollHeight}px`;
+        requestAnimationFrame(closeContent);
+      });
+    }
+  };
+
+  detailsList.forEach(details => {
+    setOpenState(details, details.open, false);
+
+    const summary = details.querySelector('summary');
+    if (!summary) return;
+
+    summary.addEventListener('click', (e) => {
+      e.preventDefault();
+      setOpenState(details, !details.open, true);
+    });
+  });
+
+  const openDetailsForHash = () => {
+    const hash = window.location.hash;
+    if (!hash) return;
+    const target = document.querySelector(hash);
+    if (!target) return;
+    const details = target.closest('details');
+    if (details) {
+      setOpenState(details, true, false);
+    }
+    setTimeout(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  };
+
+  openDetailsForHash();
+  window.addEventListener('hashchange', openDetailsForHash);
+}
+
+function updateExpandPills() {
+  const pills = document.querySelectorAll('[data-expand-pill]');
+  if (!pills.length) return;
+
+  pills.forEach(pill => {
+    const details = pill.closest('details');
+    const isOpen = details ? details.open : false;
+    const openKey = pill.dataset.expandOpenKey || 'expandOpen';
+    const closedKey = pill.dataset.expandClosedKey || 'expandClosed';
+    const openText = translations[lang]?.ui?.[openKey] || 'collapse section ↟';
+    const closedText = translations[lang]?.ui?.[closedKey] || 'expand section ↴';
+    pill.textContent = isOpen ? openText : closedText;
+    pill.dataset.state = isOpen ? 'open' : 'closed';
+  });
+}
+
 // initialization
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     initLightbox();
     initImageFadeIn();
+    initExpandableDetails();
   });
 } else {
   initLightbox();
   initImageFadeIn();
+  initExpandableDetails();
 }
 
 if (langToggle) {

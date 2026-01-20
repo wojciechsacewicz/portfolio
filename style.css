@@ -87,6 +87,10 @@ main {
     transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+.terminal-card--auto {
+    width: auto;
+}
+
 .terminal-lang-switch {
     display: inline-flex;
     align-items: center;
@@ -197,6 +201,11 @@ main {
     margin-bottom: 1.5rem;
 }
 
+.main-title--compact {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
 .prompt-line {
     display: flex;
     align-items: flex-start;
@@ -246,10 +255,25 @@ main {
     transform: scale(1.05);
 }
 
+.about-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
 .terminal-actions {
     display: flex;
     gap: 1.5rem;
     flex-wrap: wrap;
+    justify-content: center;
+}
+
+.link-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
     justify-content: center;
 }
 
@@ -268,6 +292,14 @@ main {
 .terminal-btn:focus-visible {
     background: rgba(56, 189, 248, 0.15);
     color: var(--text-main);
+}
+
+a:focus-visible,
+summary:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--accent-glow);
+    outline-offset: 2px;
+    border-radius: 6px;
 }
 
 /* Impact Badge Styling */
@@ -373,6 +405,13 @@ body.light-mode .impact-badge {
     transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
+.gallery-item--wide {
+    grid-column: 1 / -1;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
 body.light-mode .gallery-item {
     background: rgba(255, 255, 255, 0.8);
     border-color: rgba(2, 132, 199, 0.2);
@@ -404,6 +443,26 @@ body.light-mode .gallery-item {
     color: var(--text-sub);
     border-top: 1px solid rgba(56, 189, 248, 0.1);
     background: rgba(15, 23, 42, 0.4);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-lg {
+    margin-top: 1.5rem;
+}
+
+.mt-sm {
+    margin-top: 0.75rem;
+}
+
+.mt-md {
+    margin-top: 1rem;
+}
+
+.mt-xl {
+    margin-top: 2rem;
 }
 
 body.light-mode .caption {
@@ -472,6 +531,12 @@ body.light-mode .caption {
     gap: 1rem;
 }
 
+@media (max-width: 600px) {
+    .project-grid {
+        gap: 0.75rem;
+    }
+}
+
 .project-card {
     display: block;
     text-decoration: none;
@@ -503,6 +568,74 @@ body.light-mode .project-card {
     gap: 0.5rem;
 }
 
+.expand-summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding: 0.25rem 0;
+}
+
+.expand-summary::-webkit-details-marker {
+    display: none;
+}
+
+.expand-title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.expand-pill {
+    font-size: 0.75rem;
+    text-transform: lowercase;
+    color: var(--accent);
+    border: 1px solid var(--accent-glow);
+    background: var(--accent-bg);
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    letter-spacing: 0.04em;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.expand-pill[data-state="open"] {
+    border-color: var(--accent);
+    background: rgba(56, 189, 248, 0.2);
+}
+
+.expand-summary:hover .expand-pill,
+.expand-summary:focus-visible .expand-pill {
+    background: var(--accent-faint);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.expand-content {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: max-height 0.5s ease, opacity 0.4s ease, transform 0.4s ease;
+}
+
+details[open] .expand-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+details:not([open]) .expand-content {
+    display: block;
+}
+
+details[open] .expand-pill {
+    border-color: var(--accent);
+    background: rgba(56, 189, 248, 0.2);
+}
+
 .project-desc {
     font-size: 0.85rem;
     color: var(--text-sub);
@@ -515,12 +648,27 @@ body.light-mode .project-card {
     color: var(--accent);
 }
 
+.section-divider {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, var(--accent-faint), transparent);
+    margin: 0.75rem 0 1rem;
+}
+
+[id] {
+    scroll-margin-top: 120px;
+}
+
 /* mod grid stuff */
 .mod-grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.5rem;
     background: rgba(15, 23, 42, 0.4);
+}
+
+.mod-grid--plain {
+    background: transparent;
 }
 
 body.light-mode .mod-grid-container {
@@ -576,6 +724,20 @@ body.light-mode .mod-list li {
     position: absolute;
     left: 0;
     color: var(--accent-glow);
+
+.plain-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+}
+
+.plain-list-item {
+    margin: 0.35rem 0;
+}
+
+.plain-list-item--strong {
+    font-weight: 600;
+}
 }
 
 .mod-note {

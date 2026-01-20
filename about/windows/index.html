@@ -1,124 +1,271 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Windows setup, tools, and mods used by Wojciech Sacewicz."
+    />
+    <title>Windows Setup | sacewi.cz</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="../../style.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="../../assets/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
+    <link rel="shortcut icon" href="../../assets/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="../../assets/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="sacewi.cz" />
+    <link rel="manifest" href="../../assets/site.webmanifest" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Windows Setup | sacewi.cz</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
-  <link rel="stylesheet" href="../../style.css" />
-  <link rel="icon" type="image/png" href="../../assets/favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
-  <link rel="shortcut icon" href="../../assets/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png" />
-  <meta name="apple-mobile-web-app-title" content="sacewi.cz" />
-  <link rel="manifest" href="../../assets/site.webmanifest" />
-</head>
+  <body>
+    <main class="slide slide--hero">
+      <section class="terminal-card">
+        <div
+          class="terminal-lang-switch"
+          role="group"
+          aria-label="Language switch"
+        >
+          <button
+            type="button"
+            class="lang-btn"
+            id="lang-toggle"
+            aria-label="Switch language"
+          >
+            lang=en
+          </button>
+          <span class="lang-separator">|</span>
+          <button
+            type="button"
+            class="theme-btn"
+            data-theme="light"
+            aria-label="Toggle theme"
+          >
+            <span class="theme-icon">☀</span>
+            <span class="theme-tooltip" data-translate="flashbang"
+              >watch out for the flashbang!</span
+            >
+          </button>
+        </div>
+        <h1 class="main-title" data-translate="winTitle">windows setup</h1>
+        <p data-translate="winIntro">
+          customizing windows for maximum productivity and aesthetics using
+          third party software!
+        </p>
+        <p data-translate="winListIntro">
+          here is a list of some of the software I use:
+        </p>
+        <ul class="plain-list">
+          <li class="plain-list-item">
+            &gt;
+            <a class="inline-link" href="https://github.com/glzr-io/glazewm"
+              >glazewm</a
+            >
+          </li>
+          <li class="plain-list-item">
+            &gt;
+            <a class="inline-link" href="https://flowlauncher.com/"
+              >flow launcher</a
+            >
+          </li>
+          <li class="plain-list-item">
+            &gt;
+            <a
+              class="inline-link"
+              href="https://www.stardock.com/products/fences/"
+              >stardock fences</a
+            >
+          </li>
+          <li class="plain-list-item plain-list-item--strong">
+            &gt;
+            <a class="inline-link" href="https://windhawk.net/">windhawk</a>
+          </li>
+        </ul>
+        <p class="text-center mt-lg" data-translate="winZoomNote">
+          * click images to zoom in *
+        </p>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img
+              src="../../assets/my desktop.png"
+              alt="My Desktop Setup"
+              loading="lazy"
+            />
+            <span class="caption" data-translate="capDesktop">my desktop</span>
+          </div>
+          <div class="gallery-item">
+            <img
+              src="../../assets/file explorer this pc.png"
+              alt="File Explorer"
+              loading="lazy"
+            />
+            <span class="caption" data-translate="capExplorer"
+              >file explorer</span
+            >
+          </div>
+          <p class="caption" data-translate="capGlazeDesc">
+            glazewm is a tiling window manager for windows that allows me to
+            have a more organized and productive workspace, basically turning a
+            single monitor laptop into a 10 monitor setup!
+          </p>
+          <div class="gallery-item">
+            <img
+              src="../../assets/glazewm showcase.png"
+              alt="GlazeWM Showcase"
+              loading="lazy"
+            />
+            <span class="caption" data-translate="capGlaze"
+              >glazewm tiling</span
+            >
+          </div>
+          <p class="caption" data-translate="capFlowDesc">
+            flow launcher is a fast and powerful launcher that allows me to
+            quickly access files and applications
+          </p>
+          <div class="gallery-item">
+            <img
+              src="../../assets/flow launcher.png"
+              alt="Flow Launcher"
+              loading="lazy"
+            />
+            <span class="caption" data-translate="capFlow">flow launcher</span>
+          </div>
+          <p class="caption" data-translate="capFencesDesc">
+            stardock fences allow me to hide my desktop icons whenever i don't
+            need them and keep my desktop tidy!
+          </p>
+          <div class="gallery-item">
+            <img
+              src="../../assets/rolled fence.png"
+              alt="Rolled Fence"
+              loading="lazy"
+            />
+            <span class="caption" data-translate="capFencesRolled"
+              >fences (rolled)</span
+            >
+          </div>
+          <div class="gallery-item">
+            <img
+              src="../../assets/unrolled fence.png"
+              alt="Unrolled Fence"
+              loading="lazy"
+            />
+            <span class="caption" data-translate="capFencesUnrolled"
+              >fences (unrolled)</span
+            >
+          </div>
 
-<body>
-  <main class="slide slide--hero">
-    <section class="terminal-card">
-      <h1 class="main-title" data-translate="winTitle">windows setup</h1>
-      <p data-translate="winIntro">customizing windows for maximum productivity and aesthetics using third party
-        software!</p>
-      <p data-translate="winListIntro">here is a list of some of the software I use:</p>
-      <li style="list-style:none;">&gt; <a href="https://github.com/glzr-io/glazewm"
-          style="color: inherit; text-decoration:none;">glazewm</a>
-      </li>
-      <li style="list-style:none;">&gt; <a href="https://flowlauncher.com/"
-          style="color: inherit; text-decoration:none;">flow launcher</a></li>
-      <li style="list-style:none;">&gt; <a href="https://www.stardock.com/products/fences/"
-          style="color: inherit; text-decoration:none;">stardock
-          fences</a></li>
-      <li style="list-style:none;"><strong>&gt; <a href="https://windhawk.net/"
-            style="color: inherit; text-decoration:none;">windhawk</a></strong>
-      </li>
-      <br />
-      <p style="text-align:center;" data-translate="winZoomNote">* click images to zoom in *</p>
-      <div class="gallery-grid">
-        <div class="gallery-item">
-          <img src="../../assets/my desktop.png" alt="My Desktop Setup" loading="lazy">
-          <span class="caption" data-translate="capDesktop">my desktop</span>
-        </div>
-        <div class="gallery-item">
-          <img src="../../assets/file explorer this pc.png" alt="File Explorer" loading="lazy">
-          <span class="caption" data-translate="capExplorer">file explorer</span>
-        </div>
-        <p class="caption" data-translate="capGlazeDesc">glazewm is a tiling window manager for windows that allows me
-          to have a more organized and
-          productive workspace, basically turning a single monitor laptop into a 10 monitor setup!</p>
-        <div class="gallery-item">
-          <img src="../../assets/glazewm showcase.png" alt="GlazeWM Showcase" loading="lazy">
-          <span class="caption" data-translate="capGlaze">glazewm tiling</span>
-        </div>
-        <p class="caption" data-translate="capFlowDesc">flow launcher is a fast and powerful launcher that allows me to
-          quickly access files and
-          applications</p>
-        <div class="gallery-item">
-          <img src="../../assets/flow launcher.png" alt="Flow Launcher" loading="lazy">
-          <span class="caption" data-translate="capFlow">flow launcher</span>
-        </div>
-        <p class="caption" data-translate="capFencesDesc">stardock fences allow me to hide my desktop icons whenever i
-          don't need them and keep my
-          desktop tidy!</p>
-        <div class="gallery-item">
-          <img src="../../assets/rolled fence.png" alt="Rolled Fence" loading="lazy">
-          <span class="caption" data-translate="capFencesRolled">fences (rolled)</span>
-        </div>
-        <div class="gallery-item">
-          <img src="../../assets/unrolled fence.png" alt="Unrolled Fence" loading="lazy">
-          <span class="caption" data-translate="capFencesUnrolled">fences (unrolled)</span>
-        </div>
-
-        <div class="gallery-item" style="grid-column: 1 / -1; background: transparent; border: none; padding: 0;">
-          <div class="mod-grid-container">
-            <h3 class="mod-list-title" data-translate="windhawkTitle">Windhawk (about + mod list)</h3>
-            <p class="caption" data-translate="windhawkDesc">windhawk allows me to turn my windows desktop into a glass
-              themed, transparent, macos 26
-              tahoe styled
-              windows 11 which is stable, simple, quick, way more productive than regular windows and obviously way more
-              pleasing to the eye :)</p>
-            <div class="mod-card">
-              <h3 class="mod-title" data-translate="modCore">:: Core Mods</h3>
-              <ul class="mod-list">
-                <li>Resource Redirect <span class="mod-note">(macOS 26 icons by niivu)</span></li>
-                <li>Translucent Windows</li>
-                <li>UXTheme Hook</li>
-                <li>Windows 11 File Explorer Styler</li>
-                <li>Windows 11 Notification Center Styler</li>
-                <li>Windows 11 Start Menu Styler</li>
-                <li>Windows 11 Taskbar Styler</li>
-                <li>Taskbar Clock Customization</li>
-                <li>CEF/Spotify Tweaks <span class="mod-note">(no auto-updates)</span></li>
-                <li>No Focus Rectangle</li>
-                <li>Slick Window Arrangement</li>
-                <li>Taskbar Volume Control</li>
-              </ul>
-            </div>
-            <div class="mod-card">
-              <h3 class="mod-title" data-translate="modSystem">:: System Tweaks</h3>
-              <ul class="mod-list">
-                <li>Better file sizes in Explorer details</li>
-                <li>Open With - Remove MS Store Menu Item</li>
-                <li>Customize Windows notifications placement</li>
-                <li>Dark mode context menus</li>
-                <li>Disable grouping on the taskbar</li>
-                <li>Fix Darkmode ListViews</li>
-                <li>Taskbar height and icon size</li>
-                <li>Taskbar on top for Windows 11</li>
-                <li>Taskbar tray icon spacing and grid</li>
-                <li>Taskbar tray system icon tweaks</li>
-              </ul>
+          <div class="gallery-item gallery-item--wide">
+            <div class="mod-grid-container">
+              <h3 class="mod-list-title" data-translate="windhawkTitle">
+                Windhawk (about + mod list)
+              </h3>
+              <p class="caption" data-translate="windhawkDesc">
+                windhawk allows me to turn my windows desktop into a glass
+                themed, transparent, macos 26 tahoe styled windows 11 which is
+                stable, simple, quick, way more productive than regular windows
+                and obviously way more pleasing to the eye :)
+              </p>
+              <div class="mod-card">
+                <h3 class="mod-title" data-translate="modCore">:: Core Mods</h3>
+                <ul class="mod-list">
+                  <li>
+                    <span data-translate="modCoreItem1">Resource Redirect</span>
+                    <span class="mod-note" data-translate="modCoreNoteIcons">
+                      (macOS 26 icons by niivu)
+                    </span>
+                  </li>
+                  <li data-translate="modCoreItem2">Translucent Windows</li>
+                  <li data-translate="modCoreItem3">UXTheme Hook</li>
+                  <li data-translate="modCoreItem4">
+                    Windows 11 File Explorer Styler
+                  </li>
+                  <li data-translate="modCoreItem5">
+                    Windows 11 Notification Center Styler
+                  </li>
+                  <li data-translate="modCoreItem6">
+                    Windows 11 Start Menu Styler
+                  </li>
+                  <li data-translate="modCoreItem7">
+                    Windows 11 Taskbar Styler
+                  </li>
+                  <li data-translate="modCoreItem8">
+                    Taskbar Clock Customization
+                  </li>
+                  <li>
+                    <span data-translate="modCoreItem9"
+                      >CEF/Spotify Tweaks</span
+                    >
+                    <span class="mod-note" data-translate="modCoreNoteSpotify">
+                      (no auto-updates)
+                    </span>
+                  </li>
+                  <li data-translate="modCoreItem10">No Focus Rectangle</li>
+                  <li data-translate="modCoreItem11">
+                    Slick Window Arrangement
+                  </li>
+                  <li data-translate="modCoreItem12">Taskbar Volume Control</li>
+                </ul>
+              </div>
+              <div class="mod-card">
+                <h3 class="mod-title" data-translate="modSystem">
+                  :: System Tweaks
+                </h3>
+                <ul class="mod-list">
+                  <li data-translate="modSystemItem1">
+                    Better file sizes in Explorer details
+                  </li>
+                  <li data-translate="modSystemItem2">
+                    Open With - Remove MS Store Menu Item
+                  </li>
+                  <li data-translate="modSystemItem3">
+                    Customize Windows notifications placement
+                  </li>
+                  <li data-translate="modSystemItem4">
+                    Dark mode context menus
+                  </li>
+                  <li data-translate="modSystemItem5">
+                    Disable grouping on the taskbar
+                  </li>
+                  <li data-translate="modSystemItem6">
+                    Fix Darkmode ListViews
+                  </li>
+                  <li data-translate="modSystemItem7">
+                    Taskbar height and icon size
+                  </li>
+                  <li data-translate="modSystemItem8">
+                    Taskbar on top for Windows 11
+                  </li>
+                  <li data-translate="modSystemItem9">
+                    Taskbar tray icon spacing and grid
+                  </li>
+                  <li data-translate="modSystemItem10">
+                    Taskbar tray system icon tweaks
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
+      </section>
+      <div class="terminal-actions">
+        <a class="terminal-btn" href="/about" data-translate="goBack"
+          >go back</a
+        >
       </div>
-    </section>
-    <div class="terminal-actions">
-      <a class="terminal-btn" href="/about" data-translate="goBack">go back</a>
-    </div>
-  </main>
-  <script src="../../script.js"></script>
-</body>
-
+    </main>
+    <script src="../../script.js"></script>
+  </body>
 </html>
