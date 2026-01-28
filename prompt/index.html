@@ -88,36 +88,61 @@
         .link-buttons {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
             margin-top: 20px;
             align-items: center;
         }
 
         .link-button {
             background: transparent;
-            color: #0f0;
-            border: 1px solid #0f0;
-            padding: 12px 30px;
+            color: #000;
+            border: 2px solid #0f0;
+            padding: 12px 22px;
             font-family: 'Courier New', Courier, monospace;
             font-size: 16px;
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
             text-transform: lowercase;
-            transition: all 0.2s ease;
-            min-width: 300px;
+            transition: all 0.14s ease;
+            min-width: 320px;
             text-align: center;
+            background: #0f0;
+            color: #000;
+        }
+
+        .link-button.secondary {
+            background: transparent;
+            color: #0f0;
+            border: 1px solid #0f0;
         }
 
         .link-button:hover {
-            background: #0f0;
-            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0,255,0,0.08);
         }
 
         .separator {
             color: #0f0;
             margin: 15px 0;
             font-size: 18px;
+        }
+
+        .copy-feedback {
+            font-size: 14px;
+            color: #0f0;
+            margin-top: 8px;
+            min-height: 18px;
+            visibility: hidden;
+        }
+
+        /* Make link-buttons easily accessible on narrow screens */
+        @media (max-width: 520px) {
+            .link-button {
+                min-width: 90%;
+                padding: 10px 12px;
+                font-size: 15px;
+            }
         }
     </style>
 </head>
@@ -642,8 +667,10 @@ for p in wynik:
 {ZADANIA Z ROZWIĄZANIAMI - KONIEC}
 </textarea>
 
-        <div class="link-buttons">
-            <a class="link-button" href="https://chatgpt.com/share/696e10c0-52b8-8003-a88d-eaffd4b19060" target="_blank">gotowy chatgpt:  nierelacyjne bazy danych</a>
+        <div class="link-buttons" aria-hidden="false">
+            <button class="link-button" data-link="https://chatgpt.com/share/6979f947-770c-8003-a89d-e37534fd3747" onclick="handleChatClick(event)">nierelacyjne (wykład) — skopiuj i otwórz</button>
+            <button class="link-button secondary" data-link="https://chatgpt.com/share/696e10c0-52b8-8003-a88d-eaffd4b19060" onclick="handleChatClick(event)">nierelacyjne (kolos) — skopiuj i otwórz</button>
+            <div id="copy-feedback" class="copy-feedback" role="status" aria-live="polite"></div>
         </div>
     </div>
 
@@ -659,9 +686,9 @@ for p in wynik:
     </div>
 
     <script>
+        // require only 2 confirmations: initial question + one "tak"
         let step = 0;
         const questions = [
-            "jestes PEWIEN?",
             "sprawdzam ostatni raz..."
         ];
 
@@ -686,6 +713,60 @@ for p in wynik:
             btns.style.display = 'none';
             error.innerText = 'wlacz mnie na incognito!!!!';
             error.style.display = 'block';
+        }
+
+        // copy link to clipboard and open the chat in a new tab
+        function copyTextToClipboard(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                return navigator.clipboard.writeText(text);
+            } else {
+                // fallback
+                return new Promise((resolve, reject) => {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = text;
+                    textarea.style.position = 'fixed';
+                    textarea.style.left = '-9999px';
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    try {
+                        document.execCommand('copy');
+                        document.body.removeChild(textarea);
+                        resolve();
+                    } catch (err) {
+                        document.body.removeChild(textarea);
+                        reject(err);
+                    }
+                });
+            }
+        }
+
+        function handleChatClick(event) {
+            const btn = event.currentTarget;
+            const link = btn.getAttribute('data-link');
+            const feedback = document.getElementById('copy-feedback');
+
+            copyTextToClipboard(link).then(() => {
+                feedback.style.visibility = 'visible';
+                feedback.innerText = 'Skopiowano do schowka: ' + link;
+                // open in new tab as well
+                try {
+                    window.open(link, '_blank', 'noopener');
+                } catch (e) {
+                    // ignore open errors
+                }
+                // revert feedback after 2 seconds
+                setTimeout(() => {
+                    feedback.style.visibility = 'hidden';
+                    feedback.innerText = '';
+                }, 2000);
+            }).catch(() => {
+                feedback.style.visibility = 'visible';
+                feedback.innerText = 'Błąd: nie udało się skopiować';
+                setTimeout(() => {
+                    feedback.style.visibility = 'hidden';
+                    feedback.innerText = '';
+                }, 2000);
+            });
         }
     </script>
 </body>
