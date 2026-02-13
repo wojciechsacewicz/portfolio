@@ -67,9 +67,6 @@ const translations = {
       codeGemHunterTitle: 'gem hunter — pipeline ofert pracy',
       codeGemHunterDesc: 'Pipeline w Pythonie zbierający oferty pracy z sitemapów rocketjobs.pl i justjoin.it. Filtruje, parsuje szczegóły i używa Gemini API do oceny dopasowania każdej oferty do CV.',
       codeGemHunterStack: 'Python · MongoDB · Gemini API',
-      codeDataTitle: 'analiza i agregacja danych nosql',
-      codeDataDesc: 'Zaprojektowałem pipeline przetwarzania danych i zapytania agregujące w MongoDB. Pracowałem na złożonych strukturach JSON, aby wydobywać kluczowe insighty biznesowe.',
-      codeDataStack: 'MongoDB · JSON · NoSQL',
       linkGithub: 'zobacz na githubie →',
       // badges
       badgeViews: '100k+ wyświetleń',
@@ -195,9 +192,6 @@ const translations = {
       codeGemHunterTitle: 'gem hunter — job offer pipeline',
       codeGemHunterDesc: 'A Python pipeline that harvests job offers from rocketjobs.pl and justjoin.it sitemaps. It filters, parses offer details, and uses the Gemini API to score each offer against a CV.',
       codeGemHunterStack: 'Python · MongoDB · Gemini API',
-      codeDataTitle: 'nosql data analysis & aggregation',
-      codeDataDesc: 'Designed a data processing pipeline and aggregation queries in MongoDB. Worked on complex JSON structures to extract key business insights.',
-      codeDataStack: 'MongoDB · JSON · NoSQL',
       linkGithub: 'view on github →',
       // badges
       badgeViews: '100k+ views',
