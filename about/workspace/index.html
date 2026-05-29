@@ -2,104 +2,94 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Workspace setup and photos by Wojciech Sacewicz."
+      content="Workspace photos and desk setup by Wojciech Sacewicz."
     />
     <title>Workspace | sacewi.cz</title>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
-    />
-    <link rel="stylesheet" href="../../style.css" />
-    <link
-      rel="icon"
-      type="image/png"
-      href="../../assets/favicon-96x96.png"
-      sizes="96x96"
-    />
-    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
-    <link rel="shortcut icon" href="../../assets/favicon.ico" />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="../../assets/apple-touch-icon.png"
-    />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" type="image/png" href="/assets/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <link rel="shortcut icon" href="/assets/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="sacewi.cz" />
-    <link rel="manifest" href="../../assets/site.webmanifest" />
+    <link rel="manifest" href="/assets/site.webmanifest" />
   </head>
 
   <body>
-    <main class="slide slide--hero">
-      <section class="terminal-card">
-        <div
-          class="terminal-lang-switch"
-          role="group"
-          aria-label="Language switch"
-        >
-          <button
-            type="button"
-            class="lang-btn"
-            id="lang-toggle"
-            aria-label="Switch language"
-          >
-            lang=en
-          </button>
-          <span class="lang-separator">|</span>
-          <button
-            type="button"
-            class="theme-btn"
-            data-theme="light"
-            aria-label="Toggle theme"
-          >
-            <span class="theme-icon">☀</span>
-            <span class="theme-tooltip" data-translate="flashbang"
-              >watch out for the flashbang!</span
-            >
-          </button>
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <header class="site-header" data-nav>
+      <a class="brand-mark" href="/" aria-label="sacewi.cz home">
+        <span>sacewi.cz</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/work" data-translate="navWork">Work</a>
+        <a href="/about" data-translate="navAbout">About</a>
+        <a href="/contact" data-translate="navContact">Contact</a>
+      </nav>
+      <div class="site-actions" role="group" aria-label="Site controls">
+        <button type="button" class="control-btn" id="lang-toggle" aria-label="Switch language">
+          lang=en
+        </button>
+        <button type="button" class="control-btn theme-btn" data-theme="light" aria-label="Toggle theme">
+          <span class="theme-icon">light</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="content" class="page-shell">
+      <section class="page-hero">
+        <div class="reveal">
+          <p class="quiet-label" data-translate="btnWorkspace">Workspace</p>
+          <h1 data-translate="spaceTitle">Workspace</h1>
         </div>
-        <h1 class="main-title" data-translate="spaceTitle">workspace</h1>
-        <p data-translate="spaceIntro">
-          here i'll put some pictures of my clean, minimalistic black desk setup
-        </p>
-
-        <div class="gallery-grid">
-          <div class="gallery-item">
-            <img
-              src="../../assets/mySetup1.jpg"
-              alt="My setup (angle 1)"
-              loading="lazy"
-            />
-            <span class="caption" data-translate="spaceCapSetup1"
-              >setup — angle 1</span
-            >
-          </div>
-
-          <div class="gallery-item">
-            <img
-              src="../../assets/mySetup2.jpg"
-              alt="My setup (angle 2)"
-              loading="lazy"
-            />
-            <span class="caption" data-translate="spaceCapSetup2"
-              >setup — angle 2</span
-            >
-          </div>
-
-          <div class="gallery-item">
-            <img src="../../assets/myPC.jpg" alt="My PC" loading="lazy" />
-            <span class="caption" data-translate="spaceCapPC">my pc</span>
-          </div>
-        </div>
+        <aside class="page-aside reveal">
+          <p class="page-lede" data-translate="spaceIntro">
+            A black desk, a keyboard I like, and less clutter than I used to tolerate.
+          </p>
+        </aside>
       </section>
 
-      <div class="terminal-actions">
-        <a class="terminal-btn" href="/about" data-translate="goBack"
-          >go back</a
-        >
-      </div>
+      <section class="gallery-grid" aria-label="Workspace gallery">
+        <figure class="gallery-item reveal">
+          <img
+            src="/assets/mySetup1.jpg"
+            alt="Minimal black desk setup from the front"
+            loading="lazy"
+          />
+          <figcaption class="caption" data-translate="spaceCapSetup1">
+            desk setup, front angle
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item reveal">
+          <img
+            src="/assets/mySetup2.jpg"
+            alt="Black desk with mechanical keyboard and headphones"
+            loading="lazy"
+          />
+          <figcaption class="caption" data-translate="spaceCapSetup2">
+            keyboard and headphones
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-item gallery-item--wide reveal">
+          <img src="/assets/myPC.jpg" alt="Black PC build" loading="lazy" />
+          <figcaption class="caption" data-translate="spaceCapPC">pc build</figcaption>
+        </figure>
+      </section>
     </main>
-    <script src="../../script.js"></script>
+
+    <footer class="site-footer">
+      <a href="/" class="brand-mark">sacewi.cz</a>
+      <nav aria-label="Footer navigation">
+        <a href="/about" data-translate="navAbout">About</a>
+        <a href="/about/windows" data-translate="btnWindows">Windows setup</a>
+      </nav>
+    </footer>
+
+    <script src="/script.js"></script>
   </body>
 </html>

@@ -2,97 +2,110 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Contact Wojciech Sacewicz for collaborations and opportunities."
+      content="Contact Wojciech Sacewicz for automation, data, and technical storytelling work."
     />
     <title>Contact | sacewi.cz</title>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
-    />
-    <link rel="stylesheet" href="../style.css" />
-    <link
-      rel="icon"
-      type="image/png"
-      href="../assets/favicon-96x96.png"
-      sizes="96x96"
-    />
-    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
-    <link rel="shortcut icon" href="../assets/favicon.ico" />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="../assets/apple-touch-icon.png"
-    />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" type="image/png" href="/assets/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <link rel="shortcut icon" href="/assets/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="sacewi.cz" />
-    <link rel="manifest" href="../assets/site.webmanifest" />
+    <link rel="manifest" href="/assets/site.webmanifest" />
   </head>
 
   <body>
-    <main class="slide slide--hero">
-      <section class="terminal-card terminal-card--auto">
-        <div
-          class="terminal-lang-switch"
-          role="group"
-          aria-label="Language switch"
-        >
-          <button
-            type="button"
-            class="lang-btn"
-            id="lang-toggle"
-            aria-label="Switch language"
-          >
-            lang=en
-          </button>
-          <span class="lang-separator">|</span>
-          <button
-            type="button"
-            class="theme-btn"
-            data-theme="light"
-            aria-label="Toggle theme"
-          >
-            <span class="theme-icon">☀</span>
-            <span class="theme-tooltip" data-translate="flashbang"
-              >watch out for the flashbang!</span
-            >
-          </button>
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <header class="site-header" data-nav>
+      <a class="brand-mark" href="/" aria-label="sacewi.cz home">
+        <span>sacewi.cz</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/work" data-translate="navWork">Work</a>
+        <a href="/about" data-translate="navAbout">About</a>
+        <a href="/contact" data-translate="navContact">Contact</a>
+      </nav>
+      <div class="site-actions" role="group" aria-label="Site controls">
+        <button type="button" class="control-btn" id="lang-toggle" aria-label="Switch language">
+          lang=en
+        </button>
+        <button type="button" class="control-btn theme-btn" data-theme="light" aria-label="Toggle theme">
+          <span class="theme-icon">light</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="content" class="page-shell">
+      <section class="page-hero">
+        <div class="reveal">
+          <p class="quiet-label" data-translate="navContact">Contact</p>
+          <h1 data-translate="contactTitle">Send me the work.</h1>
         </div>
-        <h1 class="main-title" data-translate="contactTitle">get in touch</h1>
-        <p data-translate="contactIntro">
-          want to work together? contact me here...
-        </p>
-        <div class="link-row">
+        <aside class="page-aside reveal">
+          <p class="page-lede" data-translate="contactIntro">
+            Email me a project, a job lead, or a process you want cleaned up.
+          </p>
+        </aside>
+      </section>
+
+      <section class="section-pad" aria-label="Contact links">
+        <div class="content-grid">
           <a
-            class="terminal-btn"
+            class="project-card project-card--small reveal"
             href="mailto:wojciechsacewicz@outlook.com"
-            data-translate="btnEmail"
-            >email</a
           >
+            <div>
+              <span class="project-meta">mail</span>
+              <h3 data-translate="btnEmail">Email</h3>
+              <p>wojciechsacewicz@outlook.com</p>
+            </div>
+            <span class="text-link" data-translate="ctaContact">Contact</span>
+          </a>
+
           <a
-            class="terminal-btn"
+            class="project-card project-card--small reveal"
             href="https://www.linkedin.com/in/wojciech-sacewicz"
             target="_blank"
-            data-translate="btnLinkedin"
-            >linkedin</a
+            rel="noopener noreferrer"
           >
-        </div>
-        <div class="link-row">
+            <div>
+              <span class="project-meta">profile</span>
+              <h3 data-translate="btnLinkedin">LinkedIn</h3>
+              <p>Connect or send a message.</p>
+            </div>
+            <span class="text-link">Open LinkedIn</span>
+          </a>
+
           <a
-            class="terminal-btn"
-            href="../assets/CV_November_PL_Github_Ver.pdf"
+            class="project-card project-card--small reveal"
+            href="/assets/CV_censored_github_version.pdf"
             target="_blank"
             rel="noopener"
-            data-translate="btnCV"
-            >download my cv!</a
           >
+            <div>
+              <span class="project-meta">pdf</span>
+              <h3 data-translate="btnCV">Download CV</h3>
+              <p>Short version, safe for public GitHub.</p>
+            </div>
+            <span class="text-link" data-translate="btnCV">Download CV</span>
+          </a>
         </div>
       </section>
-      <div class="terminal-actions">
-        <a class="terminal-btn" href="/" data-translate="goBack">go back</a>
-      </div>
     </main>
-    <script src="../script.js"></script>
+
+    <footer class="site-footer">
+      <a href="/" class="brand-mark">sacewi.cz</a>
+      <nav aria-label="Footer navigation">
+        <a href="/" data-translate="goBack">Back home</a>
+        <a href="/work" data-translate="navWork">Work</a>
+        <a href="/about" data-translate="navAbout">About</a>
+      </nav>
+    </footer>
+
+    <script src="/script.js"></script>
   </body>
 </html>
