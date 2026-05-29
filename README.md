@@ -1,39 +1,33 @@
-# my portfolio
+# sacewi.cz portfolio
 
-> terminal-inspired portfolio website built with html, css, and javascript.
+Static personal portfolio for Wojciech Sacewicz.
 
-![Portfolio Preview](assets/preview.png)
+## Overview
 
-## overview
+The site is a motion-heavy portfolio for automation, data pipeline, RPA, and video work. It keeps the original static HTML/CSS/JavaScript stack, bilingual EN/PL copy, theme toggle, deep-linked work sections, and setup galleries.
 
-personal portfolio with a clean terminal aesthetic, bilingual support (en/pl), light/dark themes, and interactive sections. the main page features a typing loop, while work items and media use expandable panels for a compact, readable layout.
+## Pages
 
-## pages
+- `/` - kinetic landing page with selected work and contact CTA
+- `/work` - code, automation, and video projects
+- `/about` - background and competencies
+- `/contact` - email, LinkedIn, and CV links
+- `/about/workspace` - workspace gallery
+- `/about/windows` - Windows setup gallery and tool list
 
-- main landing: typing headline, quick navigation, and theme/language toggles
-- work: code projects first, video editing second, with deep-linkable sections and smooth expand/collapse
-- about: short intro + competencies grid
-- contact: direct links (email, linkedin, cv)
-- about/windows and about/workspace: setup galleries with lightbox
+## Features
 
-## features
+- bilingual UI with `localStorage` preference
+- dark and light theme with `#3a566e` accent
+- scroll reveals and CSS scroll-linked animation where supported
+- reduced-motion fallback
+- expandable work sections
+- gallery lightbox
 
-- bilingual ui (en/pl) with translation keys in script.js
-- theme toggle with persistent preference
-- smooth expandable sections on work page (details + animated height)
-- lightbox for gallery images
-- deep linking to sections (e.g., /work#cyberwizja)
+## Run locally
 
-## tech stack
+```bash
+python3 -m http.server 4173
+```
 
-- html5 (semantic structure)
-- css3 (custom properties, flexbox/grid, transitions)
-- javascript (es6+, dom manipulation, localStorage, ui logic)
-
-## run locally
-
-open index.html in a browser. no build step required.
-
-## credits
-
-- font: jetbrains mono
+Then open `http://localhost:4173`.
