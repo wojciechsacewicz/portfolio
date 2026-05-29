@@ -1,10 +1,10 @@
 # sacewi.cz portfolio
 
-Static personal portfolio for Wojciech Sacewicz.
+Motion-heavy personal portfolio for Wojciech Sacewicz.
 
 ## Overview
 
-The site is a motion-heavy portfolio for automation, data pipeline, RPA, and video work. It keeps the original static HTML/CSS/JavaScript stack, bilingual EN/PL copy, theme toggle, deep-linked work sections, and setup galleries.
+The site is now a Vite + React portfolio with GSAP scroll motion, Lenis smooth scrolling, local bundled fonts, bilingual EN/PL copy, deep-linked work sections, and setup galleries.
 
 ## Pages
 
@@ -18,16 +18,24 @@ The site is a motion-heavy portfolio for automation, data pipeline, RPA, and vid
 ## Features
 
 - bilingual UI with `localStorage` preference
-- dark and light theme with `#3a566e` accent
-- scroll reveals and CSS scroll-linked animation where supported
+- `#3a566e` accent
+- GSAP reveal, pinned, horizontal-scroll, word-scrub, and card-stack motion
+- Lenis smooth scrolling
+- local Geist and JetBrains Mono fonts bundled into `build/`
 - reduced-motion fallback
-- expandable work sections
 - gallery lightbox
 
 ## Run locally
 
 ```bash
-python3 -m http.server 4173
+npm install
+npm run dev
 ```
 
-Then open `http://localhost:4173`.
+## Build
+
+```bash
+npm run build
+```
+
+The Vite source lives in `app/` and `src/`. The built GitHub Pages fallback is copied into the repository root so the existing Pages branch-source setup still serves the site. The GitHub Actions workflow also deploys the generated `dist/` artifact when Pages is configured for Actions.

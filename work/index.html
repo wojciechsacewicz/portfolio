@@ -1,225 +1,23 @@
 <!doctype html>
-<html lang="en">
+<html lang="pl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Code, automation, and video projects by Wojciech Sacewicz."
-    />
+    <meta name="description" content="Projekty automatyzacji, danych i wideo Wojciecha Sacewicza." />
+    <meta property="og:title" content="Work | sacewi.cz" />
+    <meta property="og:description" content="Gem Hunter, Smart Notifications, CyberWizja, RPA explainers." />
+    <meta property="og:image" content="/assets/preview.png" />
+    <meta property="og:type" content="website" />
     <title>Work | sacewi.cz</title>
-    <link rel="stylesheet" href="/style.css?v=20260529-1" />
     <link rel="icon" type="image/png" href="/assets/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
     <link rel="shortcut icon" href="/assets/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="sacewi.cz" />
     <link rel="manifest" href="/assets/site.webmanifest" />
+    <script type="module" crossorigin src="/build/main-CEGGMa1e.js"></script>
+    <link rel="stylesheet" crossorigin href="/build/main-BtzWxCTE.css">
   </head>
-
   <body>
-    <a class="skip-link" href="#content">Skip to content</a>
-
-    <header class="site-header" data-nav>
-      <a class="brand-mark" href="/" aria-label="sacewi.cz home">
-        <span>sacewi.cz</span>
-      </a>
-      <nav class="site-nav" aria-label="Primary navigation">
-        <a href="/work" data-translate="navWork">Work</a>
-        <a href="/about" data-translate="navAbout">About</a>
-        <a href="/contact" data-translate="navContact">Contact</a>
-      </nav>
-      <div class="site-actions" role="group" aria-label="Site controls">
-        <button type="button" class="control-btn" id="lang-toggle" aria-label="Switch language">
-          lang=en
-        </button>
-        <button type="button" class="control-btn theme-btn" data-theme="light" aria-label="Toggle theme">
-          <span class="theme-icon">light</span>
-        </button>
-      </div>
-    </header>
-
-    <main id="content" class="page-shell">
-      <section class="page-hero">
-        <div class="reveal">
-          <p class="quiet-label" data-translate="navWork">Work</p>
-          <h1 data-translate="workPageTitle">Projects with a job to do.</h1>
-        </div>
-        <aside class="page-aside reveal">
-          <p class="page-lede" data-translate="workPageBody">
-            A few code, automation, and video projects. Each one started with a real task.
-          </p>
-        </aside>
-      </section>
-
-      <section aria-labelledby="code-projects">
-        <div class="section-break reveal">
-          <h2 id="code-projects" data-translate="codeTitle">Code and automation</h2>
-        </div>
-
-        <div class="content-grid">
-          <a
-            class="project-card project-card--wide reveal"
-            id="gem-hunter"
-            href="https://github.com/wojciechsacewicz/Gem-Hunter"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div>
-              <span class="project-meta" data-translate="codeGemHunterStack">
-                Python / MongoDB / Gemini API
-              </span>
-              <h3 data-translate="codeGemHunterTitle">Gem Hunter</h3>
-              <p data-translate="codeGemHunterDesc">
-                A Python pipeline that collects job offers, parses the details, and checks each one against a CV with Gemini.
-              </p>
-            </div>
-            <span class="text-link" data-translate="linkGithub">Open GitHub</span>
-          </a>
-
-          <a
-            class="project-card project-card--small reveal"
-            id="notification-system"
-            href="https://github.com/wojciechsacewicz/smart-notification-system"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div>
-              <span class="project-meta" data-translate="codeNotifStack">
-                Make.com / Webhooks / JSON
-              </span>
-              <h3 data-translate="codeNotifTitle">Smart notification system</h3>
-              <p data-translate="codeNotifDesc">
-                A Make.com flow that sends daily updates from weather, calendar data, and Discord webhooks.
-              </p>
-            </div>
-            <span class="text-link" data-translate="linkGithub">Open GitHub</span>
-          </a>
-        </div>
-      </section>
-
-      <section aria-labelledby="video-editing">
-        <div class="section-break reveal">
-          <h2 id="video-editing" data-translate="videoTitle">Video and teaching</h2>
-        </div>
-
-        <div class="content-grid">
-          <details id="dovista-rpa-animation" class="detail-shell reveal">
-            <summary class="expand-summary">
-              <span class="expand-title">
-                <span class="project-meta" data-translate="badgeTime">process time reduced</span>
-                <span class="project-title" data-translate="vidDovistaTitle">Dovista RPA animation</span>
-              </span>
-              <span class="expand-pill" data-expand-pill="true">Open</span>
-            </summary>
-            <div class="expand-content">
-              <div class="detail-inner">
-                <p class="video-desc" data-translate="vidDovistaDesc">
-                  A training video that explains an RPA process without asking coworkers to read technical docs.
-                </p>
-                <div class="video-container">
-                  <video class="video-player" controls preload="metadata" playsinline>
-                    <source src="/assets/businessAnimationCutForPortfolio.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-              </div>
-            </div>
-          </details>
-
-          <details id="cyberwizja" class="detail-shell reveal">
-            <summary class="expand-summary">
-              <span class="expand-title">
-                <span class="project-meta" data-translate="badgeFinalist">finalist</span>
-                <span class="project-title" data-translate="vidCyberTitle">Cyberwizja</span>
-              </span>
-              <span class="expand-pill" data-expand-pill="true">Open</span>
-            </summary>
-            <div class="expand-content">
-              <div class="detail-inner">
-                <p class="video-desc">
-                  <a
-                    class="inline-link"
-                    href="https://www.tiktok.com/@cyberwizja"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-translate="cyberTiktokLink"
-                  >
-                    tiktok.com/@cyberwizja
-                  </a>
-                </p>
-                <p class="video-desc" data-translate="vidCyberDesc">
-                  A school cybersecurity project. We taught children safer internet habits.
-                </p>
-                <div class="media-grid">
-                  <article>
-                    <h3 data-translate="vidCyberClip1Title">Cyberwizja intro</h3>
-                    <p class="video-desc" data-translate="vidCyberClip1Desc">
-                      Intro clip for the project channels.
-                    </p>
-                    <div class="video-container">
-                      <video class="video-player" controls preload="metadata" playsinline>
-                        <source src="/assets/cyberwizjaIntro.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    </div>
-                  </article>
-                  <article>
-                    <h3 data-translate="vidCyberClip2Title">Cyberwizja TikTok</h3>
-                    <p class="video-desc" data-translate="vidCyberClip2Desc">
-                      Short TikTok with one job: get people to the project page.
-                    </p>
-                    <div class="video-container">
-                      <video class="video-player" controls preload="metadata" playsinline>
-                        <source src="/assets/cyberwizja5wtyczek.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    </div>
-                  </article>
-                </div>
-              </div>
-            </div>
-          </details>
-
-          <details class="detail-shell reveal">
-            <summary class="expand-summary">
-              <span class="expand-title">
-                <span class="project-meta" data-translate="badgeViews">100k+ views</span>
-                <span class="project-title" data-translate="vidTutorialTitle">960 FPS tutorial</span>
-              </span>
-              <span class="expand-pill" data-expand-pill="true">Open</span>
-            </summary>
-            <div class="expand-content">
-              <div class="detail-inner">
-                <p class="video-desc" data-translate="vidTutorialDesc">
-                  A YouTube tutorial about recording gameplay at 960 FPS and turning it into smoother 60 FPS footage.
-                </p>
-                <div class="video-container">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src="https://www.youtube.com/embed/c1b20D7EHrg"
-                    title="YouTube video player"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-              </div>
-            </div>
-          </details>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <a href="/" class="brand-mark">sacewi.cz</a>
-      <nav aria-label="Footer navigation">
-        <a href="/" data-translate="goBack">Back home</a>
-        <a href="/about" data-translate="navAbout">About</a>
-        <a href="/contact" data-translate="navContact">Contact</a>
-      </nav>
-    </footer>
-
-    <script src="/script.js?v=20260529-1"></script>
+    <div id="root"></div>
   </body>
 </html>
