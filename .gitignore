@@ -1,6 +1,8 @@
 node_modules/
 dist/
 .playwright-mcp/
+cv/
 .DS_Store
 *.log
 portfolio-*.png
+audit-*.png

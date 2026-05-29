@@ -39,10 +39,10 @@ const copy = {
     proofStackText: 'robot RPA i Document Understanding',
     proofLang: 'C1 English',
     proofLangText: 'praca po polsku i angielsku',
-    interestTitle: 'Lubię procesy, które da się rozebrać na części.',
+    interestTitle: 'Rozbieram proces na części.',
     interestBody: 'Najlepiej działam tam, gdzie ktoś codziennie klika to samo, poprawia dane albo przenosi informacje między systemami.',
-    desireTitle: 'Ruch strony ma pokazać sposób pracy.',
-    desireBody: 'Mapowanie, pierwszy działający flow, potem porządek w demo i handoffie.',
+    desireTitle: 'Tak pracuję.',
+    desireBody: 'Mapa procesu, pierwszy działający flow, potem demo i handoff.',
     stepOne: 'Mapa',
     stepOneBody: 'As-is, to-be, właściciele, wyjątki.',
     stepTwo: 'Automatyzacja',
@@ -50,8 +50,8 @@ const copy = {
     stepThree: 'Dowód',
     stepThreeBody: 'Demo, dokumentacja i jasny wynik.',
     workTitle: 'Wybrane projekty',
-    workBody: 'Kod, automatyzacje i wideo. Wszystko startowało od konkretnego zadania.',
-    stackTitle: 'Stack, którego używam',
+    workBody: 'Kod, automatyzacje i wideo. Każde z realnego zadania.',
+    stackTitle: 'Narzędzia, nie religia.',
     aboutTitle: 'Computer Science + Econometrics, a po godzinach praktyczne systemy.',
     aboutBody: 'Studiuję na Uniwersytecie Gdańskim. Łączę procesy, dane, low-code i trochę kreatywnej produkcji wideo.',
     contactTitle: 'Masz proces, który wraca co tydzień?',
@@ -59,10 +59,10 @@ const copy = {
     email: 'Email',
     linkedin: 'LinkedIn',
     github: 'GitHub',
-    workspaceTitle: 'Workspace',
-    workspaceBody: 'Biurko i narzędzia mają zniknąć z drogi. Mniej tarcia, mniej klikania, więcej miejsca na pracę.',
-    windowsTitle: 'Windows setup',
-    windowsBody: 'GlazeWM, Flow Launcher, Fences i Windhawk. Windows ustawiony pod szybkie przełączanie i mniej bałaganu.',
+    workspaceTitle: 'Setup bez tarcia.',
+    workspaceBody: 'Biurko, skróty i tiling mają zniknąć z drogi.',
+    windowsTitle: 'Windows bez bałaganu.',
+    windowsBody: 'GlazeWM, Flow Launcher, Fences i Windhawk pod szybkie przełączanie.',
     footer: 'sacewi.cz · Gdańsk · automatyzacje, dane, RPA',
   },
   en: {
@@ -83,9 +83,9 @@ const copy = {
     proofStackText: 'RPA robot and Document Understanding',
     proofLang: 'C1 English',
     proofLangText: 'Polish and English work',
-    interestTitle: 'I like processes that can be taken apart.',
+    interestTitle: 'I take processes apart.',
     interestBody: 'Best fit: repeated clicks, messy data, and information moving between systems.',
-    desireTitle: 'The motion mirrors the work.',
+    desireTitle: 'How I work.',
     desireBody: 'Map the process, ship one useful flow, then clean up the demo and handoff.',
     stepOne: 'Map',
     stepOneBody: 'As-is, to-be, owners, edge cases.',
@@ -94,8 +94,8 @@ const copy = {
     stepThree: 'Prove',
     stepThreeBody: 'Demo, documentation, clear result.',
     workTitle: 'Selected work',
-    workBody: 'Code, automation and video. Each project started with a real task.',
-    stackTitle: 'Tools I use',
+    workBody: 'Code, automation and video. Each came from a real task.',
+    stackTitle: 'Tools, not religion.',
     aboutTitle: 'Computer Science + Econometrics, with practical systems after class.',
     aboutBody: 'I study at the University of Gdańsk and work across process mapping, data, low-code and video explainers.',
     contactTitle: 'Got a process that keeps coming back?',
@@ -103,10 +103,10 @@ const copy = {
     email: 'Email',
     linkedin: 'LinkedIn',
     github: 'GitHub',
-    workspaceTitle: 'Workspace',
-    workspaceBody: 'The desk and tools should get out of the way. Less friction, fewer clicks, more room to think.',
-    windowsTitle: 'Windows setup',
-    windowsBody: 'GlazeWM, Flow Launcher, Fences and Windhawk. Windows tuned for fast switching and less mess.',
+    workspaceTitle: 'Low-friction setup.',
+    workspaceBody: 'Desk, shortcuts and tiling should get out of the way.',
+    windowsTitle: 'Windows without mess.',
+    windowsBody: 'GlazeWM, Flow Launcher, Fences and Windhawk for fast switching.',
     footer: 'sacewi.cz · Gdańsk · automation, data, RPA',
   },
 };
@@ -187,6 +187,25 @@ function App() {
   }, [lang]);
 
   useEffect(() => {
+    let frame = 0;
+
+    const onPointerMove = (event) => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        document.documentElement.style.setProperty('--mx', `${event.clientX}px`);
+        document.documentElement.style.setProperty('--my', `${event.clientY}px`);
+      });
+    };
+
+    window.addEventListener('pointermove', onPointerMove);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('pointermove', onPointerMove);
+    };
+  }, []);
+
+  useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
 
     const lenis = new Lenis({
@@ -224,11 +243,24 @@ function App() {
         stagger: 0.08,
       });
 
-      gsap.to('[data-orbit]', {
-        rotate: 360,
-        duration: 32,
+      if (shell.current.querySelector('[data-orbit]')) {
+        gsap.to('[data-orbit]', {
+          rotate: 360,
+          duration: 32,
+          ease: 'none',
+          repeat: -1,
+        });
+      }
+
+      gsap.to('[data-scroll-progress]', {
+        scaleY: 1,
         ease: 'none',
-        repeat: -1,
+        scrollTrigger: {
+          trigger: document.documentElement,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.35,
+        },
       });
 
       gsap.utils.toArray('[data-reveal]').forEach((el) => {
@@ -264,29 +296,33 @@ function App() {
         );
       });
 
-      gsap.to('[data-hero-media]', {
-        yPercent: 14,
-        scale: 1.08,
-        scrollTrigger: {
-          trigger: '[data-hero]',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true,
-        },
-      });
-
-      mm.add('(min-width: 940px)', () => {
-        gsap.to('[data-lane]', {
-          xPercent: -42,
-          ease: 'none',
+      if (shell.current.querySelector('[data-hero]') && shell.current.querySelector('[data-hero-media]')) {
+        gsap.to('[data-hero-media]', {
+          yPercent: 14,
+          scale: 1.08,
           scrollTrigger: {
-            trigger: '[data-work-motion]',
+            trigger: '[data-hero]',
             start: 'top top',
-            end: '+=1700',
-            pin: true,
-            scrub: 1,
+            end: 'bottom top',
+            scrub: true,
           },
         });
+      }
+
+      mm.add('(min-width: 940px)', () => {
+        if (shell.current.querySelector('[data-work-motion]') && shell.current.querySelector('[data-lane]')) {
+          gsap.to('[data-lane]', {
+            xPercent: -42,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '[data-work-motion]',
+              start: 'top top',
+              end: '+=1700',
+              pin: true,
+              scrub: 1,
+            },
+          });
+        }
 
         gsap.utils.toArray('[data-stack-card]').forEach((card, index) => {
           gsap.to(card, {
@@ -318,6 +354,7 @@ function App() {
 
   return (
     <div ref={shell} className="site-shell">
+      <div className="scroll-progress" data-scroll-progress aria-hidden="true" />
       <a className="skip-link" href="#content">
         Skip to content
       </a>
@@ -383,7 +420,6 @@ function HomePage({ t, setLightbox }) {
 
       <section className="statement chapter">
         <div>
-          <p className="kicker">process first</p>
           <h2 data-word-reveal>{t.interestTitle}</h2>
         </div>
         <p data-reveal>{t.interestBody}</p>
@@ -422,8 +458,8 @@ function WorkMotion({ t }) {
   return (
     <section className="work-motion" data-work-motion>
       <div className="motion-heading">
-        <p className="kicker">{t.workTitle}</p>
-        <h2>{t.workBody}</h2>
+        <h2>{t.workTitle}</h2>
+        <p>{t.workBody}</p>
       </div>
       <div className="motion-lane" data-lane>
         {projects.map((project) => (
@@ -438,13 +474,7 @@ function ProjectCard({ project }) {
   const content = (
     <article className={`project-tile ${project.scale}`} data-reveal>
       <div className="project-media">
-        {project.video ? (
-          <video autoPlay muted loop playsInline preload="metadata" poster={project.poster}>
-            <source src={project.video} type="video/mp4" />
-          </video>
-        ) : (
-          <img src={project.visual} alt="" loading="lazy" />
-        )}
+        <img src={project.poster || project.visual} alt="" loading="lazy" />
       </div>
       <div className="project-copy">
         <span>{project.meta}</span>
@@ -473,7 +503,6 @@ function ProcessSection({ t }) {
   return (
     <section className="process chapter">
       <div className="process-intro" data-reveal>
-        <p className="kicker">workflow</p>
         <h2>{t.desireTitle}</h2>
         <p>{t.desireBody}</p>
       </div>
@@ -494,7 +523,6 @@ function StackSection({ t }) {
   return (
     <section className="stack-section chapter">
       <div data-reveal>
-        <p className="kicker">toolchain</p>
         <h2>{t.stackTitle}</h2>
       </div>
       <div className="stack-grid">
@@ -513,8 +541,8 @@ function WorkspacePreview({ t, setLightbox }) {
   return (
     <section className="workspace-preview chapter">
       <div data-reveal>
-        <p className="kicker">{t.workspaceTitle}</p>
-        <h2>{t.workspaceBody}</h2>
+        <h2>{t.workspaceTitle}</h2>
+        <p>{t.workspaceBody}</p>
         <a className="text-action" href="/about/workspace">
           Open workspace
         </a>
@@ -534,7 +562,6 @@ function ContactBand({ t }) {
   return (
     <section className="contact-band chapter">
       <div data-reveal>
-        <p className="kicker">contact</p>
         <h2>{t.contactTitle}</h2>
         <p>{t.contactBody}</p>
       </div>
@@ -552,7 +579,7 @@ function ContactBand({ t }) {
 
 function WorkPage({ t }) {
   return (
-    <PageShell kicker={t.navWork} title={t.workTitle} body={t.workBody}>
+    <PageShell title={t.workTitle} body={t.workBody}>
       <div className="work-grid">
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
@@ -581,7 +608,7 @@ function WorkPage({ t }) {
 
 function AboutPage({ t, setLightbox }) {
   return (
-    <PageShell kicker={t.navAbout} title={t.aboutTitle} body={t.aboutBody}>
+    <PageShell title={t.aboutTitle} body={t.aboutBody}>
       <section className="about-grid">
         <article data-reveal>
           <h2>Current</h2>
@@ -603,7 +630,7 @@ function AboutPage({ t, setLightbox }) {
 
 function ContactPage({ t }) {
   return (
-    <PageShell kicker={t.navContact} title={t.contactTitle} body={t.contactBody}>
+    <PageShell title={t.contactTitle} body={t.contactBody}>
       <section className="contact-grid">
         <a href="mailto:wojciechsacewicz@outlook.com">{t.email}<span>wojciechsacewicz@outlook.com</span></a>
         <a href="https://linkedin.com/in/wojciech-sacewicz" target="_blank" rel="noreferrer">{t.linkedin}<span>linkedin.com/in/wojciech-sacewicz</span></a>
@@ -616,7 +643,7 @@ function ContactPage({ t }) {
 
 function GalleryPage({ title, body, images, setLightbox }) {
   return (
-    <PageShell kicker="gallery" title={title} body={body}>
+    <PageShell title={title} body={body}>
       <div className="gallery-grid">
         {images.map(([src, alt]) => (
           <button key={src} type="button" onClick={() => setLightbox([src, alt])} data-reveal>
@@ -629,11 +656,10 @@ function GalleryPage({ title, body, images, setLightbox }) {
   );
 }
 
-function PageShell({ kicker, title, body, children }) {
+function PageShell({ title, body, children }) {
   return (
     <section className="page-shell">
       <header className="page-hero" data-hero-copy>
-        <p className="kicker">{kicker}</p>
         <h1>{title}</h1>
         <p>{body}</p>
       </header>

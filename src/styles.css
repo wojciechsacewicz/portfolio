@@ -28,6 +28,8 @@ html {
   min-height: 100%;
   background: var(--bg);
   scroll-behavior: smooth;
+  --mx: 50vw;
+  --my: 50vh;
 }
 
 body {
@@ -93,8 +95,39 @@ video {
 }
 
 .site-shell {
+  position: relative;
   width: 100%;
   overflow-x: hidden;
+}
+
+.site-shell::before {
+  content: "";
+  position: fixed;
+  left: var(--mx);
+  top: var(--my);
+  z-index: 1;
+  width: 34rem;
+  height: 34rem;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(156, 183, 202, 0.13), transparent 64%);
+  filter: blur(6px);
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+}
+
+.scroll-progress {
+  position: fixed;
+  right: 10px;
+  top: 92px;
+  bottom: 18px;
+  z-index: 60;
+  width: 2px;
+  transform: scaleY(0);
+  transform-origin: top;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, var(--accent-light), rgba(156, 183, 202, 0.08));
+  box-shadow: 0 0 22px rgba(156, 183, 202, 0.55);
 }
 
 .skip-link {
@@ -195,12 +228,12 @@ video {
   display: grid;
   align-items: end;
   overflow: clip;
-  padding: 7rem 0 4rem;
+  padding: 6rem 0 4rem;
 }
 
 .hero-visual {
   position: absolute;
-  inset: 5.5rem 1rem 1rem;
+  inset: 5rem 1rem 1rem;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: calc(var(--radius) + 10px);
@@ -414,10 +447,16 @@ p {
 }
 
 .statement {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.58fr);
-  gap: 3rem;
-  align-items: end;
+  display: block;
+}
+
+.statement h2 {
+  max-width: 15ch;
+}
+
+.statement p {
+  max-width: 54ch;
+  margin-left: auto;
 }
 
 [data-word-reveal] span {
@@ -439,6 +478,11 @@ p {
 .motion-heading h2 {
   max-width: 18ch;
   font-size: 3rem;
+  margin-bottom: 0.65rem;
+}
+
+.motion-heading p {
+  max-width: 42ch;
 }
 
 .motion-lane {
@@ -584,6 +628,9 @@ p {
 
 .stack-grid article:first-child {
   grid-row: span 2;
+  background:
+    linear-gradient(145deg, rgba(156, 183, 202, 0.14), rgba(255, 255, 255, 0.025)),
+    radial-gradient(circle at 20% 10%, rgba(156, 183, 202, 0.16), transparent 16rem);
 }
 
 .workspace-preview {
@@ -591,6 +638,10 @@ p {
   grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
   gap: 3rem;
   align-items: center;
+}
+
+.workspace-preview p {
+  max-width: 46ch;
 }
 
 .image-stack {
@@ -934,6 +985,11 @@ p {
   .gallery-grid button:nth-child(3n + 1) {
     grid-column: auto;
     min-height: 260px;
+  }
+
+  .scroll-progress,
+  .site-shell::before {
+    display: none;
   }
 
   .footer {
