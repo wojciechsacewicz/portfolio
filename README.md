@@ -4,14 +4,14 @@ Personal portfolio for Wojciech Sacewicz, focused on AI-native development and f
 
 ## Overview
 
-The site is a Vite + React portfolio with restrained GSAP reveals, Lenis smooth scrolling, local bundled fonts, bilingual EN/PL copy, deep-linked work sections, and setup galleries.
+The site is a Vite + React portfolio with restrained GSAP reveals, native browser scrolling, local bundled fonts, bilingual EN/PL copy, deep-linked work sections, and setup galleries.
 
 ## Pages
 
 - `/` - landing page with positioning, selected work and contact CTA
 - `/work` - code, automation, and video projects
 - `/about` - background and competencies
-- `/contact` - email, LinkedIn, and CV links
+- `/contact` - email, LinkedIn, and GitHub links
 - `/about/workspace` - workspace gallery
 - `/about/windows` - Windows setup gallery and tool list
 
@@ -20,7 +20,6 @@ The site is a Vite + React portfolio with restrained GSAP reveals, Lenis smooth 
 - bilingual UI with `localStorage` preference
 - `#3a566e` accent
 - GSAP reveal and scroll progress motion
-- Lenis smooth scrolling
 - local Geist and JetBrains Mono fonts bundled into `build/`
 - reduced-motion fallback
 - gallery lightbox
