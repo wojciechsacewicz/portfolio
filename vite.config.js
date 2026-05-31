@@ -17,10 +17,12 @@ const mimeTypes = {
   '.jpeg': 'image/jpeg',
   '.js': 'text/javascript',
   '.json': 'application/json',
+  '.m3u8': 'application/vnd.apple.mpegurl',
   '.mp4': 'video/mp4',
   '.pdf': 'application/pdf',
   '.png': 'image/png',
   '.svg': 'image/svg+xml',
+  '.ts': 'video/mp2t',
   '.webmanifest': 'application/manifest+json',
   '.webp': 'image/webp',
 };

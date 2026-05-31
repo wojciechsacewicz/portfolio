@@ -20,6 +20,7 @@ The site is a Vite + React portfolio with restrained GSAP reveals, native browse
 - bilingual UI with `localStorage` preference
 - `#3a566e` accent
 - GSAP reveal and scroll progress motion
+- Video.js players on `/work` with HLS playlists and `preload="none"`
 - local Geist and JetBrains Mono fonts bundled into `build/`
 - reduced-motion fallback
 - gallery lightbox

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import 'video.js/dist/video-js.css';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -24,6 +25,8 @@ const copy = {
     navWork: 'Projekty',
     navAbout: 'O mnie',
     navContact: 'Kontakt',
+    navOpen: 'Otwórz menu',
+    navClose: 'Zamknij menu',
     language: 'EN',
     heroKicker: 'Wojciech Sacewicz · AI Native Developer',
     heroTitle: 'Zamieniam pomysły w działające narzędzia.',
@@ -86,6 +89,8 @@ const copy = {
     navWork: 'Work',
     navAbout: 'About',
     navContact: 'Contact',
+    navOpen: 'Open menu',
+    navClose: 'Close menu',
     language: 'PL',
     heroKicker: 'Wojciech Sacewicz · AI Native Developer',
     heroTitle: 'I turn ideas into working tools.',
@@ -244,9 +249,25 @@ const windowsImages = [
   ['/assets/file explorer this pc.png', 'File explorer'],
 ];
 
+const videoSources = {
+  dovista: [
+    { src: '/assets/hls/dovista/index.m3u8', type: 'application/x-mpegURL' },
+    { src: '/assets/businessAnimationCutForPortfolio.mp4', type: 'video/mp4' },
+  ],
+  cyberIntro: [
+    { src: '/assets/hls/cyberwizja-intro/index.m3u8', type: 'application/x-mpegURL' },
+    { src: '/assets/cyberwizjaIntro.mp4', type: 'video/mp4' },
+  ],
+  cyberPlugins: [
+    { src: '/assets/hls/cyberwizja-plugins/index.m3u8', type: 'application/x-mpegURL' },
+    { src: '/assets/cyberwizja5wtyczek.mp4', type: 'video/mp4' },
+  ],
+};
+
 function App() {
   const [lang, setLang] = useState(() => localStorage.getItem('portfolio-lang') || 'pl');
   const [lightbox, setLightbox] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const shell = useRef(null);
   const t = copy[lang];
   const page = routes[normalizePath()];
@@ -255,6 +276,10 @@ function App() {
     document.documentElement.lang = lang;
     localStorage.setItem('portfolio-lang', lang);
   }, [lang]);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [page, lang]);
 
   useGSAP(
     () => {
@@ -332,7 +357,7 @@ function App() {
       <a className="skip-link" href="#content">
         Skip to content
       </a>
-      <Header lang={lang} setLang={setLang} t={t} />
+      <Header lang={lang} setLang={setLang} t={t} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <main id="content">{content}</main>
       <Footer t={t} />
       {lightbox && <Lightbox image={lightbox} onClose={() => setLightbox(null)} />}
@@ -340,19 +365,31 @@ function App() {
   );
 }
 
-function Header({ lang, setLang, t }) {
+function Header({ lang, setLang, t, menuOpen, setMenuOpen }) {
   return (
     <header className="topbar">
       <a className="brand" href="/" aria-label="sacewi.cz home">
         <span>sacewi.cz</span>
       </a>
-      <nav className="nav-links" aria-label="Primary navigation">
+      <nav id="primary-navigation" className={`nav-links${menuOpen ? ' is-open' : ''}`} aria-label="Primary navigation">
         <a href="/work">{t.navWork}</a>
         <a href="/about">{t.navAbout}</a>
         <a href="/contact">{t.navContact}</a>
       </nav>
       <button className="lang-toggle" type="button" onClick={() => setLang(lang === 'pl' ? 'en' : 'pl')}>
         {t.language}
+      </button>
+      <button
+        className="menu-toggle"
+        type="button"
+        aria-label={menuOpen ? t.navClose : t.navOpen}
+        aria-expanded={menuOpen}
+        aria-controls="primary-navigation"
+        onClick={() => setMenuOpen((open) => !open)}
+      >
+        <span />
+        <span />
+        <span />
       </button>
     </header>
   );
@@ -554,7 +591,7 @@ function ContactBand({ t }) {
 
 function WorkPage({ t, lang }) {
   return (
-    <PageShell title={t.workTitle} body={t.workBody}>
+    <PageShell title={t.workTitle} body={t.workBody} pageClass="work-page">
       <div className="work-grid">
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} lang={lang} />
@@ -562,22 +599,95 @@ function WorkPage({ t, lang }) {
       </div>
       <section className="video-detail" id="dovista-rpa-animation">
         <h2>{t.videoDovistaTitle}</h2>
-        <video controls playsInline preload="metadata" poster="/assets/dovista-poster.jpg">
-          <source src="/assets/businessAnimationCutForPortfolio.mp4" type="video/mp4" />
-        </video>
+        <VideoJsPlayer
+          label={t.videoDovistaTitle}
+          poster="/assets/dovista-poster.jpg"
+          sources={videoSources.dovista}
+        />
       </section>
       <section className="video-detail" id="cyberwizja">
         <h2>{t.videoCyberTitle}</h2>
         <div className="video-pair">
-          <video controls playsInline preload="metadata" poster="/assets/cyberwizja-poster.jpg">
-            <source src="/assets/cyberwizjaIntro.mp4" type="video/mp4" />
-          </video>
-          <video controls playsInline preload="metadata" poster="/assets/cyberwizja-poster.jpg">
-            <source src="/assets/cyberwizja5wtyczek.mp4" type="video/mp4" />
-          </video>
+          <VideoJsPlayer
+            label={`${t.videoCyberTitle} intro`}
+            poster="/assets/cyberwizja-poster.jpg"
+            sources={videoSources.cyberIntro}
+            aspectRatio="9:16"
+          />
+          <VideoJsPlayer
+            label={`${t.videoCyberTitle} plugins`}
+            poster="/assets/cyberwizja-poster.jpg"
+            sources={videoSources.cyberPlugins}
+            aspectRatio="9:16"
+          />
         </div>
       </section>
     </PageShell>
+  );
+}
+
+function VideoJsPlayer({ label, poster, sources, aspectRatio = '16:9' }) {
+  const containerRef = useRef(null);
+  const playerRef = useRef(null);
+  const sourceKey = sources.map((source) => `${source.type}:${source.src}`).join('|');
+
+  useEffect(() => {
+    if (!containerRef.current) return undefined;
+
+    const videoElement = document.createElement('video-js');
+    videoElement.classList.add('video-js', 'vjs-big-play-centered', 'portfolio-video-js');
+    videoElement.setAttribute('aria-label', label);
+    videoElement.setAttribute('playsinline', 'true');
+    videoElement.setAttribute('poster', poster);
+    videoElement.setAttribute('preload', 'none');
+    containerRef.current.appendChild(videoElement);
+
+    let disposed = false;
+
+    const createPlayer = async () => {
+      const { default: videojs } = await import('video.js');
+
+      if (disposed) return;
+
+      const player = videojs(videoElement, {
+        aspectRatio,
+        controls: true,
+        fluid: true,
+        html5: {
+          vhs: {
+            overrideNative: true,
+          },
+        },
+        playbackRates: [0.75, 1, 1.25, 1.5],
+        playsinline: true,
+        poster,
+        preload: 'none',
+        responsive: true,
+        sources,
+      });
+
+      playerRef.current = player;
+    };
+
+    createPlayer();
+
+    return () => {
+      disposed = true;
+
+      if (playerRef.current && !playerRef.current.isDisposed()) {
+        playerRef.current.dispose();
+      } else {
+        videoElement.remove();
+      }
+
+      playerRef.current = null;
+    };
+  }, [aspectRatio, label, poster, sourceKey]);
+
+  return (
+    <div className="video-js-shell" data-vjs-player>
+      <div ref={containerRef} />
+    </div>
   );
 }
 
