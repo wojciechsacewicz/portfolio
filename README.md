@@ -1,6 +1,6 @@
 # sacewi.cz portfolio
 
-Personal portfolio for Wojciech Sacewicz.
+Personal portfolio for Wojciech Sacewicz, focused on AI-native development and fast internal-tool prototyping.
 
 ## Overview
 
@@ -8,7 +8,7 @@ The site is a Vite + React portfolio with restrained GSAP reveals, Lenis smooth 
 
 ## Pages
 
-- `/` - landing page with selected work and contact CTA
+- `/` - landing page with positioning, selected work and contact CTA
 - `/work` - code, automation, and video projects
 - `/about` - background and competencies
 - `/contact` - email, LinkedIn, and CV links
