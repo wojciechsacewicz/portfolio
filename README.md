@@ -1,14 +1,14 @@
 # sacewi.cz portfolio
 
-Motion-heavy personal portfolio for Wojciech Sacewicz.
+Personal portfolio for Wojciech Sacewicz.
 
 ## Overview
 
-The site is now a Vite + React portfolio with GSAP scroll motion, Lenis smooth scrolling, local bundled fonts, bilingual EN/PL copy, deep-linked work sections, and setup galleries.
+The site is a Vite + React portfolio with restrained GSAP reveals, Lenis smooth scrolling, local bundled fonts, bilingual EN/PL copy, deep-linked work sections, and setup galleries.
 
 ## Pages
 
-- `/` - kinetic landing page with selected work and contact CTA
+- `/` - landing page with selected work and contact CTA
 - `/work` - code, automation, and video projects
 - `/about` - background and competencies
 - `/contact` - email, LinkedIn, and CV links
@@ -19,7 +19,7 @@ The site is now a Vite + React portfolio with GSAP scroll motion, Lenis smooth s
 
 - bilingual UI with `localStorage` preference
 - `#3a566e` accent
-- GSAP reveal, pinned, horizontal-scroll, word-scrub, and card-stack motion
+- GSAP reveal and scroll progress motion
 - Lenis smooth scrolling
 - local Geist and JetBrains Mono fonts bundled into `build/`
 - reduced-motion fallback

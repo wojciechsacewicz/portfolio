@@ -28,7 +28,7 @@ const copy = {
     language: 'EN',
     heroKicker: 'Wojciech Sacewicz · Automation & AI Intern',
     heroTitle: 'Automatyzuję powtarzalną pracę.',
-    heroBody: 'UiPath, Make.com, MongoDB, REST API i webhooks. Najpierw rozumiem proces, potem tnę ręczną robotę.',
+    heroBody: 'Buduję małe automatyzacje i aplikacje, które zdejmują z ludzi powtarzalne klikanie: raporty, dane, formularze i integracje.',
     heroPrimary: 'Zobacz projekty',
     heroSecondary: 'Pobierz CV',
     proofRole: 'Idego',
@@ -39,30 +39,37 @@ const copy = {
     proofStackText: 'robot RPA i Document Understanding',
     proofLang: 'C1 English',
     proofLangText: 'praca po polsku i angielsku',
-    interestTitle: 'Rozbieram proces na części.',
-    interestBody: 'Najlepiej działam tam, gdzie ktoś codziennie klika to samo, poprawia dane albo przenosi informacje między systemami.',
-    desireTitle: 'Tak pracuję.',
-    desireBody: 'Mapa procesu, pierwszy działający flow, potem demo i handoff.',
-    stepOne: 'Mapa',
-    stepOneBody: 'As-is, to-be, właściciele, wyjątki.',
-    stepTwo: 'Automatyzacja',
-    stepTwoBody: 'Jeden użyteczny flow przed rozdmuchaniem zakresu.',
-    stepThree: 'Dowód',
-    stepThreeBody: 'Demo, dokumentacja i jasny wynik.',
+    interestTitle: 'Najpierw patrzę, gdzie ucieka czas.',
+    interestBody: 'Jeśli ktoś codziennie przekleja dane, poprawia raport albo przenosi informacje między systemami, zwykle da się z tego zrobić prostszy sposób pracy.',
+    desireTitle: 'Jak wygląda współpraca',
+    desireBody: 'Bierzemy jedno męczące zadanie, robię pierwszą wersję i sprawdzamy ją na prawdziwych danych.',
+    stepOne: 'Zadanie',
+    stepOneBody: 'Co się powtarza, kto tego używa i gdzie proces się wywraca.',
+    stepTwo: 'Pierwsza wersja',
+    stepTwoBody: 'Ma działać na jednym sensownym przypadku, zanim dopiszemy resztę.',
+    stepThree: 'Oddanie',
+    stepThreeBody: 'Demo, krótka instrukcja i jasne ograniczenia.',
     workTitle: 'Wybrane projekty',
-    workBody: 'Kod, automatyzacje i wideo. Każde z realnego zadania.',
-    stackTitle: 'Narzędzia, nie religia.',
-    aboutTitle: 'Computer Science + Econometrics, a po godzinach praktyczne systemy.',
-    aboutBody: 'Studiuję na Uniwersytecie Gdańskim. Łączę procesy, dane, low-code i trochę kreatywnej produkcji wideo.',
-    contactTitle: 'Masz proces, który wraca co tydzień?',
-    contactBody: 'Wyślij mi maila. Lubię zadania, w których trzeba zrozumieć pracę ludzi, a dopiero potem dobrać narzędzie.',
+    workBody: 'Kilka rzeczy z automatyzacji, danych i wideo.',
+    stackTitle: 'Mój zestaw narzędzi',
+    aboutTitle: 'Automatyzacje, dane i trochę wideo.',
+    aboutBody: 'Studiuję Informatykę i Ekonometrię na Uniwersytecie Gdańskim. W Idego pracuję przy automatyzacjach i lubię projekty, które łączą proces, dane i sensowny interfejs.',
+    aboutCurrentTitle: 'Teraz',
+    aboutCurrentBody: 'Idego · Automation & AI Intern · od kwietnia 2026',
+    aboutEducationTitle: 'Studia',
+    aboutEducationBody: 'Uniwersytet Gdański · Informatyka i Ekonometria · planowo 2027',
+    aboutDovistaTitle: 'DOVISTA',
+    aboutDovistaBody: 'Robot UiPath do raportów z SAP. Generowanie raportu krótsze o 40% i mniej powtarzalnego przepisywania danych.',
+    contactTitle: 'Robisz codziennie coś, co cię męczy?',
+    contactBody: 'Opisz mi proces. Jeśli automatyzacja albo mała aplikacja może go uprościć, pomogę ułożyć pierwszą wersję.',
     email: 'Email',
     linkedin: 'LinkedIn',
     github: 'GitHub',
-    workspaceTitle: 'Setup bez tarcia.',
-    workspaceBody: 'Biurko, skróty i tiling mają zniknąć z drogi.',
-    windowsTitle: 'Windows bez bałaganu.',
-    windowsBody: 'GlazeWM, Flow Launcher, Fences i Windhawk pod szybkie przełączanie.',
+    workspaceTitle: 'Mój setup',
+    workspaceBody: 'Biurko, sprzęt i skróty, których używam do pracy.',
+    workspaceLink: 'Zobacz setup',
+    windowsTitle: 'Mój Windows',
+    windowsBody: 'GlazeWM, Flow Launcher, Fences i Windhawk w praktycznym setupie.',
     footer: 'sacewi.cz · Gdańsk · automatyzacje, dane, RPA',
   },
   en: {
@@ -72,7 +79,7 @@ const copy = {
     language: 'PL',
     heroKicker: 'Wojciech Sacewicz · Automation & AI Intern',
     heroTitle: 'I automate repeat work.',
-    heroBody: 'UiPath, Make.com, MongoDB, REST APIs and webhooks. I map the work first, then remove the manual part.',
+    heroBody: 'I build small automations and apps that remove repetitive clicking: reports, data cleanup, forms and integrations.',
     heroPrimary: 'View work',
     heroSecondary: 'Download CV',
     proofRole: 'Idego',
@@ -83,30 +90,37 @@ const copy = {
     proofStackText: 'RPA robot and Document Understanding',
     proofLang: 'C1 English',
     proofLangText: 'Polish and English work',
-    interestTitle: 'I take processes apart.',
-    interestBody: 'Best fit: repeated clicks, messy data, and information moving between systems.',
-    desireTitle: 'How I work.',
-    desireBody: 'Map the process, ship one useful flow, then clean up the demo and handoff.',
-    stepOne: 'Map',
-    stepOneBody: 'As-is, to-be, owners, edge cases.',
-    stepTwo: 'Automate',
-    stepTwoBody: 'One useful path before the scope grows.',
-    stepThree: 'Prove',
-    stepThreeBody: 'Demo, documentation, clear result.',
+    interestTitle: 'I look for the work that wastes time.',
+    interestBody: 'If someone copies data, fixes a report, or moves information between tools every day, there is usually a simpler flow to build.',
+    desireTitle: 'How we can work',
+    desireBody: 'We pick one annoying task, I build a first version, and we test it on real data.',
+    stepOne: 'Task',
+    stepOneBody: 'What repeats, who uses it, and where the process breaks.',
+    stepTwo: 'First version',
+    stepTwoBody: 'One useful case should work before the scope grows.',
+    stepThree: 'Handoff',
+    stepThreeBody: 'Demo, short notes, and clear limits.',
     workTitle: 'Selected work',
-    workBody: 'Code, automation and video. Each came from a real task.',
-    stackTitle: 'Tools, not religion.',
-    aboutTitle: 'Computer Science + Econometrics, with practical systems after class.',
-    aboutBody: 'I study at the University of Gdańsk and work across process mapping, data, low-code and video explainers.',
-    contactTitle: 'Got a process that keeps coming back?',
-    contactBody: 'Send me an email. I like work where you need to understand the people before choosing the tool.',
+    workBody: 'A few things I have built across automation, data and video.',
+    stackTitle: 'My tools',
+    aboutTitle: 'Automation, data, and a bit of video.',
+    aboutBody: 'I study Computer Science and Econometrics at the University of Gdańsk. At Idego I work on automation, and I like projects that connect process, data, and a usable interface.',
+    aboutCurrentTitle: 'Now',
+    aboutCurrentBody: 'Idego · Automation & AI Intern · since April 2026',
+    aboutEducationTitle: 'Studies',
+    aboutEducationBody: 'University of Gdańsk · Computer Science and Econometrics · expected 2027',
+    aboutDovistaTitle: 'DOVISTA',
+    aboutDovistaBody: 'UiPath robot for SAP reports. 40% shorter report generation and fewer repeated data-entry errors.',
+    contactTitle: 'Do you do something annoying every day?',
+    contactBody: 'Send me the process. If automation or a small app can make it easier, I can help shape the first version.',
     email: 'Email',
     linkedin: 'LinkedIn',
     github: 'GitHub',
-    workspaceTitle: 'Low-friction setup.',
-    workspaceBody: 'Desk, shortcuts and tiling should get out of the way.',
-    windowsTitle: 'Windows without mess.',
-    windowsBody: 'GlazeWM, Flow Launcher, Fences and Windhawk for fast switching.',
+    workspaceTitle: 'My setup',
+    workspaceBody: 'Desk, gear, and shortcuts I use for daily work.',
+    workspaceLink: 'View setup',
+    windowsTitle: 'My Windows setup',
+    windowsBody: 'GlazeWM, Flow Launcher, Fences and Windhawk in my daily setup.',
     footer: 'sacewi.cz · Gdańsk · automation, data, RPA',
   },
 };
@@ -116,7 +130,10 @@ const projects = [
     id: 'gem-hunter',
     title: 'Gem Hunter',
     meta: 'Python · MongoDB · Gemini API',
-    body: 'Pipeline do zbierania ofert, parsowania szczegółów i sprawdzania dopasowania do CV.',
+    body: {
+      pl: 'Pipeline do zbierania ofert, parsowania szczegółów i sprawdzania dopasowania do CV.',
+      en: 'Pipeline for collecting offers, parsing details, and checking fit against a CV.',
+    },
     href: 'https://github.com/wojciechsacewicz/Gem-Hunter',
     visual: '/assets/mySetup2.jpg',
     scale: 'large',
@@ -125,7 +142,10 @@ const projects = [
     id: 'notification-system',
     title: 'Smart Notifications',
     meta: 'Make.com · Weather API · Calendar · Discord',
-    body: 'Osobiste powiadomienia z webhookami, JSON-em i codziennym kontekstem.',
+    body: {
+      pl: 'Osobiste powiadomienia z webhookami, JSON-em i codziennym kontekstem.',
+      en: 'Personal notifications built with webhooks, JSON, and daily context.',
+    },
     href: 'https://github.com/wojciechsacewicz/smart-notification-system',
     visual: '/assets/flow launcher.png',
     scale: 'medium',
@@ -134,7 +154,10 @@ const projects = [
     id: 'dovista-rpa-animation',
     title: 'DOVISTA RPA explainer',
     meta: 'UiPath · SAP · video handoff',
-    body: 'Wideo tłumaczące proces RPA bez wysyłania ludzi do technicznej dokumentacji.',
+    body: {
+      pl: 'Wideo tłumaczące proces RPA bez wysyłania ludzi do technicznej dokumentacji.',
+      en: 'Video explaining an RPA process without sending people into technical docs.',
+    },
     video: '/assets/businessAnimationCutForPortfolio.mp4',
     poster: '/assets/dovista-poster.jpg',
     scale: 'wide',
@@ -143,7 +166,10 @@ const projects = [
     id: 'cyberwizja',
     title: 'CyberWizja',
     meta: 'Zwolnieni z Teorii finalist',
-    body: 'Edukacyjna kampania o bezpieczeństwie w sieci. Prowadziłem wideo i grafiki.',
+    body: {
+      pl: 'Edukacyjna kampania o bezpieczeństwie w sieci. Prowadziłem wideo i grafiki.',
+      en: 'Educational campaign about online safety. I handled video and graphics.',
+    },
     video: '/assets/cyberwizjaIntro.mp4',
     poster: '/assets/cyberwizja-poster.jpg',
     href: 'https://www.tiktok.com/@cyberwizja',
@@ -151,12 +177,20 @@ const projects = [
   },
 ];
 
-const stacks = [
-  ['Automation', 'UiPath Studio, n8n, Make.com'],
-  ['Data + integration', 'MongoDB, JSON, REST APIs, webhooks, SQL basics'],
-  ['Process', 'as-is / to-be mapping, BPMN, UML, documentation'],
-  ['Creative', 'DaVinci Resolve, Adobe Creative Cloud, short explainers'],
-];
+const stacks = {
+  pl: [
+    ['Automatyzacja', 'UiPath Studio, n8n, Make.com'],
+    ['Dane i integracje', 'MongoDB, JSON, REST API, webhooks, podstawy SQL'],
+    ['Proces', 'mapy as-is / to-be, BPMN, UML, dokumentacja'],
+    ['Wideo i grafika', 'DaVinci Resolve, Adobe Creative Cloud, krótkie explainery'],
+  ],
+  en: [
+    ['Automation', 'UiPath Studio, n8n, Make.com'],
+    ['Data + integration', 'MongoDB, JSON, REST APIs, webhooks, SQL basics'],
+    ['Process', 'as-is / to-be mapping, BPMN, UML, documentation'],
+    ['Video + design', 'DaVinci Resolve, Adobe Creative Cloud, short explainers'],
+  ],
+};
 
 const workspaceImages = [
   ['/assets/mySetup1.jpg', 'desk setup, front angle'],
@@ -187,25 +221,6 @@ function App() {
   }, [lang]);
 
   useEffect(() => {
-    let frame = 0;
-
-    const onPointerMove = (event) => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        document.documentElement.style.setProperty('--mx', `${event.clientX}px`);
-        document.documentElement.style.setProperty('--my', `${event.clientY}px`);
-      });
-    };
-
-    window.addEventListener('pointermove', onPointerMove);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener('pointermove', onPointerMove);
-    };
-  }, []);
-
-  useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
 
     const lenis = new Lenis({
@@ -232,8 +247,6 @@ function App() {
   useGSAP(
     () => {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
-
-      const mm = gsap.matchMedia();
 
       gsap.from('[data-hero-copy] > *', {
         y: 42,
@@ -276,26 +289,6 @@ function App() {
         });
       });
 
-      gsap.utils.toArray('[data-word-reveal]').forEach((el) => {
-        const words = el.textContent.trim().split(/\s+/);
-        el.innerHTML = words.map((word) => `<span>${word}</span>`).join(' ');
-        gsap.fromTo(
-          el.querySelectorAll('span'),
-          { opacity: 0.16, y: 16 },
-          {
-            opacity: 1,
-            y: 0,
-            stagger: 0.08,
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 72%',
-              end: 'bottom 42%',
-              scrub: 0.7,
-            },
-          },
-        );
-      });
-
       if (shell.current.querySelector('[data-hero]') && shell.current.querySelector('[data-hero-media]')) {
         gsap.to('[data-hero-media]', {
           yPercent: 14,
@@ -308,49 +301,18 @@ function App() {
           },
         });
       }
-
-      mm.add('(min-width: 940px)', () => {
-        if (shell.current.querySelector('[data-work-motion]') && shell.current.querySelector('[data-lane]')) {
-          gsap.to('[data-lane]', {
-            xPercent: -42,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: '[data-work-motion]',
-              start: 'top top',
-              end: '+=1700',
-              pin: true,
-              scrub: 1,
-            },
-          });
-        }
-
-        gsap.utils.toArray('[data-stack-card]').forEach((card, index) => {
-          gsap.to(card, {
-            y: index * -28,
-            scale: 1 - index * 0.025,
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 68%',
-              end: 'bottom 28%',
-              scrub: true,
-            },
-          });
-        });
-      });
-
-      return () => mm.revert();
     },
     { scope: shell, dependencies: [page, lang], revertOnUpdate: true },
   );
 
   const content = useMemo(() => {
-    if (page === 'work') return <WorkPage t={t} />;
+    if (page === 'work') return <WorkPage t={t} lang={lang} />;
     if (page === 'about') return <AboutPage t={t} setLightbox={setLightbox} />;
     if (page === 'contact') return <ContactPage t={t} />;
     if (page === 'workspace') return <GalleryPage title={t.workspaceTitle} body={t.workspaceBody} images={workspaceImages} setLightbox={setLightbox} />;
     if (page === 'windows') return <GalleryPage title={t.windowsTitle} body={t.windowsBody} images={windowsImages} setLightbox={setLightbox} />;
-    return <HomePage t={t} setLightbox={setLightbox} />;
-  }, [page, t]);
+    return <HomePage t={t} lang={lang} setLightbox={setLightbox} />;
+  }, [page, t, lang]);
 
   return (
     <div ref={shell} className="site-shell">
@@ -384,7 +346,7 @@ function Header({ lang, setLang, t }) {
   );
 }
 
-function HomePage({ t, setLightbox }) {
+function HomePage({ t, lang, setLightbox }) {
   return (
     <>
       <section className="hero" data-hero>
@@ -420,14 +382,14 @@ function HomePage({ t, setLightbox }) {
 
       <section className="statement chapter">
         <div>
-          <h2 data-word-reveal>{t.interestTitle}</h2>
+          <h2 data-reveal>{t.interestTitle}</h2>
         </div>
         <p data-reveal>{t.interestBody}</p>
       </section>
 
-      <WorkMotion t={t} />
+      <WorkMotion t={t} lang={lang} />
       <ProcessSection t={t} />
-      <StackSection t={t} />
+      <StackSection t={t} lang={lang} />
       <WorkspacePreview t={t} setLightbox={setLightbox} />
       <ContactBand t={t} />
     </>
@@ -454,7 +416,7 @@ function ProofStrip({ t }) {
   );
 }
 
-function WorkMotion({ t }) {
+function WorkMotion({ t, lang }) {
   return (
     <section className="work-motion" data-work-motion>
       <div className="motion-heading">
@@ -463,14 +425,16 @@ function WorkMotion({ t }) {
       </div>
       <div className="motion-lane" data-lane>
         {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
+          <ProjectCard key={project.id} project={project} lang={lang} />
         ))}
       </div>
     </section>
   );
 }
 
-function ProjectCard({ project }) {
+function ProjectCard({ project, lang }) {
+  const body = typeof project.body === 'string' ? project.body : project.body[lang] || project.body.pl;
+
   const content = (
     <article className={`project-tile ${project.scale}`} data-reveal>
       <div className="project-media">
@@ -479,7 +443,7 @@ function ProjectCard({ project }) {
       <div className="project-copy">
         <span>{project.meta}</span>
         <h3>{project.title}</h3>
-        <p>{project.body}</p>
+        <p>{body}</p>
       </div>
     </article>
   );
@@ -487,7 +451,7 @@ function ProjectCard({ project }) {
   if (!project.href) return content;
 
   return (
-    <a className="project-link-wrap" href={project.href} target="_blank" rel="noreferrer">
+    <a className={`project-link-wrap ${project.scale}`} href={project.href} target="_blank" rel="noreferrer">
       {content}
     </a>
   );
@@ -508,7 +472,7 @@ function ProcessSection({ t }) {
       </div>
       <div className="stack-cards">
         {steps.map(([title, body], index) => (
-          <article key={title} data-stack-card>
+          <article key={title} data-reveal>
             <span>{String(index + 1).padStart(2, '0')}</span>
             <h3>{title}</h3>
             <p>{body}</p>
@@ -519,14 +483,14 @@ function ProcessSection({ t }) {
   );
 }
 
-function StackSection({ t }) {
+function StackSection({ t, lang }) {
   return (
     <section className="stack-section chapter">
       <div data-reveal>
         <h2>{t.stackTitle}</h2>
       </div>
       <div className="stack-grid">
-        {stacks.map(([title, body]) => (
+        {stacks[lang].map(([title, body]) => (
           <article key={title} data-reveal>
             <h3>{title}</h3>
             <p>{body}</p>
@@ -544,7 +508,7 @@ function WorkspacePreview({ t, setLightbox }) {
         <h2>{t.workspaceTitle}</h2>
         <p>{t.workspaceBody}</p>
         <a className="text-action" href="/about/workspace">
-          Open workspace
+          {t.workspaceLink}
         </a>
       </div>
       <div className="image-stack">
@@ -577,12 +541,12 @@ function ContactBand({ t }) {
   );
 }
 
-function WorkPage({ t }) {
+function WorkPage({ t, lang }) {
   return (
     <PageShell title={t.workTitle} body={t.workBody}>
       <div className="work-grid">
         {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
+          <ProjectCard key={project.id} project={project} lang={lang} />
         ))}
       </div>
       <section className="video-detail" id="dovista-rpa-animation">
@@ -611,16 +575,16 @@ function AboutPage({ t, setLightbox }) {
     <PageShell title={t.aboutTitle} body={t.aboutBody}>
       <section className="about-grid">
         <article data-reveal>
-          <h2>Current</h2>
-          <p>Idego · Automation & AI Intern · Apr 2026 - Present</p>
+          <h2>{t.aboutCurrentTitle}</h2>
+          <p>{t.aboutCurrentBody}</p>
         </article>
         <article data-reveal>
-          <h2>Education</h2>
-          <p>University of Gdańsk · Computer Science and Econometrics · expected 2027</p>
+          <h2>{t.aboutEducationTitle}</h2>
+          <p>{t.aboutEducationBody}</p>
         </article>
         <article data-reveal>
-          <h2>DOVISTA</h2>
-          <p>UiPath robot for SAP report workflows. 40% shorter report generation and fewer recurring manual data-entry errors.</p>
+          <h2>{t.aboutDovistaTitle}</h2>
+          <p>{t.aboutDovistaBody}</p>
         </article>
       </section>
       <WorkspacePreview t={t} setLightbox={setLightbox} />
