@@ -605,7 +605,12 @@ function AboutPage({ t, setLightbox }) {
 
 function ContactPage({ t }) {
   return (
-    <PageShell title={t.contactTitle} body={t.contactBody} pageClass="contact-page">
+    <PageShell
+      title={t.contactTitle}
+      body={t.contactBody}
+      pageClass="contact-page"
+      heroAction={{ label: t.contactCta, href: 'mailto:wojciechsacewicz@outlook.com' }}
+    >
       <section className="contact-grid contact-showcase">
         <a className="contact-card mail-card" href="mailto:wojciechsacewicz@outlook.com" data-reveal>
           <span className="contact-icon" aria-hidden="true">
@@ -663,12 +668,19 @@ function GalleryPage({ title, body, images, setLightbox }) {
   );
 }
 
-function PageShell({ title, body, children, pageClass = '' }) {
+function PageShell({ title, body, children, pageClass = '', heroAction = null }) {
   return (
     <section className={['page-shell', pageClass].filter(Boolean).join(' ')}>
       <header className="page-hero" data-hero-copy>
         <h1>{title}</h1>
         <p>{body}</p>
+        {heroAction && (
+          <div className="button-row page-hero-actions">
+            <a className="button primary" href={heroAction.href}>
+              {heroAction.label}
+            </a>
+          </div>
+        )}
       </header>
       {children}
     </section>
