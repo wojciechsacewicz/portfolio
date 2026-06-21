@@ -1053,6 +1053,509 @@ p {
   gap: 1rem;
 }
 
+.veldia-page {
+  --veldia-bg: #07100e;
+  --veldia-bg-soft: #0d1713;
+  --veldia-panel: rgba(16, 28, 23, 0.82);
+  --veldia-panel-strong: #15241d;
+  --veldia-text: #eef7f0;
+  --veldia-muted: rgba(238, 247, 240, 0.8);
+  --veldia-faint: rgba(238, 247, 240, 0.58);
+  --veldia-line: rgba(218, 236, 224, 0.15);
+  --veldia-line-strong: rgba(218, 236, 224, 0.28);
+  --veldia-accent: #7fb184;
+  --veldia-accent-strong: #9bc98f;
+  --veldia-shop: #d19a6a;
+  --veldia-alert: #c66f58;
+  color: var(--veldia-text);
+  background:
+    radial-gradient(circle at 18% 10%, rgba(127, 177, 132, 0.22), transparent 28rem),
+    radial-gradient(circle at 88% 18%, rgba(209, 154, 106, 0.16), transparent 24rem),
+    linear-gradient(180deg, var(--veldia-bg), var(--veldia-bg-soft) 48%, var(--veldia-bg));
+}
+
+.veldia-page .button,
+.veldia-page .text-action {
+  border-radius: 8px;
+}
+
+.veldia-page .button.primary {
+  border-color: color-mix(in srgb, var(--veldia-accent-strong) 54%, var(--veldia-accent));
+  background: #628f68;
+  color: #f7fff8;
+}
+
+.veldia-page .button.ghost {
+  border-color: var(--veldia-line);
+  background: rgba(238, 247, 240, 0.05);
+}
+
+.veldia-hero {
+  width: var(--container);
+  min-height: 88dvh;
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+  margin: 0 auto;
+  padding: 6.3rem 0 2.5rem;
+}
+
+.veldia-hero-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.veldia-kicker {
+  max-width: 34ch;
+  margin-bottom: 0.95rem;
+  color: var(--veldia-accent-strong);
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+}
+
+.veldia-hero h1 {
+  max-width: 7ch;
+  margin-bottom: 1rem;
+  color: var(--veldia-text);
+  font-size: clamp(4.4rem, 10vw, 7.6rem);
+  line-height: 0.9;
+}
+
+.veldia-hero-copy > p:not(.veldia-kicker) {
+  max-width: 40ch;
+  color: var(--veldia-muted);
+}
+
+.veldia-actions {
+  margin-top: 1.35rem;
+}
+
+.veldia-product-scene {
+  position: relative;
+  min-height: 560px;
+  isolation: isolate;
+}
+
+.veldia-product-scene::before {
+  content: "";
+  position: absolute;
+  inset: 9% 4% 7%;
+  z-index: -1;
+  border: 1px solid var(--veldia-line);
+  border-radius: 8px;
+  background:
+    linear-gradient(rgba(238, 247, 240, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(238, 247, 240, 0.045) 1px, transparent 1px),
+    rgba(9, 18, 15, 0.36);
+  background-size: 38px 38px;
+}
+
+.veldia-board,
+.veldia-phone,
+.veldia-assist,
+.veldia-owner-chip,
+.veldia-comparison article,
+.veldia-flow-grid > article,
+.veldia-role-card,
+.veldia-role-list article,
+.veldia-module-grid article,
+.veldia-architecture,
+.veldia-cta {
+  border: 1px solid var(--veldia-line);
+  border-radius: 8px;
+  background: var(--veldia-panel);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.veldia-board {
+  width: min(100%, 720px);
+  margin-left: auto;
+  padding: 1rem;
+}
+
+.veldia-board-head,
+.veldia-phone-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.veldia-mark {
+  width: 42px;
+  height: 42px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--veldia-accent);
+  color: #08100c;
+  font-weight: 800;
+}
+
+.veldia-board-head strong,
+.veldia-phone-bar strong {
+  display: block;
+  color: var(--veldia-text);
+  line-height: 1.1;
+}
+
+.veldia-board-head span:not(.veldia-mark),
+.veldia-phone-bar span,
+.veldia-assist span,
+.veldia-owner-chip span,
+.veldia-module-grid article > span {
+  color: var(--veldia-faint);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.veldia-week-grid {
+  display: grid;
+  grid-template-columns: minmax(76px, 1fr) repeat(4, minmax(74px, 1fr));
+  gap: 0.45rem;
+}
+
+.veldia-week-grid > * {
+  min-height: 48px;
+  display: grid;
+  align-items: center;
+  border: 1px solid rgba(218, 236, 224, 0.11);
+  border-radius: 8px;
+  background: rgba(238, 247, 240, 0.045);
+  padding: 0.64rem;
+  color: var(--veldia-muted);
+  font-size: 0.9rem;
+}
+
+.veldia-week-grid > strong {
+  color: var(--veldia-text);
+  font-size: 0.82rem;
+}
+
+.veldia-week-grid .veldia-person {
+  background: rgba(127, 177, 132, 0.11);
+  color: var(--veldia-accent-strong);
+}
+
+.veldia-week-grid .is-off {
+  color: var(--veldia-faint);
+  background: rgba(198, 111, 88, 0.09);
+}
+
+.veldia-phone {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: min(44%, 270px);
+  padding: 0.8rem;
+  background:
+    linear-gradient(180deg, rgba(21, 36, 29, 0.94), rgba(8, 16, 13, 0.96)),
+    var(--veldia-panel-strong);
+}
+
+.veldia-phone-bar span {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--veldia-shop);
+}
+
+.veldia-phone-shift,
+.veldia-phone-message {
+  border-radius: 8px;
+  background: rgba(238, 247, 240, 0.055);
+  padding: 0.9rem;
+}
+
+.veldia-phone-shift {
+  margin-bottom: 0.6rem;
+}
+
+.veldia-phone-shift span {
+  color: var(--veldia-accent-strong);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+}
+
+.veldia-phone-shift strong,
+.veldia-phone-message strong,
+.veldia-assist strong,
+.veldia-owner-chip strong {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--veldia-text);
+}
+
+.veldia-phone-shift p,
+.veldia-phone-message p,
+.veldia-assist p {
+  margin: 0.35rem 0 0;
+  color: var(--veldia-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.veldia-assist {
+  position: absolute;
+  left: 3%;
+  bottom: 12%;
+  width: min(42%, 300px);
+  padding: 1rem;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(127, 177, 132, 0.18), transparent 10rem),
+    var(--veldia-panel);
+}
+
+.veldia-owner-chip {
+  position: absolute;
+  right: 9%;
+  top: 4%;
+  width: min(48%, 380px);
+  padding: 0.8rem 1rem;
+}
+
+.veldia-section-copy {
+  max-width: 720px;
+}
+
+.veldia-section-copy h2,
+.veldia-role-card h2,
+.veldia-architecture h2,
+.veldia-cta h2 {
+  max-width: 16ch;
+  color: var(--veldia-text);
+}
+
+.veldia-section-copy p,
+.veldia-role-card p,
+.veldia-architecture p,
+.veldia-cta p {
+  max-width: 62ch;
+  color: var(--veldia-muted);
+}
+
+.veldia-problem {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.veldia-comparison {
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: 1rem;
+}
+
+.veldia-comparison article {
+  min-height: 320px;
+  padding: 1.2rem;
+}
+
+.veldia-comparison article:not(.is-muted) {
+  border-color: color-mix(in srgb, var(--veldia-accent) 46%, transparent);
+  background:
+    linear-gradient(145deg, rgba(127, 177, 132, 0.13), rgba(238, 247, 240, 0.035)),
+    var(--veldia-panel);
+}
+
+.veldia-comparison .is-muted {
+  background: rgba(238, 247, 240, 0.038);
+}
+
+.veldia-comparison ul {
+  display: grid;
+  gap: 0.7rem;
+  margin: 1.2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.veldia-comparison li {
+  border-radius: 8px;
+  background: rgba(238, 247, 240, 0.055);
+  padding: 0.85rem;
+  color: var(--veldia-muted);
+}
+
+.veldia-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(2rem, 5vw, 4rem);
+}
+
+.veldia-flow-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.veldia-flow-grid > article {
+  padding: 1.2rem;
+}
+
+.veldia-flow-grid > article > div {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.veldia-flow-grid section {
+  border-left: 2px solid var(--veldia-accent);
+  padding-left: 0.85rem;
+}
+
+.veldia-flow-grid section p {
+  margin-bottom: 0;
+  color: var(--veldia-muted);
+  font-size: 0.96rem;
+  line-height: 1.48;
+}
+
+.veldia-roles {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 1rem;
+}
+
+.veldia-role-card {
+  min-height: 430px;
+  display: grid;
+  align-content: space-between;
+  padding: 1.4rem;
+  background:
+    radial-gradient(circle at 80% 16%, rgba(209, 154, 106, 0.16), transparent 16rem),
+    var(--veldia-panel);
+}
+
+.veldia-domain-line {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin-top: 2rem;
+}
+
+.veldia-domain-line span {
+  position: relative;
+  min-height: 74px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--veldia-line);
+  border-radius: 8px;
+  background: rgba(238, 247, 240, 0.055);
+  color: var(--veldia-text);
+  font-weight: 700;
+  text-align: center;
+}
+
+.veldia-domain-line span:not(:last-child)::after {
+  content: "->";
+  position: absolute;
+  right: -0.55rem;
+  color: var(--veldia-accent-strong);
+  font-family: var(--font-mono);
+}
+
+.veldia-role-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.veldia-role-list article {
+  padding: 1rem;
+}
+
+.veldia-role-list strong {
+  color: var(--veldia-accent-strong);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.veldia-role-list p {
+  margin: 0.45rem 0 0;
+  color: var(--veldia-muted);
+  font-size: 0.96rem;
+}
+
+.veldia-module-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.veldia-module-grid article {
+  min-height: 210px;
+  grid-column: span 3;
+  display: grid;
+  align-content: space-between;
+  padding: 1.1rem;
+}
+
+.veldia-module-grid article:nth-child(2),
+.veldia-module-grid article:nth-child(3),
+.veldia-module-grid article:nth-child(7),
+.veldia-module-grid article:nth-child(8) {
+  grid-column: span 3;
+}
+
+.veldia-module-grid article.is-featured {
+  grid-column: span 6;
+  background:
+    linear-gradient(145deg, rgba(127, 177, 132, 0.15), rgba(209, 154, 106, 0.08)),
+    var(--veldia-panel);
+}
+
+.veldia-module-grid h3 {
+  margin-bottom: 0.5rem;
+}
+
+.veldia-module-grid p {
+  margin-bottom: 0;
+  color: var(--veldia-muted);
+  font-size: 0.96rem;
+}
+
+.veldia-architecture,
+.veldia-cta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2rem;
+  align-items: end;
+  padding: clamp(1.2rem, 3vw, 2rem);
+}
+
+.veldia-architecture {
+  background:
+    linear-gradient(135deg, rgba(127, 177, 132, 0.11), rgba(238, 247, 240, 0.025)),
+    var(--veldia-panel);
+}
+
+.veldia-architecture h2,
+.veldia-cta h2 {
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+}
+
+.veldia-architecture-notes {
+  min-width: min(360px, 36vw);
+  display: grid;
+  gap: 0.6rem;
+}
+
+.veldia-architecture-notes span {
+  border: 1px solid var(--veldia-line);
+  border-radius: 8px;
+  background: rgba(238, 247, 240, 0.055);
+  padding: 0.8rem;
+  color: var(--veldia-muted);
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+}
+
+.veldia-cta {
+  margin-bottom: 2rem;
+}
+
 @keyframes cell-glow {
   0%,
   100% {
@@ -1360,5 +1863,167 @@ p {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.001ms !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .veldia-hero,
+  .veldia-problem,
+  .veldia-flow,
+  .veldia-roles,
+  .veldia-architecture,
+  .veldia-cta {
+    grid-template-columns: 1fr;
+  }
+
+  .veldia-hero {
+    min-height: auto;
+    padding-top: 6.3rem;
+  }
+
+  .veldia-product-scene {
+    min-height: 520px;
+  }
+
+  .veldia-board {
+    margin-left: 0;
+  }
+
+  .veldia-architecture-notes {
+    min-width: 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .veldia-comparison,
+  .veldia-flow-grid,
+  .veldia-domain-line,
+  .veldia-architecture-notes {
+    grid-template-columns: 1fr;
+  }
+
+  .veldia-domain-line span:not(:last-child)::after {
+    content: "";
+    right: auto;
+    bottom: -0.55rem;
+    width: 2px;
+    height: 0.55rem;
+    background: var(--veldia-accent);
+  }
+
+  .veldia-module-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .veldia-module-grid article,
+  .veldia-module-grid article:nth-child(2),
+  .veldia-module-grid article:nth-child(3),
+  .veldia-module-grid article:nth-child(7),
+  .veldia-module-grid article:nth-child(8),
+  .veldia-module-grid article.is-featured {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .veldia-page .chapter {
+    padding: 3.25rem 0;
+  }
+
+  .veldia-hero {
+    gap: 1.35rem;
+    padding: 5.8rem 0 2.2rem;
+  }
+
+  .veldia-kicker {
+    font-size: 0.76rem;
+  }
+
+  .veldia-hero h1 {
+    max-width: 100%;
+    margin-bottom: 0.8rem;
+    font-size: clamp(3.1rem, 17vw, 4.45rem);
+    line-height: 0.9;
+  }
+
+  .veldia-hero-copy > p:not(.veldia-kicker) {
+    max-width: 100%;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .veldia-product-scene {
+    min-height: auto;
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .veldia-product-scene::before {
+    inset: 0;
+  }
+
+  .veldia-board,
+  .veldia-phone,
+  .veldia-assist,
+  .veldia-owner-chip {
+    position: static;
+    width: 100%;
+  }
+
+  .veldia-board {
+    overflow-x: auto;
+    padding: 0.75rem;
+  }
+
+  .veldia-week-grid {
+    min-width: 540px;
+  }
+
+  .veldia-phone {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .veldia-section-copy h2,
+  .veldia-role-card h2,
+  .veldia-architecture h2,
+  .veldia-cta h2 {
+    max-width: 100%;
+    font-size: clamp(2rem, 9vw, 2.6rem);
+  }
+
+  .veldia-comparison article,
+  .veldia-flow-grid > article,
+  .veldia-role-card,
+  .veldia-role-list article,
+  .veldia-module-grid article,
+  .veldia-architecture,
+  .veldia-cta {
+    padding: 1rem;
+  }
+
+  .veldia-role-card {
+    min-height: auto;
+  }
+
+  .veldia-module-grid {
+    grid-template-columns: 1fr;
+    margin-top: 1.25rem;
+  }
+
+  .veldia-module-grid article {
+    min-height: 170px;
+  }
+}
+
+@media (max-width: 520px) {
+  .veldia-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .veldia-actions .button {
+    width: 100%;
   }
 }

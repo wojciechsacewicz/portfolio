@@ -8,6 +8,7 @@ const page = (path) => fileURLToPath(new URL(`./app/${path}`, import.meta.url));
 const projectRoot = fileURLToPath(new URL('.', import.meta.url));
 const assetsRoot = resolve(projectRoot, 'assets');
 const outDir = resolve(projectRoot, 'dist');
+const directoryPages = new Set(['/work', '/about', '/contact', '/veldia', '/about/workspace', '/about/windows']);
 
 const mimeTypes = {
   '.avif': 'image/avif',
@@ -28,10 +29,26 @@ const mimeTypes = {
 };
 
 function portfolioStaticFiles() {
+  const redirectDirectoryPage = (req, res) => {
+    if (!req.url) return false;
+
+    const url = new URL(req.url, 'http://localhost');
+    if (!directoryPages.has(url.pathname)) return false;
+
+    res.statusCode = 308;
+    res.setHeader('Location', `${url.pathname}/${url.search}${url.hash}`);
+    res.end();
+    return true;
+  };
+
   return {
     name: 'portfolio-static-files',
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
+        if (redirectDirectoryPage(req, res)) {
+          return;
+        }
+
         if (!req.url?.startsWith('/assets/')) {
           next();
           return;
@@ -47,6 +64,15 @@ function portfolioStaticFiles() {
 
         res.setHeader('Content-Type', mimeTypes[extname(filePath)] || 'application/octet-stream');
         createReadStream(filePath).pipe(res);
+      });
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use((req, res, next) => {
+        if (redirectDirectoryPage(req, res)) {
+          return;
+        }
+
+        next();
       });
     },
     closeBundle() {
@@ -76,6 +102,7 @@ export default defineConfig({
         work: page('work/index.html'),
         about: page('about/index.html'),
         contact: page('contact/index.html'),
+        veldia: page('veldia/index.html'),
         workspace: page('about/workspace/index.html'),
         windows: page('about/windows/index.html'),
       },

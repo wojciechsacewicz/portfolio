@@ -10,6 +10,7 @@ The site is a Vite + React portfolio with restrained GSAP reveals, native browse
 
 - `/` - landing page with positioning, selected work and contact CTA
 - `/work` - code, automation, and video projects
+- `/veldia` - Veldia product teaser and SaaS landing page
 - `/about` - background and competencies
 - `/contact` - email, LinkedIn, and GitHub links
 - `/about/workspace` - workspace gallery

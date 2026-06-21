@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -11,6 +11,7 @@ const routes = {
   '/work': 'work',
   '/about': 'about',
   '/contact': 'contact',
+  '/veldia': 'veldia',
   '/about/workspace': 'workspace',
   '/about/windows': 'windows',
 };
@@ -27,6 +28,7 @@ const copy = {
     navContact: 'Kontakt',
     navOpen: 'Otwórz menu',
     navClose: 'Zamknij menu',
+    skipContent: 'Przejdź do treści',
     language: 'EN',
     heroKicker: 'Wojciech Sacewicz · AI Native Developer',
     heroTitle: 'Zamieniam pomysły w działające narzędzia.',
@@ -91,6 +93,7 @@ const copy = {
     navContact: 'Contact',
     navOpen: 'Open menu',
     navClose: 'Close menu',
+    skipContent: 'Skip to content',
     language: 'PL',
     heroKicker: 'Wojciech Sacewicz · AI Native Developer',
     heroTitle: 'I turn ideas into working tools.',
@@ -264,6 +267,135 @@ const videoSources = {
   ],
 };
 
+const veldiaCopy = {
+  pl: {
+    eyebrow: 'Mobile-first SaaS/PWA dla zespołów zmianowych',
+    heroTitle: 'Veldia',
+    heroBody: 'Grafik, dyspozycyjność, zastępstwa i godziny pracy dla sklepów oraz zespołów zmianowych.',
+    primaryCta: 'Napisz o demo',
+    secondaryCta: 'Wróć do portfolio',
+    previewLabel: 'Podgląd interfejsu Veldii',
+    storeName: 'Sklep Wrzeszcz',
+    weekLabel: 'Tydzień',
+    aiAssist: 'AI schedule assist',
+    aiAssistBody: 'Ułożył szkic po dyspozycyjności i limitach godzin.',
+    smsClaim: 'SMS claim',
+    smsClaimBody: 'Pracownik potwierdza dostęp przez telefon.',
+    staffTitle: 'Zespół',
+    ownerTitle: 'Owner',
+    problemTitle: 'Dla biznesów, gdzie grafik żyje cały tydzień.',
+    problemBody: 'Veldia celuje w sklepy, kawiarnie, punkty usługowe i małe sieci, które potrzebują porządku bez ciężkiego systemu HR.',
+    todayTitle: 'Excel i WhatsApp',
+    todayItems: ['grafik krąży w kilku wersjach', 'dyspozycyjność ginie w wiadomościach', 'zastępstwa nie mają jasnego właściciela'],
+    veldiaTitle: 'Veldia',
+    veldiaItems: ['jeden grafik na telefonie', 'wnioski o wolne i zamiany przy zmianie', 'godziny pracy spięte z rolą i sklepem'],
+    flowTitle: 'Start właściciela, dostęp pracownika.',
+    flowBody: 'Produkt rozdziela billing, lokalizację i role. Dzięki temu jeden SaaS może obsługiwać wiele biznesów bez osobnych wdrożeń.',
+    ownerFlowTitle: 'Owner flow',
+    ownerFlow: [
+      ['Konto', 'właściciel zakłada profil i biznes'],
+      ['Pierwszy sklep', 'dodaje lokalizację, kolor i moduły'],
+      ['Onboarding', 'wybiera typ biznesu i potrzeby grafiku'],
+      ['Trial', 'uruchamia okres próbny i Stripe Billing'],
+    ],
+    staffFlowTitle: 'Staff flow',
+    staffFlow: [
+      ['SMS', 'pracownik odbiera zaproszenie na telefon'],
+      ['Phone OTP', 'potwierdza tożsamość bez fake emaila'],
+      ['Grafik', 'widzi zmiany, dyspozycyjność i wolne'],
+      ['Zespół', 'pisze do managera i bierze zastępstwa'],
+    ],
+    roleTitle: 'Role są domenowe, nie kosmetyczne.',
+    roleBody: 'Business opłaca usługę, Store reprezentuje lokalizację, Membership łączy użytkownika z rolą i zakresem dostępu.',
+    roles: [
+      ['business_owner', 'billing, biznes, właściciele sklepów'],
+      ['store_owner', 'lokalizacja, zespół, moduły sklepu'],
+      ['manager', 'grafik, zastępstwa, komunikacja'],
+      ['scheduler', 'planowanie zmian i dyspozycyjność'],
+      ['staff', 'telefon, zmiany, wolne, wiadomości'],
+    ],
+    modulesTitle: 'Moduły, które mają robić codzienną robotę.',
+    modules: [
+      ['Grafik', 'tygodniowy i miesięczny widok zmian'],
+      ['Dyspozycyjność', 'pracownik zgłasza, kiedy może pracować'],
+      ['Wolne i zastępstwa', 'prośby, akceptacje i czytelny status'],
+      ['Ewidencja godzin', 'praca przy zmianie, sklepie i roli'],
+      ['Team messaging', 'wiadomości tam, gdzie jest grafik'],
+      ['AI assist', 'propozycje planu bez ręcznego układania od zera'],
+      ['Brand sklepu', 'kolor i nazwa lokalizacji w UI'],
+      ['Trial i billing', 'docelowo Stripe Billing w jednym deploymentcie'],
+    ],
+    architectureTitle: 'Jeden SaaS, wiele biznesów.',
+    architectureBody: 'Docelowa architektura nie zakłada osobnego deploymentu per sklep. Granica produktu to Business -> Store -> Membership, z tenant-scoped dostępem i billingiem na poziomie biznesu.',
+    architectureNotes: ['multi-tenant deployment', 'phone-first staff access', 'Stripe Billing po trialu'],
+    ctaTitle: 'Veldia ma być produktem, nie kolejnym arkuszem.',
+    ctaBody: 'Landing pokazuje kierunek produktu i case w portfolio. Demo lub rozmowa może zejść do owner flow, ról i modułów.',
+  },
+  en: {
+    eyebrow: 'Mobile-first SaaS/PWA for shift teams',
+    heroTitle: 'Veldia',
+    heroBody: 'Scheduling, availability, cover shifts and time records for shops and shift-based teams.',
+    primaryCta: 'Ask for demo',
+    secondaryCta: 'Back to portfolio',
+    previewLabel: 'Veldia interface preview',
+    storeName: 'Wrzeszcz store',
+    weekLabel: 'Week',
+    aiAssist: 'AI schedule assist',
+    aiAssistBody: 'Drafted shifts from availability and hour limits.',
+    smsClaim: 'SMS claim',
+    smsClaimBody: 'Staff confirms access through the phone.',
+    staffTitle: 'Team',
+    ownerTitle: 'Owner',
+    problemTitle: 'For businesses where the schedule changes all week.',
+    problemBody: 'Veldia is for shops, cafes, service points and small chains that need order without a heavy HR suite.',
+    todayTitle: 'Excel and WhatsApp',
+    todayItems: ['the schedule lives in several versions', 'availability gets buried in messages', 'cover shifts have no clear owner'],
+    veldiaTitle: 'Veldia',
+    veldiaItems: ['one schedule on the phone', 'time off and swaps next to the shift', 'hours tied to role and store'],
+    flowTitle: 'Owner starts it, staff enters by phone.',
+    flowBody: 'The product separates billing, location and roles. One SaaS can serve many businesses without per-store deployments.',
+    ownerFlowTitle: 'Owner flow',
+    ownerFlow: [
+      ['Account', 'the owner creates a profile and business'],
+      ['First store', 'adds location, color and modules'],
+      ['Onboarding', 'selects business type and scheduling needs'],
+      ['Trial', 'starts trial and Stripe Billing'],
+    ],
+    staffFlowTitle: 'Staff flow',
+    staffFlow: [
+      ['SMS', 'the worker receives a phone invite'],
+      ['Phone OTP', 'confirms identity without fake email'],
+      ['Schedule', 'sees shifts, availability and time off'],
+      ['Team', 'messages the manager and takes cover shifts'],
+    ],
+    roleTitle: 'Roles are domain boundaries.',
+    roleBody: 'Business pays for the product, Store represents a location, Membership connects the user to a role and access scope.',
+    roles: [
+      ['business_owner', 'billing, business, store owners'],
+      ['store_owner', 'location, team, store modules'],
+      ['manager', 'schedule, cover shifts, communication'],
+      ['scheduler', 'shift planning and availability'],
+      ['staff', 'phone, shifts, time off, messages'],
+    ],
+    modulesTitle: 'Modules for daily operational work.',
+    modules: [
+      ['Schedule', 'weekly and monthly shift views'],
+      ['Availability', 'staff shares when they can work'],
+      ['Time off and cover', 'requests, approvals and clear status'],
+      ['Time records', 'work tied to shift, store and role'],
+      ['Team messaging', 'messages where scheduling happens'],
+      ['AI assist', 'draft schedules without starting from zero'],
+      ['Store brand', 'location name and color in the UI'],
+      ['Trial and billing', 'Stripe Billing in one deployment'],
+    ],
+    architectureTitle: 'One SaaS, many businesses.',
+    architectureBody: 'The target architecture does not assume a separate deployment per store. The product boundary is Business -> Store -> Membership, with tenant-scoped access and business-level billing.',
+    architectureNotes: ['multi-tenant deployment', 'phone-first staff access', 'Stripe Billing after trial'],
+    ctaTitle: 'Veldia should be a product, not another spreadsheet.',
+    ctaBody: 'This page shows the product direction and portfolio case. A demo conversation can go deeper into owner flow, roles and modules.',
+  },
+};
+
 function App() {
   const [lang, setLang] = useState(() => localStorage.getItem('portfolio-lang') || 'pl');
   const [lightbox, setLightbox] = useState(null);
@@ -343,6 +475,7 @@ function App() {
   );
 
   const content = useMemo(() => {
+    if (page === 'veldia') return <VeldiaPage lang={lang} />;
     if (page === 'work') return <WorkPage t={t} lang={lang} />;
     if (page === 'about') return <AboutPage t={t} setLightbox={setLightbox} />;
     if (page === 'contact') return <ContactPage t={t} />;
@@ -355,7 +488,7 @@ function App() {
     <div ref={shell} className="site-shell">
       <div className="scroll-progress" data-scroll-progress aria-hidden="true" />
       <a className="skip-link" href="#content">
-        Skip to content
+        {t.skipContent}
       </a>
       <Header lang={lang} setLang={setLang} t={t} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <main id="content">{content}</main>
@@ -586,6 +719,211 @@ function ContactBand({ t }) {
         </a>
       </div>
     </section>
+  );
+}
+
+function VeldiaPage({ lang }) {
+  const v = veldiaCopy[lang] || veldiaCopy.pl;
+
+  return (
+    <article className="veldia-page">
+      <section className="veldia-hero" data-hero>
+        <div className="veldia-hero-copy">
+          <p className="veldia-kicker">{v.eyebrow}</p>
+          <h1>{v.heroTitle}</h1>
+          <p>{v.heroBody}</p>
+          <div className="button-row veldia-actions">
+            <a className="button primary" href="mailto:wojciechsacewicz@outlook.com?subject=Veldia%20demo">
+              {v.primaryCta}
+            </a>
+            <a className="button ghost" href="/">
+              {v.secondaryCta}
+            </a>
+          </div>
+        </div>
+        <VeldiaProductPreview v={v} lang={lang} />
+      </section>
+
+      <section className="veldia-problem chapter">
+        <div className="veldia-section-copy" data-reveal>
+          <h2>{v.problemTitle}</h2>
+          <p>{v.problemBody}</p>
+        </div>
+        <div className="veldia-comparison" data-reveal>
+          <VeldiaComparisonColumn title={v.todayTitle} items={v.todayItems} muted />
+          <VeldiaComparisonColumn title={v.veldiaTitle} items={v.veldiaItems} />
+        </div>
+      </section>
+
+      <section className="veldia-flow chapter">
+        <div className="veldia-section-copy" data-reveal>
+          <h2>{v.flowTitle}</h2>
+          <p>{v.flowBody}</p>
+        </div>
+        <div className="veldia-flow-grid">
+          <VeldiaFlowColumn title={v.ownerFlowTitle} items={v.ownerFlow} />
+          <VeldiaFlowColumn title={v.staffFlowTitle} items={v.staffFlow} />
+        </div>
+      </section>
+
+      <section className="veldia-roles chapter">
+        <div className="veldia-role-card" data-reveal>
+          <h2>{v.roleTitle}</h2>
+          <p>{v.roleBody}</p>
+          <div className="veldia-domain-line" aria-label="Business to Store to Membership">
+            <span>Business</span>
+            <span>Store</span>
+            <span>Membership</span>
+          </div>
+        </div>
+        <div className="veldia-role-list">
+          {v.roles.map(([role, body]) => (
+            <article key={role} data-reveal>
+              <strong>{role}</strong>
+              <p>{body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="veldia-modules chapter">
+        <div className="veldia-section-copy" data-reveal>
+          <h2>{v.modulesTitle}</h2>
+        </div>
+        <div className="veldia-module-grid">
+          {v.modules.map(([title, body], index) => (
+            <article key={title} className={index === 0 || index === 5 ? 'is-featured' : ''} data-reveal>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="veldia-architecture chapter">
+        <div data-reveal>
+          <h2>{v.architectureTitle}</h2>
+          <p>{v.architectureBody}</p>
+        </div>
+        <div className="veldia-architecture-notes" data-reveal>
+          {v.architectureNotes.map((note) => (
+            <span key={note}>{note}</span>
+          ))}
+        </div>
+      </section>
+
+      <section className="veldia-cta chapter">
+        <div data-reveal>
+          <h2>{v.ctaTitle}</h2>
+          <p>{v.ctaBody}</p>
+        </div>
+        <div className="button-row veldia-actions" data-reveal>
+          <a className="button primary" href="mailto:wojciechsacewicz@outlook.com?subject=Veldia%20demo">
+            {v.primaryCta}
+          </a>
+          <a className="button ghost" href="/contact">
+            {lang === 'pl' ? 'Kontakt' : 'Contact'}
+          </a>
+        </div>
+      </section>
+    </article>
+  );
+}
+
+function VeldiaProductPreview({ v, lang }) {
+  const days = lang === 'pl' ? ['Pon', 'Wt', 'Śr', 'Czw'] : ['Mon', 'Tue', 'Wed', 'Thu'];
+  const offLabel = lang === 'pl' ? 'wolne' : 'off';
+  const schedule = [
+    ['Monika', '08-14', '08-14', offLabel, '10-16'],
+    ['Kamil', '14-21', '14-21', '12-18', offLabel],
+    ['Zuza', '10-16', offLabel, '08-14', '08-14'],
+  ];
+
+  return (
+    <div className="veldia-product-scene" aria-label={v.previewLabel}>
+      <div className="veldia-board" data-reveal>
+        <div className="veldia-board-head">
+          <span className="veldia-mark">V</span>
+          <div>
+            <strong>{v.storeName}</strong>
+            <span>{v.weekLabel}</span>
+          </div>
+        </div>
+        <div className="veldia-week-grid">
+          <span />
+          {days.map((day) => (
+            <strong key={day}>{day}</strong>
+          ))}
+          {schedule.map(([name, ...shifts]) => (
+            <Fragment key={name}>
+              <strong className="veldia-person">{name}</strong>
+              {shifts.map((shift, index) => (
+                <span key={`${name}-${days[index]}`} className={shift === offLabel ? 'is-off' : ''}>
+                  {shift}
+                </span>
+              ))}
+            </Fragment>
+          ))}
+        </div>
+      </div>
+
+      <div className="veldia-phone" data-reveal>
+        <div className="veldia-phone-bar">
+          <span />
+          <strong>{v.staffTitle}</strong>
+        </div>
+        <div className="veldia-phone-shift">
+          <span>{lang === 'pl' ? 'Dziś' : 'Today'}</span>
+          <strong>14:00-21:00</strong>
+          <p>{lang === 'pl' ? 'Kasjer, sklep Wrzeszcz' : 'Cashier, Wrzeszcz store'}</p>
+        </div>
+        <div className="veldia-phone-message">
+          <strong>{v.smsClaim}</strong>
+          <p>{v.smsClaimBody}</p>
+        </div>
+      </div>
+
+      <div className="veldia-assist" data-reveal>
+        <span>{v.aiAssist}</span>
+        <strong>7 {lang === 'pl' ? 'zmian gotowych' : 'shifts ready'}</strong>
+        <p>{v.aiAssistBody}</p>
+      </div>
+
+      <div className="veldia-owner-chip" data-reveal>
+        <span>{v.ownerTitle}</span>
+        <strong>Business {'->'} Store {'->'} Membership</strong>
+      </div>
+    </div>
+  );
+}
+
+function VeldiaComparisonColumn({ title, items, muted = false }) {
+  return (
+    <article className={muted ? 'is-muted' : ''}>
+      <h3>{title}</h3>
+      <ul>
+        {items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </article>
+  );
+}
+
+function VeldiaFlowColumn({ title, items }) {
+  return (
+    <article data-reveal>
+      <h3>{title}</h3>
+      <div>
+        {items.map(([label, body]) => (
+          <section key={label}>
+            <strong>{label}</strong>
+            <p>{body}</p>
+          </section>
+        ))}
+      </div>
+    </article>
   );
 }
 
