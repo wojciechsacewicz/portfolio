@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -11,7 +11,6 @@ const routes = {
   '/work': 'work',
   '/about': 'about',
   '/contact': 'contact',
-  '/veldia': 'veldia',
   '/about/workspace': 'workspace',
   '/about/windows': 'windows',
 };
@@ -43,8 +42,6 @@ const copy = {
     proofStackText: 'Codex, Claude Code, Cursor i codzienne kodowanie z agentami',
     proofSpeed: 'Kilka dni',
     proofSpeedText: 'tyle zwykle wystarcza, żeby pokazać pierwszy klikalny prototyp',
-    interestTitle: 'Najlepiej działam przy rzeczach, które trzeba ruszyć z miejsca.',
-    interestBody: 'Panel dla zespołu, narzędzie do grafiku, komunikacja z managerami, dane z kilku systemów. Lubię brać pomysł, który brzmi jak “fajnie byłoby to mieć”, i szybko robić wersję, którą da się kliknąć.',
     desireTitle: 'Jak pracuję',
     desireBody: 'Rozmawiamy o problemie, w ciągu kilku dni składam pierwszy prototyp, pokazuję Tobie i wprowadzamy twoje poprawki! :)',
     stepOne: 'Pomysł',
@@ -55,6 +52,13 @@ const copy = {
     stepThreeBody: 'Demo, feedback, poprawki i następny sensowny krok.',
     workTitle: 'Wybrane projekty',
     workBody: 'Staż, projekty i rzeczy, które pokazują mój sposób pracy.',
+    contributionsEyebrow: 'GitHub activity',
+    contributionsTitle: 'Koduję regularnie, nie tylko od święta.',
+    contributionsBody: 'Live podgląd publicznych contributions z profilu GitHub.',
+    contributionsLoading: 'Ładuję contributions...',
+    contributionsFallback: 'Nie udało się pobrać live danych. GitHub profil jest dalej dostępny.',
+    contributionsLabel: 'contributions w ostatnich 365 dniach',
+    contributionsLink: 'Otwórz GitHub',
     stackTitle: 'Czym pracuję',
     aboutTitle: 'Młody developer, który umie rozmawiać z ludźmi.',
     aboutBody: 'Lubię nowe technologie i szybko sprawdzam, co daje realną przewagę. Pytam, pokazuję działające demo i poprawiam. Tak chcę budować narzędzia, które pomagają zespołom w pracy.',
@@ -108,8 +112,6 @@ const copy = {
     proofStackText: 'Codex, Claude Code, Cursor, and daily agent-based coding',
     proofSpeed: 'A few days',
     proofSpeedText: 'usually enough to show the first clickable prototype',
-    interestTitle: 'I am useful when an idea needs momentum.',
-    interestBody: 'A team panel, a scheduling tool, manager communication, data from several systems. I like taking an idea that sounds like “this would be nice to have” and turning it into something clickable.',
     desireTitle: 'How I work',
     desireBody: 'We talk through the problem, I build a first prototype in a few days, show it to you, and we make your changes. :)',
     stepOne: 'Idea',
@@ -120,6 +122,13 @@ const copy = {
     stepThreeBody: 'Demo, feedback, fixes, and the next sensible step.',
     workTitle: 'Selected work',
     workBody: 'Internships, projects, and work that shows how I think.',
+    contributionsEyebrow: 'GitHub activity',
+    contributionsTitle: 'I code regularly, not only for polished demos.',
+    contributionsBody: 'Live view of public contributions from my GitHub profile.',
+    contributionsLoading: 'Loading contributions...',
+    contributionsFallback: 'Live data could not be loaded. The GitHub profile is still available.',
+    contributionsLabel: 'contributions in the last 365 days',
+    contributionsLink: 'Open GitHub',
     stackTitle: 'What I work with',
     aboutTitle: 'A young developer who can talk to people.',
     aboutBody: 'I like new technology and I test fast what can give a real advantage. I ask questions, show a working demo, and improve it. That is how I want to build tools that help teams at work.',
@@ -189,6 +198,30 @@ const projects = [
     href: 'https://github.com/wojciechsacewicz/Gem-Hunter',
     visual: '/assets/mySetup2.jpg',
     scale: 'large',
+  },
+  {
+    id: 'llmpolska',
+    title: 'llmpolska',
+    meta: 'React Router · Cloudflare Workers · D1 · community',
+    body: {
+      pl: 'Polska platforma społecznościowo-edukacyjna o pracy z AI: forum, academy, helper i backend na Cloudflare Workers.',
+      en: 'Polish community and education platform for working with AI: forum, academy, helper, and a Cloudflare Workers backend.',
+    },
+    href: 'https://llmpolska.pl/',
+    visual: 'https://llmpolska.pl/og-default.svg',
+    scale: 'large',
+  },
+  {
+    id: 'veldia',
+    title: 'Veldia',
+    meta: 'Astro · SaaS/PWA · Cloudflare · Supabase',
+    body: {
+      pl: 'Mobilna aplikacja i strona produktu dla biznesów zmianowych: grafiki, godziny pracy, dyspozycyjność, wolne i komunikacja zespołu.',
+      en: 'Mobile app and product site for shift-based businesses: schedules, work hours, availability, time off, and team communication.',
+    },
+    href: 'https://veldia.pl/',
+    visual: 'https://veldia.pl/assets/og-image.png',
+    scale: 'wide',
   },
   {
     id: 'cyberwizja',
@@ -265,135 +298,6 @@ const videoSources = {
     { src: '/assets/hls/cyberwizja-plugins/index.m3u8', type: 'application/x-mpegURL' },
     { src: '/assets/cyberwizja5wtyczek.mp4', type: 'video/mp4' },
   ],
-};
-
-const veldiaCopy = {
-  pl: {
-    eyebrow: 'Mobile-first SaaS/PWA dla zespołów zmianowych',
-    heroTitle: 'Veldia',
-    heroBody: 'Grafik, dyspozycyjność, zastępstwa i godziny pracy dla sklepów oraz zespołów zmianowych.',
-    primaryCta: 'Napisz o demo',
-    secondaryCta: 'Wróć do portfolio',
-    previewLabel: 'Podgląd interfejsu Veldii',
-    storeName: 'Sklep Wrzeszcz',
-    weekLabel: 'Tydzień',
-    aiAssist: 'AI schedule assist',
-    aiAssistBody: 'Ułożył szkic po dyspozycyjności i limitach godzin.',
-    smsClaim: 'SMS claim',
-    smsClaimBody: 'Pracownik potwierdza dostęp przez telefon.',
-    staffTitle: 'Zespół',
-    ownerTitle: 'Owner',
-    problemTitle: 'Dla biznesów, gdzie grafik żyje cały tydzień.',
-    problemBody: 'Veldia celuje w sklepy, kawiarnie, punkty usługowe i małe sieci, które potrzebują porządku bez ciężkiego systemu HR.',
-    todayTitle: 'Excel i WhatsApp',
-    todayItems: ['grafik krąży w kilku wersjach', 'dyspozycyjność ginie w wiadomościach', 'zastępstwa nie mają jasnego właściciela'],
-    veldiaTitle: 'Veldia',
-    veldiaItems: ['jeden grafik na telefonie', 'wnioski o wolne i zamiany przy zmianie', 'godziny pracy spięte z rolą i sklepem'],
-    flowTitle: 'Start właściciela, dostęp pracownika.',
-    flowBody: 'Produkt rozdziela billing, lokalizację i role. Dzięki temu jeden SaaS może obsługiwać wiele biznesów bez osobnych wdrożeń.',
-    ownerFlowTitle: 'Owner flow',
-    ownerFlow: [
-      ['Konto', 'właściciel zakłada profil i biznes'],
-      ['Pierwszy sklep', 'dodaje lokalizację, kolor i moduły'],
-      ['Onboarding', 'wybiera typ biznesu i potrzeby grafiku'],
-      ['Trial', 'uruchamia okres próbny i Stripe Billing'],
-    ],
-    staffFlowTitle: 'Staff flow',
-    staffFlow: [
-      ['SMS', 'pracownik odbiera zaproszenie na telefon'],
-      ['Phone OTP', 'potwierdza tożsamość bez fake emaila'],
-      ['Grafik', 'widzi zmiany, dyspozycyjność i wolne'],
-      ['Zespół', 'pisze do managera i bierze zastępstwa'],
-    ],
-    roleTitle: 'Role są domenowe, nie kosmetyczne.',
-    roleBody: 'Business opłaca usługę, Store reprezentuje lokalizację, Membership łączy użytkownika z rolą i zakresem dostępu.',
-    roles: [
-      ['business_owner', 'billing, biznes, właściciele sklepów'],
-      ['store_owner', 'lokalizacja, zespół, moduły sklepu'],
-      ['manager', 'grafik, zastępstwa, komunikacja'],
-      ['scheduler', 'planowanie zmian i dyspozycyjność'],
-      ['staff', 'telefon, zmiany, wolne, wiadomości'],
-    ],
-    modulesTitle: 'Moduły, które mają robić codzienną robotę.',
-    modules: [
-      ['Grafik', 'tygodniowy i miesięczny widok zmian'],
-      ['Dyspozycyjność', 'pracownik zgłasza, kiedy może pracować'],
-      ['Wolne i zastępstwa', 'prośby, akceptacje i czytelny status'],
-      ['Ewidencja godzin', 'praca przy zmianie, sklepie i roli'],
-      ['Team messaging', 'wiadomości tam, gdzie jest grafik'],
-      ['AI assist', 'propozycje planu bez ręcznego układania od zera'],
-      ['Brand sklepu', 'kolor i nazwa lokalizacji w UI'],
-      ['Trial i billing', 'docelowo Stripe Billing w jednym deploymentcie'],
-    ],
-    architectureTitle: 'Jeden SaaS, wiele biznesów.',
-    architectureBody: 'Docelowa architektura nie zakłada osobnego deploymentu per sklep. Granica produktu to Business -> Store -> Membership, z tenant-scoped dostępem i billingiem na poziomie biznesu.',
-    architectureNotes: ['multi-tenant deployment', 'phone-first staff access', 'Stripe Billing po trialu'],
-    ctaTitle: 'Veldia ma być produktem, nie kolejnym arkuszem.',
-    ctaBody: 'Landing pokazuje kierunek produktu i case w portfolio. Demo lub rozmowa może zejść do owner flow, ról i modułów.',
-  },
-  en: {
-    eyebrow: 'Mobile-first SaaS/PWA for shift teams',
-    heroTitle: 'Veldia',
-    heroBody: 'Scheduling, availability, cover shifts and time records for shops and shift-based teams.',
-    primaryCta: 'Ask for demo',
-    secondaryCta: 'Back to portfolio',
-    previewLabel: 'Veldia interface preview',
-    storeName: 'Wrzeszcz store',
-    weekLabel: 'Week',
-    aiAssist: 'AI schedule assist',
-    aiAssistBody: 'Drafted shifts from availability and hour limits.',
-    smsClaim: 'SMS claim',
-    smsClaimBody: 'Staff confirms access through the phone.',
-    staffTitle: 'Team',
-    ownerTitle: 'Owner',
-    problemTitle: 'For businesses where the schedule changes all week.',
-    problemBody: 'Veldia is for shops, cafes, service points and small chains that need order without a heavy HR suite.',
-    todayTitle: 'Excel and WhatsApp',
-    todayItems: ['the schedule lives in several versions', 'availability gets buried in messages', 'cover shifts have no clear owner'],
-    veldiaTitle: 'Veldia',
-    veldiaItems: ['one schedule on the phone', 'time off and swaps next to the shift', 'hours tied to role and store'],
-    flowTitle: 'Owner starts it, staff enters by phone.',
-    flowBody: 'The product separates billing, location and roles. One SaaS can serve many businesses without per-store deployments.',
-    ownerFlowTitle: 'Owner flow',
-    ownerFlow: [
-      ['Account', 'the owner creates a profile and business'],
-      ['First store', 'adds location, color and modules'],
-      ['Onboarding', 'selects business type and scheduling needs'],
-      ['Trial', 'starts trial and Stripe Billing'],
-    ],
-    staffFlowTitle: 'Staff flow',
-    staffFlow: [
-      ['SMS', 'the worker receives a phone invite'],
-      ['Phone OTP', 'confirms identity without fake email'],
-      ['Schedule', 'sees shifts, availability and time off'],
-      ['Team', 'messages the manager and takes cover shifts'],
-    ],
-    roleTitle: 'Roles are domain boundaries.',
-    roleBody: 'Business pays for the product, Store represents a location, Membership connects the user to a role and access scope.',
-    roles: [
-      ['business_owner', 'billing, business, store owners'],
-      ['store_owner', 'location, team, store modules'],
-      ['manager', 'schedule, cover shifts, communication'],
-      ['scheduler', 'shift planning and availability'],
-      ['staff', 'phone, shifts, time off, messages'],
-    ],
-    modulesTitle: 'Modules for daily operational work.',
-    modules: [
-      ['Schedule', 'weekly and monthly shift views'],
-      ['Availability', 'staff shares when they can work'],
-      ['Time off and cover', 'requests, approvals and clear status'],
-      ['Time records', 'work tied to shift, store and role'],
-      ['Team messaging', 'messages where scheduling happens'],
-      ['AI assist', 'draft schedules without starting from zero'],
-      ['Store brand', 'location name and color in the UI'],
-      ['Trial and billing', 'Stripe Billing in one deployment'],
-    ],
-    architectureTitle: 'One SaaS, many businesses.',
-    architectureBody: 'The target architecture does not assume a separate deployment per store. The product boundary is Business -> Store -> Membership, with tenant-scoped access and business-level billing.',
-    architectureNotes: ['multi-tenant deployment', 'phone-first staff access', 'Stripe Billing after trial'],
-    ctaTitle: 'Veldia should be a product, not another spreadsheet.',
-    ctaBody: 'This page shows the product direction and portfolio case. A demo conversation can go deeper into owner flow, roles and modules.',
-  },
 };
 
 function App() {
@@ -475,7 +379,6 @@ function App() {
   );
 
   const content = useMemo(() => {
-    if (page === 'veldia') return <VeldiaPage lang={lang} />;
     if (page === 'work') return <WorkPage t={t} lang={lang} />;
     if (page === 'about') return <AboutPage t={t} setLightbox={setLightbox} />;
     if (page === 'contact') return <ContactPage t={t} />;
@@ -562,14 +465,8 @@ function HomePage({ t, lang, setLightbox }) {
 
       <ProofStrip t={t} />
 
-      <section className="statement chapter">
-        <div>
-          <h2 data-reveal>{t.interestTitle}</h2>
-        </div>
-        <p data-reveal>{t.interestBody}</p>
-      </section>
-
       <WorkMotion t={t} lang={lang} />
+      <GithubContributions t={t} />
       <ProcessSection t={t} />
       <StackSection t={t} lang={lang} />
       <ContactBand t={t} />
@@ -608,6 +505,87 @@ function WorkMotion({ t, lang }) {
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} lang={lang} />
         ))}
+      </div>
+    </section>
+  );
+}
+
+function GithubContributions({ t }) {
+  const [state, setState] = useState({ status: 'loading', total: null, days: [] });
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetch('https://github-contributions-api.jogruber.de/v4/wojciechsacewicz', {
+      signal: controller.signal,
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(`GitHub contributions API returned ${response.status}`);
+        return response.json();
+      })
+      .then((data) => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const start = new Date(today);
+        start.setDate(start.getDate() - 364);
+
+        const days = (data.contributions || [])
+          .map((day) => ({ ...day, parsedDate: new Date(`${day.date}T00:00:00`) }))
+          .filter((day) => day.parsedDate >= start && day.parsedDate <= today)
+          .sort((a, b) => a.parsedDate - b.parsedDate);
+
+        const total = days.reduce((sum, day) => sum + day.count, 0);
+        setState({ status: 'ready', total, days });
+      })
+      .catch((error) => {
+        if (error.name !== 'AbortError') {
+          setState({ status: 'error', total: null, days: [] });
+        }
+      });
+
+    return () => controller.abort();
+  }, []);
+
+  const cells = state.days.slice(-182);
+
+  return (
+    <section className="github-contributions chapter" data-reveal>
+      <div className="github-contributions-copy">
+        <span>{t.contributionsEyebrow}</span>
+        <h2>{t.contributionsTitle}</h2>
+        <p>{t.contributionsBody}</p>
+        <a className="text-action" href="https://github.com/wojciechsacewicz" target="_blank" rel="noreferrer">
+          {t.contributionsLink}
+        </a>
+      </div>
+      <div className="github-contributions-card" aria-live="polite">
+        {state.status === 'loading' && <p className="github-contributions-status">{t.contributionsLoading}</p>}
+        {state.status === 'error' && <p className="github-contributions-status">{t.contributionsFallback}</p>}
+        {state.status === 'ready' && (
+          <>
+            <div className="github-contributions-total">
+              <strong>{state.total.toLocaleString('en-US')}</strong>
+              <span>{t.contributionsLabel}</span>
+            </div>
+            <div className="github-contributions-grid" aria-label={t.contributionsLabel}>
+              {cells.map((day) => (
+                <span
+                  key={day.date}
+                  className={`level-${day.level}`}
+                  title={`${day.date}: ${day.count} contributions`}
+                  aria-label={`${day.date}: ${day.count} contributions`}
+                />
+              ))}
+            </div>
+            <div className="github-contributions-scale" aria-hidden="true">
+              <span>Less</span>
+              {[0, 1, 2, 3, 4].map((level) => (
+                <i key={level} className={`level-${level}`} />
+              ))}
+              <span>More</span>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );
@@ -719,211 +697,6 @@ function ContactBand({ t }) {
         </a>
       </div>
     </section>
-  );
-}
-
-function VeldiaPage({ lang }) {
-  const v = veldiaCopy[lang] || veldiaCopy.pl;
-
-  return (
-    <article className="veldia-page">
-      <section className="veldia-hero" data-hero>
-        <div className="veldia-hero-copy">
-          <p className="veldia-kicker">{v.eyebrow}</p>
-          <h1>{v.heroTitle}</h1>
-          <p>{v.heroBody}</p>
-          <div className="button-row veldia-actions">
-            <a className="button primary" href="mailto:wojciechsacewicz@outlook.com?subject=Veldia%20demo">
-              {v.primaryCta}
-            </a>
-            <a className="button ghost" href="/">
-              {v.secondaryCta}
-            </a>
-          </div>
-        </div>
-        <VeldiaProductPreview v={v} lang={lang} />
-      </section>
-
-      <section className="veldia-problem chapter">
-        <div className="veldia-section-copy" data-reveal>
-          <h2>{v.problemTitle}</h2>
-          <p>{v.problemBody}</p>
-        </div>
-        <div className="veldia-comparison" data-reveal>
-          <VeldiaComparisonColumn title={v.todayTitle} items={v.todayItems} muted />
-          <VeldiaComparisonColumn title={v.veldiaTitle} items={v.veldiaItems} />
-        </div>
-      </section>
-
-      <section className="veldia-flow chapter">
-        <div className="veldia-section-copy" data-reveal>
-          <h2>{v.flowTitle}</h2>
-          <p>{v.flowBody}</p>
-        </div>
-        <div className="veldia-flow-grid">
-          <VeldiaFlowColumn title={v.ownerFlowTitle} items={v.ownerFlow} />
-          <VeldiaFlowColumn title={v.staffFlowTitle} items={v.staffFlow} />
-        </div>
-      </section>
-
-      <section className="veldia-roles chapter">
-        <div className="veldia-role-card" data-reveal>
-          <h2>{v.roleTitle}</h2>
-          <p>{v.roleBody}</p>
-          <div className="veldia-domain-line" aria-label="Business to Store to Membership">
-            <span>Business</span>
-            <span>Store</span>
-            <span>Membership</span>
-          </div>
-        </div>
-        <div className="veldia-role-list">
-          {v.roles.map(([role, body]) => (
-            <article key={role} data-reveal>
-              <strong>{role}</strong>
-              <p>{body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="veldia-modules chapter">
-        <div className="veldia-section-copy" data-reveal>
-          <h2>{v.modulesTitle}</h2>
-        </div>
-        <div className="veldia-module-grid">
-          {v.modules.map(([title, body], index) => (
-            <article key={title} className={index === 0 || index === 5 ? 'is-featured' : ''} data-reveal>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <h3>{title}</h3>
-              <p>{body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="veldia-architecture chapter">
-        <div data-reveal>
-          <h2>{v.architectureTitle}</h2>
-          <p>{v.architectureBody}</p>
-        </div>
-        <div className="veldia-architecture-notes" data-reveal>
-          {v.architectureNotes.map((note) => (
-            <span key={note}>{note}</span>
-          ))}
-        </div>
-      </section>
-
-      <section className="veldia-cta chapter">
-        <div data-reveal>
-          <h2>{v.ctaTitle}</h2>
-          <p>{v.ctaBody}</p>
-        </div>
-        <div className="button-row veldia-actions" data-reveal>
-          <a className="button primary" href="mailto:wojciechsacewicz@outlook.com?subject=Veldia%20demo">
-            {v.primaryCta}
-          </a>
-          <a className="button ghost" href="/contact">
-            {lang === 'pl' ? 'Kontakt' : 'Contact'}
-          </a>
-        </div>
-      </section>
-    </article>
-  );
-}
-
-function VeldiaProductPreview({ v, lang }) {
-  const days = lang === 'pl' ? ['Pon', 'Wt', 'Śr', 'Czw'] : ['Mon', 'Tue', 'Wed', 'Thu'];
-  const offLabel = lang === 'pl' ? 'wolne' : 'off';
-  const schedule = [
-    ['Monika', '08-14', '08-14', offLabel, '10-16'],
-    ['Kamil', '14-21', '14-21', '12-18', offLabel],
-    ['Zuza', '10-16', offLabel, '08-14', '08-14'],
-  ];
-
-  return (
-    <div className="veldia-product-scene" aria-label={v.previewLabel}>
-      <div className="veldia-board" data-reveal>
-        <div className="veldia-board-head">
-          <span className="veldia-mark">V</span>
-          <div>
-            <strong>{v.storeName}</strong>
-            <span>{v.weekLabel}</span>
-          </div>
-        </div>
-        <div className="veldia-week-grid">
-          <span />
-          {days.map((day) => (
-            <strong key={day}>{day}</strong>
-          ))}
-          {schedule.map(([name, ...shifts]) => (
-            <Fragment key={name}>
-              <strong className="veldia-person">{name}</strong>
-              {shifts.map((shift, index) => (
-                <span key={`${name}-${days[index]}`} className={shift === offLabel ? 'is-off' : ''}>
-                  {shift}
-                </span>
-              ))}
-            </Fragment>
-          ))}
-        </div>
-      </div>
-
-      <div className="veldia-phone" data-reveal>
-        <div className="veldia-phone-bar">
-          <span />
-          <strong>{v.staffTitle}</strong>
-        </div>
-        <div className="veldia-phone-shift">
-          <span>{lang === 'pl' ? 'Dziś' : 'Today'}</span>
-          <strong>14:00-21:00</strong>
-          <p>{lang === 'pl' ? 'Kasjer, sklep Wrzeszcz' : 'Cashier, Wrzeszcz store'}</p>
-        </div>
-        <div className="veldia-phone-message">
-          <strong>{v.smsClaim}</strong>
-          <p>{v.smsClaimBody}</p>
-        </div>
-      </div>
-
-      <div className="veldia-assist" data-reveal>
-        <span>{v.aiAssist}</span>
-        <strong>7 {lang === 'pl' ? 'zmian gotowych' : 'shifts ready'}</strong>
-        <p>{v.aiAssistBody}</p>
-      </div>
-
-      <div className="veldia-owner-chip" data-reveal>
-        <span>{v.ownerTitle}</span>
-        <strong>Business {'->'} Store {'->'} Membership</strong>
-      </div>
-    </div>
-  );
-}
-
-function VeldiaComparisonColumn({ title, items, muted = false }) {
-  return (
-    <article className={muted ? 'is-muted' : ''}>
-      <h3>{title}</h3>
-      <ul>
-        {items.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
-    </article>
-  );
-}
-
-function VeldiaFlowColumn({ title, items }) {
-  return (
-    <article data-reveal>
-      <h3>{title}</h3>
-      <div>
-        {items.map(([label, body]) => (
-          <section key={label}>
-            <strong>{label}</strong>
-            <p>{body}</p>
-          </section>
-        ))}
-      </div>
-    </article>
   );
 }
 
