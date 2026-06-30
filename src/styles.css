@@ -821,17 +821,6 @@ p {
     radial-gradient(circle at 20% 10%, rgba(156, 183, 202, 0.16), transparent 16rem);
 }
 
-.workspace-preview {
-  display: grid;
-  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
-  gap: 3rem;
-  align-items: center;
-}
-
-.workspace-preview p {
-  max-width: 46ch;
-}
-
 .image-stack {
   min-height: 560px;
   position: relative;
@@ -1214,7 +1203,6 @@ p {
   .motion-heading,
   .github-contributions,
   .stack-section,
-  .workspace-preview,
   .contact-band {
     grid-template-columns: 1fr;
   }

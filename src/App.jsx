@@ -11,7 +11,6 @@ const routes = {
   '/work': 'work',
   '/about': 'about',
   '/contact': 'contact',
-  '/about/workspace': 'workspace',
   '/about/windows': 'windows',
 };
 
@@ -82,9 +81,6 @@ const copy = {
     githubWindowOne: 'Gem Hunter · Python · MongoDB · Gemini API',
     githubWindowTwo: 'portfolio · React · Vite · GSAP',
     githubWindowThree: 'RPA notes · UiPath · SAP',
-    workspaceTitle: 'Jak pracuję, czyli mój setup',
-    workspaceBody: 'Biurko, sprzęt i Windows, bo lubię mieć środowisko, które nie przeszkadza mi w szybkim budowaniu rzeczy.',
-    workspaceLink: 'Zobacz setup',
     windowsTitle: 'Mój Windows',
     windowsBody: 'GlazeWM, Flow Launcher, Fences i Windhawk w praktycznym setupie.',
     videoDovistaTitle: 'DOVISTA RPA workflow',
@@ -152,9 +148,6 @@ const copy = {
     githubWindowOne: 'Gem Hunter · Python · MongoDB · Gemini API',
     githubWindowTwo: 'portfolio · React · Vite · GSAP',
     githubWindowThree: 'RPA notes · UiPath · SAP',
-    workspaceTitle: 'How I work, aka my setup',
-    workspaceBody: 'Desk, gear, and Windows setup, because I like an environment that does not slow down building things.',
-    workspaceLink: 'View setup',
     windowsTitle: 'My Windows setup',
     windowsBody: 'GlazeWM, Flow Launcher, Fences and Windhawk in my daily setup.',
     videoDovistaTitle: 'DOVISTA RPA workflow',
@@ -269,12 +262,6 @@ const stacks = {
   ],
 };
 
-const workspaceImages = [
-  ['/assets/mySetup1.jpg', 'desk setup, front angle'],
-  ['/assets/mySetup2.jpg', 'keyboard and headphones'],
-  ['/assets/myPC.jpg', 'pc build'],
-];
-
 const windowsImages = [
   ['/assets/my desktop.png', 'desktop'],
   ['/assets/glazewm showcase.png', 'GlazeWM tiling'],
@@ -382,7 +369,6 @@ function App() {
     if (page === 'work') return <WorkPage t={t} lang={lang} />;
     if (page === 'about') return <AboutPage t={t} setLightbox={setLightbox} />;
     if (page === 'contact') return <ContactPage t={t} />;
-    if (page === 'workspace') return <GalleryPage title={t.workspaceTitle} body={t.workspaceBody} images={workspaceImages} setLightbox={setLightbox} />;
     if (page === 'windows') return <GalleryPage title={t.windowsTitle} body={t.windowsBody} images={windowsImages} setLightbox={setLightbox} />;
     return <HomePage t={t} lang={lang} setLightbox={setLightbox} />;
   }, [page, t, lang]);
@@ -660,27 +646,6 @@ function StackSection({ t, lang }) {
   );
 }
 
-function WorkspacePreview({ t, setLightbox }) {
-  return (
-    <section className="workspace-preview chapter">
-      <div data-reveal>
-        <h2>{t.workspaceTitle}</h2>
-        <p>{t.workspaceBody}</p>
-        <a className="text-action" href="/about/workspace">
-          {t.workspaceLink}
-        </a>
-      </div>
-      <div className="image-stack">
-        {workspaceImages.map(([src, alt]) => (
-          <button key={src} type="button" onClick={() => setLightbox([src, alt])} data-reveal>
-            <img src={src} alt={alt} loading="lazy" />
-          </button>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 function ContactBand({ t }) {
   return (
     <section className="contact-band chapter">
@@ -819,7 +784,6 @@ function AboutPage({ t, setLightbox }) {
           <p>{t.aboutDovistaBody}</p>
         </article>
       </section>
-      <WorkspacePreview t={t} setLightbox={setLightbox} />
     </PageShell>
   );
 }

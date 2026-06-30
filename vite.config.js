@@ -8,7 +8,7 @@ const page = (path) => fileURLToPath(new URL(`./app/${path}`, import.meta.url));
 const projectRoot = fileURLToPath(new URL('.', import.meta.url));
 const assetsRoot = resolve(projectRoot, 'assets');
 const outDir = resolve(projectRoot, 'dist');
-const directoryPages = new Set(['/work', '/about', '/contact', '/about/workspace', '/about/windows']);
+const directoryPages = new Set(['/work', '/about', '/contact', '/about/windows']);
 
 const mimeTypes = {
   '.avif': 'image/avif',
@@ -102,7 +102,6 @@ export default defineConfig({
         work: page('work/index.html'),
         about: page('about/index.html'),
         contact: page('contact/index.html'),
-        workspace: page('about/workspace/index.html'),
         windows: page('about/windows/index.html'),
       },
     },

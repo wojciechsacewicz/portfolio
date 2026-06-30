@@ -12,7 +12,6 @@ The site is a Vite + React portfolio with restrained GSAP reveals, native browse
 - `/work` - code, automation, and video projects
 - `/about` - background and competencies
 - `/contact` - email, LinkedIn, and GitHub links
-- `/about/workspace` - workspace gallery
 - `/about/windows` - Windows setup gallery and tool list
 
 ## Features
