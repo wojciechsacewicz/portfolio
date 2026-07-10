@@ -13,17 +13,16 @@ pnpm preview
 
 `pnpm check` runs the complete local quality gate: generated Worker bindings, TypeScript, Oxlint, Vitest, the production build and a Wrangler deployment dry-run.
 
-## Private Cloudflare deployment
+## Cloudflare deployment
 
-The site is deployed as a Cloudflare Worker with Static Assets. `run_worker_first` is enabled so every request, including direct asset requests, passes through the authentication layer before Cloudflare serves it.
+The site is deployed as a Cloudflare Worker with Static Assets at `https://sacewi.cz/`.
+The SPA fallback keeps direct routes such as `/contact` working without a separate router server.
 
 ```bash
-pnpm deploy:private
-# equivalent explicit command after building:
-npx wrangler deploy
+pnpm deploy
 ```
 
-The private preview uses HTTP Basic Auth. The username and SHA-256 password digest are declared in `wrangler.jsonc`; the plaintext password is stored only in the ignored local `.preview-credentials` file. Responses include `X-Robots-Tag: noindex, nofollow, noarchive` and private cache headers.
+Production deployments are connected to the GitHub `main` branch through Cloudflare Workers Builds. The build command is `pnpm build` and the deploy command is `pnpm exec wrangler deploy`.
 
 Run `pnpm cloudflare:types` after changing bindings or Wrangler configuration.
 

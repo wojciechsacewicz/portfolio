@@ -12,11 +12,11 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "typecheck": "tsc -b --pretty false",
-    "lint": "oxlint src worker vite.config.ts",
+    "lint": "oxlint src vite.config.ts",
     "test": "vitest run",
     "cloudflare:types": "wrangler types worker-configuration.d.ts",
     "cloudflare:check": "wrangler deploy --dry-run",
-    "deploy:private": "pnpm build && wrangler deploy",
+    "deploy": "pnpm build && wrangler deploy",
     "check": "pnpm cloudflare:types && pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm cloudflare:check"
   },
   "dependencies": {
