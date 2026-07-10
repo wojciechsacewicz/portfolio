@@ -1,0 +1,221 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  padding: 11rem 3vw 2rem;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(480px, 1.1fr);
+  gap: 2rem;
+  align-items: center;
+  color: #f2f4ec;
+  background: #151816;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 30%, rgba(216, 255, 79, 0.12), transparent 28%),
+    radial-gradient(circle at 82% 74%, rgba(255, 118, 95, 0.1), transparent 30%);
+  pointer-events: none;
+}
+
+.hero-grid-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(to bottom, black, transparent 90%);
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(4rem, 7.5vw, 8.2rem);
+  line-height: 0.88;
+  letter-spacing: -0.075em;
+  font-weight: 690;
+}
+
+.hero h1 span {
+  display: block;
+  color: var(--acid);
+}
+
+.hero-lead {
+  max-width: 640px;
+  margin: 2rem 0 0;
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  line-height: 1.5;
+  color: rgba(242, 244, 236, 0.72);
+}
+
+.hero-actions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 2.2rem;
+  flex-wrap: wrap;
+}
+
+.hero-scene {
+  position: relative;
+  z-index: 2;
+  min-height: 560px;
+}
+
+.workflow-canvas {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.6rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.workflow-canvas::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(216, 255, 79, 0.06), transparent 42%);
+  pointer-events: none;
+}
+
+.canvas-caption {
+  position: absolute;
+  inset: auto 1.1rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+}
+
+.scene-fallback {
+  min-height: 560px;
+  display: grid;
+  place-items: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.hero-meta {
+  grid-column: 1 / -1;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.proof-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--line);
+}
+
+.proof-card {
+  min-height: 230px;
+  padding: 2.2rem 3vw;
+  border-right: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.3rem;
+  align-items: start;
+}
+
+.proof-card:last-child {
+  border-right: 0;
+}
+
+.proof-card strong {
+  font-size: clamp(2.4rem, 4vw, 5rem);
+  letter-spacing: -0.07em;
+  line-height: 0.8;
+}
+
+.proof-card h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  letter-spacing: -0.03em;
+}
+
+.proof-card p {
+  margin: 0.65rem 0 0;
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 1050px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 9rem;
+  }
+
+  .hero-scene {
+    min-height: 460px;
+  }
+
+  .workflow-canvas {
+    position: relative;
+    min-height: 460px;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    padding: 8.5rem 1rem 1.2rem;
+    min-height: auto;
+  }
+
+  .hero h1 {
+    font-size: clamp(3.6rem, 17vw, 6rem);
+  }
+
+  .hero-scene,
+  .workflow-canvas {
+    min-height: 370px;
+  }
+
+  .workflow-canvas {
+    border-radius: 1rem;
+  }
+
+  .canvas-caption span:first-child {
+    display: none;
+  }
+
+  .hero-meta {
+    gap: 1rem;
+    flex-direction: column;
+  }
+
+  .proof-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .proof-card {
+    min-height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 2rem 1rem;
+  }
+}
