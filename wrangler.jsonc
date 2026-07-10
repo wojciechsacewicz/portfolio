@@ -1,0 +1,24 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "portfolio-remake-private",
+  "account_id": "c5742e3057d45ba97ddd6f279dd74493",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-07-10",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": true
+  },
+  "vars": {
+    "PREVIEW_USERNAME": "wojtek",
+    "PREVIEW_PASSWORD_SHA256": "418f68b1f0826885229f07185d52ff4e9743f4443a79d7bfb2f2575888efe7d9"
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
+}

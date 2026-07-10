@@ -11,7 +11,21 @@ pnpm check
 pnpm preview
 ```
 
-`pnpm check` runs the complete local quality gate: TypeScript, Oxlint, Vitest and the production build.
+`pnpm check` runs the complete local quality gate: generated Worker bindings, TypeScript, Oxlint, Vitest, the production build and a Wrangler deployment dry-run.
+
+## Private Cloudflare deployment
+
+The site is deployed as a Cloudflare Worker with Static Assets. `run_worker_first` is enabled so every request, including direct asset requests, passes through the authentication layer before Cloudflare serves it.
+
+```bash
+pnpm deploy:private
+# equivalent explicit command after building:
+npx wrangler deploy
+```
+
+The private preview uses HTTP Basic Auth. The username and SHA-256 password digest are declared in `wrangler.jsonc`; the plaintext password is stored only in the ignored local `.preview-credentials` file. Responses include `X-Robots-Tag: noindex, nofollow, noarchive` and private cache headers.
+
+Run `pnpm cloudflare:types` after changing bindings or Wrangler configuration.
 
 ## Architecture
 
