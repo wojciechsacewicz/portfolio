@@ -1,4 +1,4 @@
-export type ProjectTone = 'lime' | 'red' | 'dark';
+export type ProjectTone = 'steel' | 'slate' | 'dark';
 
 export interface ProofPoint {
   readonly value: string;
@@ -43,7 +43,7 @@ export const navigationItems = [
   { label: 'Work', href: '#work' },
   { label: 'Method', href: '#method' },
   { label: 'Experience', href: '#experience' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Contact', href: '/contact' },
 ] as const;
 
 export const proofPoints = [
@@ -81,7 +81,7 @@ export const projects = [
     url: 'https://veldia.pl/',
     image: 'https://veldia.pl/assets/og-image.png',
     imageAlt: 'Veldia product interface and branding',
-    tone: 'lime',
+    tone: 'steel',
   },
   {
     id: 'llmpolska',
@@ -99,7 +99,7 @@ export const projects = [
     url: 'https://llmpolska.pl/',
     image: 'https://llmpolska.pl/og-default.svg',
     imageAlt: 'llmpolska visual identity',
-    tone: 'red',
+    tone: 'slate',
   },
   {
     id: 'dovista',
@@ -115,8 +115,8 @@ export const projects = [
     ],
     stack: ['UiPath', 'SAP', 'Document Understanding', 'OCR'],
     url: '#experience',
-    image: '/assets/agentic-systems-bg.png',
-    imageAlt: 'Abstract system map used as a visual for the automation case study',
+    image: '',
+    imageAlt: 'Process diagram showing documents moving through OCR, SAP and UiPath into a report',
     tone: 'dark',
   },
 ] as const satisfies readonly PortfolioProject[];
@@ -201,10 +201,6 @@ export const technologies = [
   { slug: 'docker', label: 'Docker' },
   { slug: 'github', label: 'GitHub' },
 ] as const satisfies readonly Technology[];
-
-export function getTechnologyIconUrl(slug: string): string {
-  return `https://cdn.jsdelivr.net/npm/simple-icons@16.25.0/icons/${slug}.svg`;
-}
 
 export function isExternalUrl(url: string): boolean {
   return url.startsWith('https://') || url.startsWith('http://');

@@ -8,7 +8,8 @@
   top: 1rem;
   z-index: 1000;
   transform: translateY(-180%);
-  background: var(--acid);
+  background: var(--steel-light);
+  color: #0b0f14;
   padding: 0.75rem 1rem;
   border-radius: 999px;
 }
@@ -81,14 +82,95 @@
 }
 
 .action-link-primary {
-  background: var(--acid);
-  color: var(--ink);
-  border-color: var(--acid);
+  background: var(--steel-light);
+  color: #0b0f14;
+  border-color: var(--steel-light);
 }
 
 .action-link-secondary:hover {
-  background: white;
-  color: var(--ink);
+  background: var(--steel-light);
+  color: #0b0f14;
+}
+
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #080c11;
+  color: #edf2f7;
+  animation: intro-exit 0.55s 2.15s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+.intro-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(175, 192, 212, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(175, 192, 212, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(circle, black, transparent 72%);
+}
+
+.intro-copy {
+  position: relative;
+  width: min(86vw, 980px);
+  min-height: 1.1em;
+  font-size: clamp(2.8rem, 7vw, 7rem);
+  font-weight: 650;
+  line-height: 0.95;
+  letter-spacing: -0.065em;
+}
+
+.intro-copy span {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(26px);
+  animation: intro-line 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.intro-copy span:nth-child(2) {
+  color: var(--steel-light);
+  animation-delay: 0.62s;
+}
+
+.intro-copy span:nth-child(3) {
+  animation-delay: 1.28s;
+}
+
+.intro-skip {
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
+  border: 0;
+  padding: 0.5rem;
+  background: transparent;
+  color: rgba(237, 242, 247, 0.55);
+  font: 0.68rem "JetBrains Mono", monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+@keyframes intro-line {
+  0% { opacity: 0; transform: translateY(26px); }
+  22%, 72% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translateY(-18px); }
+}
+
+@keyframes intro-exit {
+  to { opacity: 0; visibility: hidden; transform: translateY(-100%); }
+}
+
+@media (max-width: 760px) {
+  .intro-skip {
+    right: 1rem;
+    bottom: 1rem;
+  }
 }
 
 .action-link-text {

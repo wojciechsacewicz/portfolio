@@ -7,7 +7,7 @@
   gap: 2rem;
   align-items: center;
   color: #f2f4ec;
-  background: #151816;
+  background: #080c11;
   overflow: hidden;
 }
 
@@ -16,8 +16,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 18% 30%, rgba(216, 255, 79, 0.12), transparent 28%),
-    radial-gradient(circle at 82% 74%, rgba(255, 118, 95, 0.1), transparent 30%);
+    radial-gradient(circle at 18% 30%, rgba(93, 127, 163, 0.2), transparent 30%),
+    radial-gradient(circle at 82% 74%, rgba(122, 149, 177, 0.12), transparent 32%);
   pointer-events: none;
 }
 
@@ -47,7 +47,7 @@
 
 .hero h1 span {
   display: block;
-  color: var(--acid);
+  color: var(--steel-light);
 }
 
 .hero-lead {
@@ -84,7 +84,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(216, 255, 79, 0.06), transparent 42%);
+  background: linear-gradient(135deg, rgba(93, 127, 163, 0.14), transparent 46%);
   pointer-events: none;
 }
 
@@ -108,6 +108,43 @@
   font-family: "JetBrains Mono", monospace;
   font-size: 0.72rem;
   color: rgba(255, 255, 255, 0.5);
+}
+
+.workflow-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  align-content: center;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  background:
+    linear-gradient(rgba(175, 192, 212, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(175, 192, 212, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at 70% 20%, rgba(93, 127, 163, 0.22), transparent 36%),
+    #0b1016;
+  background-size: 32px 32px, 32px 32px, auto, auto;
+}
+
+.workflow-fallback-node {
+  min-height: 106px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.85rem;
+  border: 1px solid rgba(175, 192, 212, 0.2);
+  border-radius: 0.75rem;
+  background: rgba(17, 24, 32, 0.84);
+}
+
+.workflow-fallback-node span {
+  color: var(--steel-mid);
+  font: 0.58rem "JetBrains Mono", monospace;
+}
+
+.workflow-fallback-node strong {
+  font-size: clamp(0.85rem, 1.4vw, 1.1rem);
+  letter-spacing: 0.04em;
 }
 
 .hero-meta {
@@ -193,6 +230,15 @@
   .hero-scene,
   .workflow-canvas {
     min-height: 370px;
+  }
+
+  .workflow-fallback {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .workflow-fallback-node {
+    min-height: 78px;
   }
 
   .workflow-canvas {

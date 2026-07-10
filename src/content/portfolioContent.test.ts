@@ -23,11 +23,12 @@ describe('portfolio content model', () => {
     expect(workflow.at(-1)?.title).toBe('Deliver');
   });
 
-  it('keeps navigation targets unique and on-page', () => {
+  it('keeps navigation targets unique and points contact to its dedicated route', () => {
     const targets = navigationItems.map((item) => item.href);
 
     expect(new Set(targets).size).toBe(targets.length);
-    expect(targets.every((target) => target.startsWith('#'))).toBe(true);
+    expect(targets.filter((target) => target !== '/contact').every((target) => target.startsWith('#'))).toBe(true);
+    expect(targets).toContain('/contact');
   });
 
   it('distinguishes remote project destinations from local anchors', () => {

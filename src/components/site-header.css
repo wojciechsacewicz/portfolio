@@ -19,7 +19,7 @@
 }
 
 .wordmark span {
-  color: var(--acid);
+  color: var(--steel-light);
 }
 
 .site-nav {
@@ -69,7 +69,7 @@
     padding: 0 1rem;
     grid-template-columns: 1fr auto;
     mix-blend-mode: normal;
-    background: rgba(21, 24, 22, 0.92);
+    background: rgba(8, 12, 17, 0.94);
     backdrop-filter: blur(12px);
   }
 
@@ -93,7 +93,7 @@
     inset: 64px 0 auto;
     display: grid;
     gap: 0;
-    background: #151816;
+    background: #080c11;
     transform: translateY(-120%);
     opacity: 0;
     visibility: hidden;

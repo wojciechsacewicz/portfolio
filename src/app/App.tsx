@@ -6,11 +6,13 @@ import { HeroModule } from '../features/hero/HeroModule';
 import { ProfileModule } from '../features/profile/ProfileModule';
 import { WorkModule } from '../features/work/WorkModule';
 import { usePortfolioRuntime } from './usePortfolioRuntime';
+import { IntroOverlay } from './IntroOverlay';
 import './app-shell.css';
 
 export default function App() {
   const rootRef = useRef<HTMLDivElement>(null);
   const reducedMotion = Boolean(useReducedMotion());
+  const isContactPage = window.location.pathname.replace(/\/$/, '') === '/contact';
 
   usePortfolioRuntime({ rootRef, reducedMotion });
 
@@ -22,15 +24,22 @@ export default function App() {
       animate={{ opacity: 1 }}
       transition={{ duration: reducedMotion ? 0 : 0.35 }}
     >
-      <a className="skip-link" href="#work">
-        Skip to work
+      <IntroOverlay reducedMotion={reducedMotion} />
+      <a className="skip-link" href={isContactPage ? '#contact-details' : '#work'}>
+        Skip to content
       </a>
-      <SiteHeader />
+      <SiteHeader isContactPage={isContactPage} />
       <main>
-        <HeroModule reducedMotion={reducedMotion} />
-        <WorkModule />
-        <ProfileModule />
-        <ContactModule />
+        {isContactPage ? (
+          <ContactModule standalone />
+        ) : (
+          <>
+            <HeroModule reducedMotion={reducedMotion} />
+            <WorkModule />
+            <ProfileModule />
+            <ContactModule />
+          </>
+        )}
       </main>
     </motion.div>
   );

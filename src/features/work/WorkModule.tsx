@@ -11,6 +11,39 @@ interface ProjectVisualProps {
   readonly project: PortfolioProject;
 }
 
+const dovistaFlow = [
+  { label: 'Input docs', detail: 'Purchasing data' },
+  { label: 'OCR', detail: 'Document Understanding' },
+  { label: 'SAP', detail: 'Validated source data' },
+  { label: 'UiPath', detail: 'Automated workflow' },
+  { label: 'Report', detail: '40% faster output' },
+] as const;
+
+function DovistaProcessVisual() {
+  return (
+    <div className="dovista-process" aria-hidden="true">
+      <div className="process-status">
+        <span>CASE / 03</span>
+        <span>DEPLOYED</span>
+      </div>
+      <div className="process-flow">
+        {dovistaFlow.map((step, index) => (
+          <div className="process-node" key={step.label}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <strong>{step.label}</strong>
+            <small>{step.detail}</small>
+          </div>
+        ))}
+      </div>
+      <div className="process-outcome">
+        <span>Measured outcome</span>
+        <strong>−40%</strong>
+        <small>report generation time</small>
+      </div>
+    </div>
+  );
+}
+
 function ProjectVisual({ project }: ProjectVisualProps) {
   const [hasImageFailed, setHasImageFailed] = useState(false);
   const external = isExternalUrl(project.url);
@@ -23,7 +56,9 @@ function ProjectVisual({ project }: ProjectVisualProps) {
       rel={external ? 'noreferrer' : undefined}
       aria-label={`Open ${project.name}`}
     >
-      {hasImageFailed ? (
+      {project.id === 'dovista' ? (
+        <DovistaProcessVisual />
+      ) : hasImageFailed ? (
         <div className="project-visual-placeholder" aria-hidden="true">
           <span>{project.number}</span>
           <strong>{project.name}</strong>
@@ -36,7 +71,7 @@ function ProjectVisual({ project }: ProjectVisualProps) {
           onError={() => setHasImageFailed(true)}
         />
       )}
-      <span className="visual-label">{external ? 'Live evidence' : 'Case evidence'}</span>
+      <span className="visual-label">{external ? 'Live evidence' : 'Process evidence'}</span>
     </a>
   );
 }

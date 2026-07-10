@@ -32,21 +32,27 @@ function createSmoothScrollRuntime(): () => void {
 
 function createRevealAnimations(rootElement: HTMLElement): () => void {
   const context = gsap.context(() => {
-    gsap.from('[data-hero-copy] > *', {
-      y: 42,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.08,
-      ease: 'power3.out',
-    });
+    const heroCopy = rootElement.querySelector<HTMLElement>('[data-hero-copy]');
+    if (heroCopy) {
+      gsap.from(heroCopy.children, {
+        y: 42,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.08,
+        ease: 'power3.out',
+      });
+    }
 
-    gsap.from('[data-hero-scene]', {
-      opacity: 0,
-      scale: 0.96,
-      duration: 1.2,
-      delay: 0.15,
-      ease: 'power3.out',
-    });
+    const heroScene = rootElement.querySelector<HTMLElement>('[data-hero-scene]');
+    if (heroScene) {
+      gsap.from(heroScene, {
+        opacity: 0,
+        scale: 0.96,
+        duration: 1.2,
+        delay: 0.15,
+        ease: 'power3.out',
+      });
+    }
 
     gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((element) => {
       gsap.from(element, {

@@ -3,7 +3,11 @@ import { navigationItems } from '../content/portfolioContent';
 import { ActionLink } from './InterfaceElements';
 import './site-header.css';
 
-export function SiteHeader() {
+interface SiteHeaderProps {
+  readonly isContactPage: boolean;
+}
+
+export function SiteHeader({ isContactPage }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -23,7 +27,7 @@ export function SiteHeader() {
 
   return (
     <header className="site-header">
-      <a className="wordmark" href="#top" aria-label="Wojciech Sacewicz home">
+      <a className="wordmark" href={isContactPage ? '/' : '#top'} aria-label="Wojciech Sacewicz home">
         WS<span>.</span>
       </a>
 
@@ -43,7 +47,11 @@ export function SiteHeader() {
         aria-label="Primary navigation"
       >
         {navigationItems.map((item) => (
-          <a key={item.href} href={item.href} onClick={closeMenu}>
+          <a
+            key={item.href}
+            href={isContactPage && item.href.startsWith('#') ? `/${item.href}` : item.href}
+            onClick={closeMenu}
+          >
             {item.label}
           </a>
         ))}
@@ -51,9 +59,9 @@ export function SiteHeader() {
 
       <ActionLink
         className="header-cta"
-        href="mailto:wojciechsacewicz@outlook.com"
+        href={isContactPage ? '/' : '/contact'}
       >
-        Start a conversation
+        {isContactPage ? 'Back to portfolio' : 'Contact'}
       </ActionLink>
     </header>
   );
