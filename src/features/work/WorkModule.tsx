@@ -44,6 +44,27 @@ function DovistaProcessVisual() {
   );
 }
 
+function VeldiaProductVisual() {
+  return (
+    <div className="veldia-product" aria-hidden="true">
+      <div className="veldia-product-header">
+        <span className="veldia-mark">V</span>
+        <span>REAL PRODUCT / LIVE</span>
+      </div>
+      <div className="veldia-device veldia-device-primary">
+        <img src="/assets/veldia-dashboard.png" alt="" loading="lazy" />
+      </div>
+      <div className="veldia-device veldia-device-secondary">
+        <img src="/assets/veldia-schedule.png" alt="" loading="lazy" />
+      </div>
+      <div className="veldia-product-note">
+        <strong>Hours after the shift.</strong>
+        <span>Ready to review.</span>
+      </div>
+    </div>
+  );
+}
+
 function ProjectVisual({ project }: ProjectVisualProps) {
   const [hasImageFailed, setHasImageFailed] = useState(false);
   const external = isExternalUrl(project.url);
@@ -58,6 +79,8 @@ function ProjectVisual({ project }: ProjectVisualProps) {
     >
       {project.id === 'dovista' ? (
         <DovistaProcessVisual />
+      ) : project.id === 'veldia' ? (
+        <VeldiaProductVisual />
       ) : hasImageFailed ? (
         <div className="project-visual-placeholder" aria-hidden="true">
           <span>{project.number}</span>

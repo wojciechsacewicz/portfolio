@@ -12,7 +12,7 @@ const githubContributionSnapshot = {
   total: 1231,
   activeDays: 86,
   publicRepos: 11,
-  startDate: '2026-01-11',
+  startDate: '2025-07-12',
   days: [
     ['2026-01-15', 8], ['2026-01-17', 5], ['2026-01-19', 13],
     ['2026-01-21', 4], ['2026-01-24', 11], ['2026-01-28', 6],
@@ -47,7 +47,7 @@ function createContributionCells() {
   const countsByDate = new Map<string, number>(githubContributionSnapshot.days);
   const startDate = new Date(`${githubContributionSnapshot.startDate}T00:00:00Z`);
 
-  return Array.from({ length: 181 }, (_, index) => {
+  return Array.from({ length: 364 }, (_, index) => {
     const date = new Date(startDate);
     date.setUTCDate(startDate.getUTCDate() + index);
     const dateString = date.toISOString().slice(0, 10);
@@ -143,7 +143,7 @@ function GithubSection() {
         <h2 id="github-heading">The work continues between the case studies.</h2>
         <p>
           A dated snapshot of coding activity across public and private work. The
-          graph shows the most recent 26 weeks; the totals cover the last 365 days.
+          graph covers the latest year and keeps the same honest zero-days as GitHub.
         </p>
         <ActionLink href="https://github.com/wojciechsacewicz" target="_blank" rel="noreferrer">
           Open GitHub profile
@@ -169,17 +169,21 @@ function GithubSection() {
             <span>public repos</span>
           </div>
         </div>
-        <div className="contribution-chart" aria-label="GitHub contribution activity for the last 26 weeks">
-          {contributionCells.map((cell) => (
-            <span
-              key={cell.date}
-              className={`contribution-level-${contributionLevel(cell.count)}`}
-              title={`${cell.date}: ${cell.count} contributions`}
-            />
-          ))}
+        <div className="contribution-visual">
+          <div className="contribution-weekdays" aria-hidden="true"><span>Mon</span><span>Wed</span><span>Fri</span></div>
+          <div className="contribution-chart" aria-label="GitHub contribution activity for the last year">
+            {contributionCells.map((cell) => (
+              <span
+                key={cell.date}
+                className={`contribution-level-${contributionLevel(cell.count)}`}
+                title={`${cell.date}: ${cell.count} contributions`}
+              />
+            ))}
+          </div>
         </div>
         <div className="github-card-footer">
-          <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span>
+          <span>Jul</span><span>Sep</span><span>Nov</span><span>Jan</span><span>Mar</span><span>May</span><span>Jul</span>
+          <span className="contribution-legend"><i /> Less <i className="contribution-level-2" /><i className="contribution-level-4" /> More</span>
         </div>
       </div>
     </section>
@@ -195,7 +199,7 @@ function AboutSection() {
           alt="Portrait of Wojciech Sacewicz"
           loading="lazy"
         />
-        <div className="portrait-tag">21 / Gdynia / building now</div>
+        <div className="portrait-tag">21 / building now</div>
       </div>
 
       <div className="about-copy" data-reveal>

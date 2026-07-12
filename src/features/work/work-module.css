@@ -164,6 +164,95 @@
   color: var(--steel-mid);
 }
 
+.veldia-product {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  color: #f4f7fb;
+  background:
+    radial-gradient(circle at 28% 20%, rgba(103, 167, 232, 0.28), transparent 32%),
+    linear-gradient(145deg, #181716, #090b0e 72%);
+}
+
+.veldia-product::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(to bottom, black, transparent 82%);
+}
+
+.veldia-product-header {
+  position: absolute;
+  z-index: 4;
+  inset: 1.4rem 1.4rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font: 0.6rem "JetBrains Mono", monospace;
+  letter-spacing: 0.12em;
+  color: rgba(244, 247, 251, 0.58);
+}
+
+.veldia-mark {
+  display: grid;
+  width: 34px;
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 10px;
+  background: #67a7e8;
+  color: #181716;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.veldia-device {
+  position: absolute;
+  overflow: hidden;
+  border: 5px solid rgba(236, 241, 246, 0.92);
+  border-radius: 1.5rem;
+  background: #ecedea;
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.55);
+  transition: transform 0.55s cubic-bezier(.2,.8,.2,1);
+}
+
+.veldia-device img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: none !important;
+}
+
+.veldia-device-primary {
+  width: 31%;
+  left: 18%;
+  top: 15%;
+  transform: rotate(-6deg);
+}
+
+.veldia-device-secondary {
+  width: 30%;
+  left: 47%;
+  top: 8%;
+  transform: rotate(7deg);
+}
+
+.project-visual:hover .veldia-device-primary { transform: rotate(-8deg) translate(-8px, -8px); }
+.project-visual:hover .veldia-device-secondary { transform: rotate(9deg) translate(10px, -12px); }
+
+.veldia-product-note {
+  position: absolute;
+  z-index: 4;
+  right: 1.5rem;
+  bottom: 1.4rem;
+  display: grid;
+  text-align: right;
+}
+
+.veldia-product-note strong { font-size: clamp(1rem, 1.8vw, 1.5rem); }
+.veldia-product-note span { color: #67a7e8; font: 0.65rem "JetBrains Mono", monospace; text-transform: uppercase; }
+
 .dovista-process {
   position: absolute;
   inset: 0;
@@ -330,4 +419,8 @@
   .process-outcome {
     display: none;
   }
+
+  .veldia-device-primary { width: 42%; left: 9%; top: 18%; }
+  .veldia-device-secondary { width: 41%; left: 48%; top: 12%; }
+  .veldia-product-note { display: none; }
 }

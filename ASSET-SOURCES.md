@@ -6,8 +6,8 @@ The portfolio keeps factual/personal media local and uses third-party assets onl
 - `public/assets/geist-latin.woff2`: existing local Geist font asset from the CV package.
 - `public/assets/jetbrains-mono-latin.woff2`: existing local JetBrains Mono asset from the CV package.
 - `public/assets/agentic-systems-bg.png`: existing visual from the CV package.
-- Technology marks: Simple Icons 16.25.0 through the jsDelivr CDN.
-- Veldia project visual: the public Open Graph image served by `veldia.pl`.
+- Technology marks: local inline SVG paths based on Simple Icons where available, with purpose-built local marks for tools not present in that set. No runtime icon CDN is required.
+- `public/assets/veldia-dashboard.png` and `public/assets/veldia-schedule.png`: real product captures reused from the Veldia application repository.
 - llmpolska project visual: the public Open Graph image served by `llmpolska.pl`.
 
-External images have text and layout fallbacks, so the portfolio remains understandable if a remote asset is unavailable.
+The remaining external project image has a text and layout fallback, so the portfolio remains understandable if the remote asset is unavailable.

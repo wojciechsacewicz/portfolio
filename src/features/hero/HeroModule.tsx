@@ -14,7 +14,7 @@ interface HeroModuleProps {
 function HeroScene({ reducedMotion }: HeroModuleProps) {
   return (
     <div className="hero-scene" data-hero-scene>
-      <Suspense fallback={<div className="scene-fallback">Loading system map…</div>}>
+      <Suspense fallback={<div className="scene-fallback">Loading interaction…</div>}>
         <WorkflowScene reducedMotion={reducedMotion} />
       </Suspense>
     </div>
@@ -64,11 +64,6 @@ export function HeroModule({ reducedMotion }: HeroModuleProps) {
         </div>
 
         <HeroScene reducedMotion={reducedMotion} />
-
-        <div className="hero-meta">
-          <span>Gdynia / Tricity, Poland</span>
-          <span>Available for ambitious product teams</span>
-        </div>
       </section>
 
       <ProofStrip />

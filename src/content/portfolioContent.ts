@@ -79,8 +79,8 @@ export const projects = [
     ],
     stack: ['React', 'PWA', 'Supabase', 'Cloudflare'],
     url: 'https://veldia.pl/',
-    image: 'https://veldia.pl/assets/og-image.png',
-    imageAlt: 'Veldia product interface and branding',
+    image: '/assets/veldia-dashboard.png',
+    imageAlt: 'Real Veldia manager dashboard',
     tone: 'steel',
   },
   {
@@ -200,6 +200,14 @@ export const technologies = [
   { slug: 'threejs', label: 'Three.js' },
   { slug: 'docker', label: 'Docker' },
   { slug: 'github', label: 'GitHub' },
+  { slug: 'openai', label: 'Codex' },
+  { slug: 'anthropic', label: 'Claude' },
+  { slug: 'googlegemini', label: 'Gemini' },
+  { slug: 'adobephotoshop', label: 'Photoshop' },
+  { slug: 'adobepremierepro', label: 'Premiere' },
+  { slug: 'slack', label: 'Slack' },
+  { slug: 'google', label: 'Google' },
+  { slug: 'meta', label: 'Meta' },
 ] as const satisfies readonly Technology[];
 
 export function isExternalUrl(url: string): boolean {

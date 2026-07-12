@@ -8,7 +8,7 @@
 .technology-track {
   width: max-content;
   display: flex;
-  animation: technology-ticker 28s linear infinite;
+  animation: technology-ticker 52s linear infinite;
 }
 
 .technology-item {

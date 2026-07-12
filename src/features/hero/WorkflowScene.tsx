@@ -1,92 +1,149 @@
-import { Float, Line, OrbitControls, Text } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Bloom, EffectComposer, Noise, Vignette } from '@react-three/postprocessing';
-import { useMemo, useRef, useState } from 'react';
-import { Color, type Group, type Mesh } from 'three';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  AdditiveBlending,
+  BufferAttribute,
+  BufferGeometry,
+  Color,
+  ShaderMaterial,
+  type Group,
+  type Mesh,
+} from 'three';
 
-interface WorkflowNodeDefinition {
-  readonly label: string;
-  readonly position: readonly [number, number, number];
-  readonly color: string;
+const particleVertexShader = /* glsl */ `
+  uniform float uTime;
+  uniform float uPulse;
+  uniform vec2 uPointer;
+  attribute float aScale;
+  attribute float aPhase;
+  varying float vEnergy;
+
+  void main() {
+    vec3 p = position;
+    float wave = sin(uTime * 0.72 + aPhase + length(p) * 1.8);
+    p += normalize(p + 0.001) * wave * (0.08 + uPulse * 0.18);
+
+    vec2 cursor = uPointer * vec2(3.7, 2.5);
+    vec2 delta = p.xy - cursor;
+    float influence = exp(-dot(delta, delta) * 0.42);
+    p.xy += normalize(delta + 0.001) * influence * (0.45 + uPulse * 0.75);
+    p.z += influence * (0.6 + uPulse * 0.8);
+
+    vec4 mvPosition = modelViewMatrix * vec4(p, 1.0);
+    gl_Position = projectionMatrix * mvPosition;
+    gl_PointSize = (2.2 + aScale * 4.2 + influence * 5.0) * (7.0 / -mvPosition.z);
+    vEnergy = clamp(0.18 + influence + aScale * 0.45 + uPulse * 0.3, 0.0, 1.0);
+  }
+`;
+
+const particleFragmentShader = /* glsl */ `
+  uniform vec3 uColorLow;
+  uniform vec3 uColorHigh;
+  varying float vEnergy;
+
+  void main() {
+    vec2 centered = gl_PointCoord - 0.5;
+    float distanceToCenter = length(centered);
+    if (distanceToCenter > 0.5) discard;
+    float alpha = smoothstep(0.5, 0.08, distanceToCenter);
+    vec3 color = mix(uColorLow, uColorHigh, vEnergy);
+    gl_FragColor = vec4(color, alpha * (0.42 + vEnergy * 0.58));
+  }
+`;
+
+function createParticleGeometry(count: number) {
+  const geometry = new BufferGeometry();
+  const positions = new Float32Array(count * 3);
+  const scales = new Float32Array(count);
+  const phases = new Float32Array(count);
+
+  for (let index = 0; index < count; index += 1) {
+    const t = index / count;
+    const angle = t * Math.PI * 26 + Math.sin(index * 0.31) * 0.8;
+    const radius = 0.45 + Math.pow(t, 0.68) * 3.4 + Math.sin(index * 1.7) * 0.18;
+    const vertical = Math.sin(angle * 0.58) * (0.5 + t * 1.25);
+
+    positions[index * 3] = Math.cos(angle) * radius;
+    positions[index * 3 + 1] = vertical + Math.sin(index * 0.13) * 0.22;
+    positions[index * 3 + 2] = Math.sin(angle) * radius * 0.48 + Math.cos(index * 0.27) * 0.35;
+    scales[index] = 0.2 + ((index * 37) % 100) / 100;
+    phases[index] = angle + index * 0.07;
+  }
+
+  geometry.setAttribute('position', new BufferAttribute(positions, 3));
+  geometry.setAttribute('aScale', new BufferAttribute(scales, 1));
+  geometry.setAttribute('aPhase', new BufferAttribute(phases, 1));
+  return geometry;
 }
 
-const workflowNodes = [
-  { label: 'TICKET', position: [-3.4, 1.45, 0], color: '#d9e2ec' },
-  { label: 'SCOPE', position: [-2.1, 0.35, 0.15], color: '#7a95b1' },
-  { label: 'CODE', position: [-0.65, 1.05, -0.1], color: '#d9e2ec' },
-  { label: 'REVIEW', position: [0.8, 0.05, 0.15], color: '#5d7fa3' },
-  { label: 'TESTS', position: [2.2, 1, -0.1], color: '#d9e2ec' },
-  { label: 'SHIP', position: [3.45, 0, 0.1], color: '#afc0d4' },
-] as const satisfies readonly WorkflowNodeDefinition[];
+function MagneticField({ reducedMotion }: { readonly reducedMotion: boolean }) {
+  const groupRef = useRef<Group>(null);
+  const coreRef = useRef<Mesh>(null);
+  const pulseRef = useRef(0);
+  const geometry = useMemo(() => createParticleGeometry(1200), []);
+  const material = useMemo(() => new ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    blending: AdditiveBlending,
+    vertexShader: particleVertexShader,
+    fragmentShader: particleFragmentShader,
+    uniforms: {
+      uTime: { value: 0 },
+      uPulse: { value: 0 },
+      uPointer: { value: { x: 0, y: 0 } },
+      uColorLow: { value: new Color('#3d5874') },
+      uColorHigh: { value: new Color('#d7e8f8') },
+    },
+  }), []);
 
-interface WorkflowNodeProps extends WorkflowNodeDefinition {
-  readonly index: number;
-}
+  useEffect(() => () => {
+    geometry.dispose();
+    material.dispose();
+  }, [geometry, material]);
 
-function WorkflowNode({ label, position, color, index }: WorkflowNodeProps) {
-  const meshRef = useRef<Mesh>(null);
-  const emissiveColor = useMemo(() => new Color(color), [color]);
+  useFrame(({ clock, pointer }) => {
+    if (reducedMotion) return;
+    material.uniforms.uTime.value = clock.elapsedTime;
+    material.uniforms.uPointer.value.x += (pointer.x - material.uniforms.uPointer.value.x) * 0.08;
+    material.uniforms.uPointer.value.y += (pointer.y - material.uniforms.uPointer.value.y) * 0.08;
+    pulseRef.current *= 0.94;
+    material.uniforms.uPulse.value = pulseRef.current;
 
-  useFrame(({ clock }) => {
-    if (!meshRef.current) return;
-
-    const pulseScale = 1 + Math.sin(clock.elapsedTime * 1.4 + index * 0.8) * 0.055;
-    meshRef.current.scale.setScalar(pulseScale);
+    if (groupRef.current) {
+      groupRef.current.rotation.y = clock.elapsedTime * 0.035 + pointer.x * 0.08;
+      groupRef.current.rotation.x += (-pointer.y * 0.06 - groupRef.current.rotation.x) * 0.035;
+    }
+    if (coreRef.current) {
+      coreRef.current.rotation.x = clock.elapsedTime * 0.22;
+      coreRef.current.rotation.y = clock.elapsedTime * 0.3;
+      coreRef.current.scale.setScalar(1 + pulseRef.current * 0.28);
+    }
   });
 
   return (
-    <group position={position}>
-      <mesh ref={meshRef}>
-        <icosahedronGeometry args={[0.22, 1]} />
+    <group
+      ref={groupRef}
+      onPointerDown={(event) => {
+        event.stopPropagation();
+        pulseRef.current = 1;
+      }}
+    >
+      <points geometry={geometry} material={material} />
+      <mesh ref={coreRef}>
+        <icosahedronGeometry args={[0.62, 3]} />
         <meshStandardMaterial
-          color={color}
+          color="#89a9c8"
+          emissive="#3d5874"
+          emissiveIntensity={1.5}
           roughness={0.22}
-          metalness={0.15}
-          emissive={emissiveColor}
-          emissiveIntensity={0.2}
+          metalness={0.72}
+          wireframe
         />
       </mesh>
-      <Text
-        position={[0, -0.48, 0]}
-        fontSize={0.18}
-        letterSpacing={0.08}
-        color="#f4f6ee"
-        anchorX="center"
-        anchorY="middle"
-      >
-        {label}
-      </Text>
-    </group>
-  );
-}
-
-function WorkflowGraph() {
-  const graphRef = useRef<Group>(null);
-  const linePoints = useMemo(() => workflowNodes.map((node) => node.position), []);
-
-  useFrame(({ pointer }) => {
-    if (!graphRef.current) return;
-
-    graphRef.current.rotation.y += (pointer.x * 0.12 - graphRef.current.rotation.y) * 0.035;
-    graphRef.current.rotation.x += (-pointer.y * 0.05 - graphRef.current.rotation.x) * 0.035;
-  });
-
-  return (
-    <group ref={graphRef} position={[0, -0.4, 0]}>
-      <Line points={linePoints} color="#7a95b1" lineWidth={1.6} transparent opacity={0.6} />
-      {workflowNodes.map((node, index) => (
-        <Float
-          key={node.label}
-          speed={1.5 + index * 0.08}
-          rotationIntensity={0.1}
-          floatIntensity={0.12}
-        >
-          <WorkflowNode {...node} index={index} />
-        </Float>
-      ))}
-      <mesh position={[0, 0.5, -0.7]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[8.5, 4.7, 18, 10]} />
-        <meshBasicMaterial color="#17212c" wireframe transparent opacity={0.28} />
+      <mesh rotation={[Math.PI / 2.4, 0.2, 0]}>
+        <torusGeometry args={[1.08, 0.012, 8, 128]} />
+        <meshBasicMaterial color="#afc0d4" transparent opacity={0.45} />
       </mesh>
     </group>
   );
@@ -99,12 +156,8 @@ interface WorkflowSceneProps {
 function WorkflowFallback() {
   return (
     <div className="workflow-fallback" aria-hidden="true">
-      {workflowNodes.map((node, index) => (
-        <div className="workflow-fallback-node" key={node.label}>
-          <span>{String(index + 1).padStart(2, '0')}</span>
-          <strong>{node.label}</strong>
-        </div>
-      ))}
+      <div className="fallback-orbit"><span /></div>
+      <div className="fallback-core" />
     </div>
   );
 }
@@ -115,12 +168,12 @@ export function WorkflowScene({ reducedMotion }: WorkflowSceneProps) {
   return (
     <div
       className="workflow-canvas"
-      aria-label="Interactive model of Wojtek's ticket-to-delivery engineering workflow"
+      aria-label="Interactive magnetic particle field. Move the pointer to disturb it and click to send a pulse."
     >
       {hasWebGlContext ? (
         <Canvas
-          camera={{ position: [0, 1.25, 7.4], fov: 43 }}
-          dpr={[1, 1.6]}
+          camera={{ position: [0, 0, 6.8], fov: 48 }}
+          dpr={[1, 1.55]}
           frameloop={reducedMotion ? 'demand' : 'always'}
           gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
           fallback={<WorkflowFallback />}
@@ -131,36 +184,20 @@ export function WorkflowScene({ reducedMotion }: WorkflowSceneProps) {
             }, { once: true });
           }}
         >
-          <ambientLight intensity={1.3} />
-          <directionalLight position={[2, 4, 5]} intensity={3.2} color="#e5edf5" />
-          <pointLight position={[-3, 0, 2]} intensity={5} color="#5d7fa3" distance={7} />
-          <pointLight position={[3, 1, 1]} intensity={3.5} color="#7a95b1" distance={6} />
-          <WorkflowGraph />
-          {!reducedMotion ? (
-            <OrbitControls
-              enableZoom={false}
-              enablePan={false}
-              minPolarAngle={1.15}
-              maxPolarAngle={1.85}
-            />
-          ) : null}
+          <ambientLight intensity={0.8} />
+          <pointLight position={[2.2, 2.8, 3]} intensity={9} color="#afc0d4" distance={8} />
+          <pointLight position={[-3, -1, 2]} intensity={7} color="#3d5874" distance={8} />
+          <MagneticField reducedMotion={reducedMotion} />
           <EffectComposer multisampling={0}>
-            <Bloom
-              luminanceThreshold={0.6}
-              luminanceSmoothing={0.75}
-              intensity={0.42}
-              mipmapBlur
-            />
-            <Noise opacity={0.018} />
-            <Vignette eskil={false} offset={0.22} darkness={0.58} />
+            <Bloom luminanceThreshold={0.32} luminanceSmoothing={0.75} intensity={0.85} mipmapBlur />
+            <Noise opacity={0.014} />
+            <Vignette eskil={false} offset={0.18} darkness={0.66} />
           </EffectComposer>
         </Canvas>
-      ) : (
-        <WorkflowFallback />
-      )}
+      ) : <WorkflowFallback />}
       <div className="canvas-caption">
-        <span>Drag to inspect</span>
-        <span>Ticket → verified change</span>
+        <span>Move cursor · click to pulse</span>
+        <span>Magnetic field / live</span>
       </div>
     </div>
   );

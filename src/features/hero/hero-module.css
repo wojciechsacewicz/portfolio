@@ -77,18 +77,24 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 1.6rem;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.02);
+  cursor: crosshair;
+  background: #070b10;
+  box-shadow: 0 32px 100px rgba(0, 0, 0, 0.42);
 }
 
 .workflow-canvas::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(93, 127, 163, 0.14), transparent 46%);
+  z-index: 1;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 42%, rgba(4, 7, 11, 0.64) 100%),
+    linear-gradient(135deg, rgba(93, 127, 163, 0.11), transparent 42%);
   pointer-events: none;
 }
 
 .canvas-caption {
+  z-index: 2;
   position: absolute;
   inset: auto 1.1rem 1rem;
   display: flex;
@@ -114,52 +120,31 @@
   position: absolute;
   inset: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.8rem;
-  align-content: center;
-  padding: clamp(1rem, 3vw, 2.5rem);
+  place-items: center;
   background:
     linear-gradient(rgba(175, 192, 212, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(175, 192, 212, 0.05) 1px, transparent 1px),
     radial-gradient(circle at 70% 20%, rgba(93, 127, 163, 0.22), transparent 36%),
-    #0b1016;
+    #070b10;
   background-size: 32px 32px, 32px 32px, auto, auto;
 }
 
-.workflow-fallback-node {
-  min-height: 106px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 0.85rem;
-  border: 1px solid rgba(175, 192, 212, 0.2);
-  border-radius: 0.75rem;
-  background: rgba(17, 24, 32, 0.84);
+.fallback-core {
+  width: 18%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(215, 232, 248, 0.8);
+  transform: rotate(32deg);
+  background: radial-gradient(circle at 30% 25%, #d7e8f8, #3d5874 38%, transparent 72%);
+  box-shadow: 0 0 60px rgba(93, 127, 163, 0.72);
 }
 
-.workflow-fallback-node span {
-  color: var(--steel-mid);
-  font: 0.58rem "JetBrains Mono", monospace;
-}
-
-.workflow-fallback-node strong {
-  font-size: clamp(0.85rem, 1.4vw, 1.1rem);
-  letter-spacing: 0.04em;
-}
-
-.hero-meta {
-  grid-column: 1 / -1;
-  position: relative;
-  z-index: 2;
-  display: flex;
-  justify-content: space-between;
-  padding-top: 1.2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.66rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
+.fallback-orbit {
+  position: absolute;
+  width: 62%;
+  aspect-ratio: 1.8;
+  border: 1px solid rgba(175, 192, 212, 0.35);
+  border-radius: 50%;
+  transform: rotate(-12deg);
 }
 
 .proof-strip {
@@ -232,26 +217,12 @@
     min-height: 370px;
   }
 
-  .workflow-fallback {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-  }
-
-  .workflow-fallback-node {
-    min-height: 78px;
-  }
-
   .workflow-canvas {
     border-radius: 1rem;
   }
 
   .canvas-caption span:first-child {
     display: none;
-  }
-
-  .hero-meta {
-    gap: 1rem;
-    flex-direction: column;
   }
 
   .proof-strip {
