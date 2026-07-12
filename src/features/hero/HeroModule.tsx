@@ -1,25 +1,6 @@
-import { lazy, Suspense } from 'react';
 import { ActionLink } from '../../components/InterfaceElements';
 import { proofPoints } from '../../content/portfolioContent';
 import './hero-module.css';
-
-const WorkflowScene = lazy(() =>
-  import('./WorkflowScene').then((module) => ({ default: module.WorkflowScene })),
-);
-
-interface HeroModuleProps {
-  readonly reducedMotion: boolean;
-}
-
-function HeroScene({ reducedMotion }: HeroModuleProps) {
-  return (
-    <div className="hero-scene" data-hero-scene>
-      <Suspense fallback={<div className="scene-fallback">Loading interaction…</div>}>
-        <WorkflowScene reducedMotion={reducedMotion} />
-      </Suspense>
-    </div>
-  );
-}
 
 function ProofStrip() {
   return (
@@ -37,7 +18,7 @@ function ProofStrip() {
   );
 }
 
-export function HeroModule({ reducedMotion }: HeroModuleProps) {
+export function HeroModule() {
   return (
     <>
       <section className="hero" id="top">
@@ -49,21 +30,24 @@ export function HeroModule({ reducedMotion }: HeroModuleProps) {
             I build with AI.
             <span>I ship like an engineer.</span>
           </h1>
-          <p className="hero-lead">
-            Products, internal tools and automations built with coding agents,
-            product judgment and verification in the loop.
-          </p>
+          <div className="hero-support">
+            <p className="hero-lead">
+              I turn ambiguous product problems into working software: products,
+              internal tools and automations built with coding agents, product judgment
+              and verification in the loop.
+            </p>
+            <div className="hero-principle">
+              <span>Working principle / 01</span>
+              <p>
+                AI increases the pace. Engineering discipline decides what is ready to ship.
+              </p>
+            </div>
+          </div>
           <div className="hero-actions">
-            <ActionLink variant="primary" href="#work">
-              See the evidence
-            </ActionLink>
-            <ActionLink variant="secondary" href="/cv-portfolio-en.pdf" showArrow={false}>
-              Open CV
-            </ActionLink>
+            <ActionLink variant="primary" href="#work">See the evidence</ActionLink>
+            <ActionLink variant="secondary" href="/cv-portfolio-en.pdf" showArrow={false}>Open CV</ActionLink>
           </div>
         </div>
-
-        <HeroScene reducedMotion={reducedMotion} />
       </section>
 
       <ProofStrip />

@@ -34,7 +34,7 @@ export default function App() {
           <ContactModule standalone />
         ) : (
           <>
-            <HeroModule reducedMotion={reducedMotion} />
+            <HeroModule />
             <WorkModule />
             <ProfileModule />
             <ContactModule />
