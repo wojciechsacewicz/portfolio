@@ -2,8 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
-const projectRoot = path.resolve(scriptDirectory, '..');
+const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const distDirectory = path.join(projectRoot, 'dist');
 const profile = JSON.parse(
   await readFile(path.join(projectRoot, 'src/content/seoProfile.json'), 'utf8'),
@@ -29,30 +28,32 @@ function escapeHtml(value) {
     .replaceAll("'", '&#039;');
 }
 
-function escapeAttribute(value) {
-  return escapeHtml(value);
-}
-
 function canonicalUrl(routePath) {
   return routePath === '/' ? `${profile.siteUrl}/` : `${profile.siteUrl}${routePath}`;
 }
 
 function renderTags(items) {
-  return `<ul class="seo-tags">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`;
+  return `<ul class="seo-tags">${items
+    .map((item) => `<li>${escapeHtml(item)}</li>`)
+    .join('')}</ul>`;
 }
 
 function renderNavigation() {
+  const caseStudyLinks = profile.caseStudies
+    .map(
+      (study) => `<a href="/case-studies/${escapeHtml(study.slug)}">${escapeHtml(study.shortTitle)}</a>`,
+    )
+    .join('');
+
   return `<nav aria-label="Portfolio pages">
     <a href="/">Portfolio</a>
     <a href="/resume">Structured resume</a>
-    ${profile.caseStudies
-      .map((study) => `<a href="/case-studies/${escapeAttribute(study.slug)}">${escapeHtml(study.shortTitle)}</a>`)
-      .join('')}
+    ${caseStudyLinks}
     <a href="/contact">Contact</a>
   </nav>`;
 }
 
-function renderCapabilities() {
+function renderCapabilityCards() {
   return `<div class="seo-grid">${profile.capabilityGroups
     .map(
       (group) => `<article>
@@ -67,7 +68,7 @@ function renderCaseStudyCards() {
   return `<div class="seo-grid">${profile.caseStudies
     .map(
       (study) => `<article>
-        <h3><a href="/case-studies/${escapeAttribute(study.slug)}">${escapeHtml(study.title)}</a></h3>
+        <h3><a href="/case-studies/${escapeHtml(study.slug)}">${escapeHtml(study.title)}</a></h3>
         <p>${escapeHtml(study.description)}</p>
         <p><strong>Outcome:</strong> ${escapeHtml(study.outcome)}</p>
         ${renderTags(study.technologies)}
@@ -76,7 +77,7 @@ function renderCaseStudyCards() {
     .join('')}</div>`;
 }
 
-function renderExperience() {
+function renderExperienceCards() {
   return `<div class="seo-grid">${profile.experience
     .map(
       (entry) => `<article>
@@ -88,168 +89,105 @@ function renderExperience() {
     .join('')}</div>`;
 }
 
-function renderFaq() {
-  return profile.faq
+function renderFaqCards() {
+  return `<div class="seo-grid">${profile.faq
     .map(
       (item) => `<article>
         <h3>${escapeHtml(item.question)}</h3>
         <p>${escapeHtml(item.answer)}</p>
       </article>`,
     )
-    .join('');
+    .join('')}</div>`;
+}
+
+function snapshot(content) {
+  return `<div class="seo-snapshot">${renderNavigation()}<main>${content}</main></div>`;
 }
 
 function renderHomeSnapshot() {
-  return `<div class="seo-snapshot">
-    ${renderNavigation()}
-    <main>
-      <p>Wojciech Sacewicz · ${escapeHtml(profile.person.location)}</p>
-      <h1>AI-native developer and product engineer in Poland / Tricity</h1>
-      <p>${escapeHtml(profile.person.summary)}</p>
-      <p>${escapeHtml(profile.person.fit)}</p>
-      <div class="seo-links">
-        <a href="/resume">Read structured resume</a>
-        <a href="${escapeAttribute(profile.person.links.github)}">GitHub</a>
-        <a href="${escapeAttribute(profile.person.links.linkedin)}">LinkedIn</a>
-        <a href="/contact">Contact</a>
-      </div>
-
-      <section>
-        <h2>Relevant roles</h2>
-        ${renderTags(profile.roleAliases)}
-      </section>
-
-      <section>
-        <h2>Capabilities, technologies and engineering workflows</h2>
-        ${renderCapabilities()}
-      </section>
-
-      <section>
-        <h2>Selected evidence and case studies</h2>
-        ${renderCaseStudyCards()}
-      </section>
-
-      <section>
-        <h2>Commercial experience</h2>
-        ${renderExperience()}
-      </section>
-
-      <section>
-        <h2>Recruiter and AI search questions</h2>
-        <div class="seo-grid">${renderFaq()}</div>
-      </section>
-
-      <section>
-        <h2>Education and languages</h2>
-        <p>${escapeHtml(profile.person.education)}. ${escapeHtml(profile.person.languages.join(', '))}.</p>
-      </section>
-    </main>
-  </div>`;
+  return snapshot(`
+    <p>${escapeHtml(profile.person.name)} · ${escapeHtml(profile.person.location)}</p>
+    <h1>AI-native developer and product engineer in Poland / Tricity</h1>
+    <p>${escapeHtml(profile.person.summary)}</p>
+    <p>${escapeHtml(profile.person.fit)}</p>
+    <div class="seo-links">
+      <a href="/resume">Read structured resume</a>
+      <a href="${escapeHtml(profile.person.links.github)}">GitHub</a>
+      <a href="${escapeHtml(profile.person.links.linkedin)}">LinkedIn</a>
+      <a href="/contact">Contact</a>
+    </div>
+    <section><h2>Relevant roles</h2>${renderTags(profile.roleAliases)}</section>
+    <section><h2>Capabilities, technologies and engineering workflows</h2>${renderCapabilityCards()}</section>
+    <section><h2>Selected evidence and case studies</h2>${renderCaseStudyCards()}</section>
+    <section><h2>Commercial experience</h2>${renderExperienceCards()}</section>
+    <section><h2>Recruiter and AI search questions</h2>${renderFaqCards()}</section>
+    <section>
+      <h2>Education and languages</h2>
+      <p>${escapeHtml(profile.person.education)}. ${escapeHtml(profile.person.languages.join(', '))}.</p>
+    </section>
+  `);
 }
 
 function renderResumeSnapshot() {
-  return `<div class="seo-snapshot">
-    ${renderNavigation()}
-    <main>
-      <p>Structured resume · updated ${escapeHtml(profile.lastModified)}</p>
-      <h1>${escapeHtml(profile.person.name)} — ${escapeHtml(profile.person.headline)}</h1>
-      <p><strong>Location:</strong> ${escapeHtml(profile.person.location)}</p>
-      <p>${escapeHtml(profile.person.summary)}</p>
-      <p>${escapeHtml(profile.person.fit)}</p>
-
-      <section>
-        <h2>Role matches</h2>
-        ${renderTags(profile.roleAliases)}
-      </section>
-
-      <section>
-        <h2>Experience</h2>
-        ${renderExperience()}
-      </section>
-
-      <section>
-        <h2>Technical and product capabilities</h2>
-        ${renderCapabilities()}
-      </section>
-
-      <section>
-        <h2>Case studies</h2>
-        ${renderCaseStudyCards()}
-      </section>
-
-      <section>
-        <h2>Education and languages</h2>
-        <p>${escapeHtml(profile.person.education)}</p>
-        ${renderTags(profile.person.languages)}
-      </section>
-
-      <div class="seo-links">
-        <a href="/cv-portfolio-en.pdf">PDF CV</a>
-        <a href="/contact">Contact Wojciech Sacewicz</a>
-      </div>
-    </main>
-  </div>`;
+  return snapshot(`
+    <p>Structured resume · updated ${escapeHtml(profile.lastModified)}</p>
+    <h1>${escapeHtml(profile.person.name)} — ${escapeHtml(profile.person.headline)}</h1>
+    <p><strong>Location:</strong> ${escapeHtml(profile.person.location)}</p>
+    <p>${escapeHtml(profile.person.summary)}</p>
+    <p>${escapeHtml(profile.person.fit)}</p>
+    <section><h2>Role matches</h2>${renderTags(profile.roleAliases)}</section>
+    <section><h2>Experience</h2>${renderExperienceCards()}</section>
+    <section><h2>Technical and product capabilities</h2>${renderCapabilityCards()}</section>
+    <section><h2>Case studies</h2>${renderCaseStudyCards()}</section>
+    <section>
+      <h2>Education and languages</h2>
+      <p>${escapeHtml(profile.person.education)}</p>
+      ${renderTags(profile.person.languages)}
+    </section>
+    <div class="seo-links">
+      <a href="/cv-portfolio-en.pdf">PDF CV</a>
+      <a href="/contact">Contact ${escapeHtml(profile.person.name)}</a>
+    </div>
+  `);
 }
 
 function renderCaseStudySnapshot(study) {
-  return `<div class="seo-snapshot">
-    ${renderNavigation()}
-    <main>
-      <p>Case study by ${escapeHtml(profile.person.name)}</p>
-      <h1>${escapeHtml(study.title)}</h1>
-      <p>${escapeHtml(study.description)}</p>
-
-      <section>
-        <h2>Problem</h2>
-        <p>${escapeHtml(study.problem)}</p>
-      </section>
-      <section>
-        <h2>Ownership and contribution</h2>
-        <p>${escapeHtml(study.ownership)}</p>
-      </section>
-      <section>
-        <h2>Outcome</h2>
-        <p>${escapeHtml(study.outcome)}</p>
-      </section>
-      <section>
-        <h2>Technology and methods</h2>
-        ${renderTags(study.technologies)}
-      </section>
-      <div class="seo-links">
-        ${study.liveUrl ? `<a href="${escapeAttribute(study.liveUrl)}">Open live product</a>` : ''}
-        <a href="/resume">Wojciech Sacewicz resume</a>
-        <a href="/contact">Contact</a>
-      </div>
-    </main>
-  </div>`;
+  return snapshot(`
+    <p>Case study by ${escapeHtml(profile.person.name)}</p>
+    <h1>${escapeHtml(study.title)}</h1>
+    <p>${escapeHtml(study.description)}</p>
+    <section><h2>Problem</h2><p>${escapeHtml(study.problem)}</p></section>
+    <section><h2>Ownership and contribution</h2><p>${escapeHtml(study.ownership)}</p></section>
+    <section><h2>Outcome</h2><p>${escapeHtml(study.outcome)}</p></section>
+    <section><h2>Technology and methods</h2>${renderTags(study.technologies)}</section>
+    <div class="seo-links">
+      ${study.liveUrl ? `<a href="${escapeHtml(study.liveUrl)}">Open live product</a>` : ''}
+      <a href="/resume">${escapeHtml(profile.person.name)} resume</a>
+      <a href="/contact">Contact</a>
+    </div>
+  `);
 }
 
 function renderContactSnapshot() {
-  return `<div class="seo-snapshot">
-    ${renderNavigation()}
-    <main>
-      <p>Contact · ${escapeHtml(profile.person.location)}</p>
-      <h1>Contact ${escapeHtml(profile.person.name)}</h1>
-      <p>For product engineering, React and TypeScript development, Cloudflare work, internal tools, AI-native development or workflow automation.</p>
-      <div class="seo-links">
-        <a href="${escapeAttribute(profile.person.links.email)}">Email</a>
-        <a href="${escapeAttribute(profile.person.links.linkedin)}">LinkedIn</a>
-        <a href="${escapeAttribute(profile.person.links.github)}">GitHub</a>
-        <a href="/resume">Structured resume</a>
-      </div>
-    </main>
-  </div>`;
+  return snapshot(`
+    <p>Contact · ${escapeHtml(profile.person.location)}</p>
+    <h1>Contact ${escapeHtml(profile.person.name)}</h1>
+    <p>For product engineering, React and TypeScript development, Cloudflare work, internal tools, AI-native development or workflow automation.</p>
+    <div class="seo-links">
+      <a href="${escapeHtml(profile.person.links.email)}">Email</a>
+      <a href="${escapeHtml(profile.person.links.linkedin)}">LinkedIn</a>
+      <a href="${escapeHtml(profile.person.links.github)}">GitHub</a>
+      <a href="/resume">Structured resume</a>
+    </div>
+  `);
 }
 
 function renderNotFoundSnapshot() {
-  return `<div class="seo-snapshot">
-    ${renderNavigation()}
-    <main>
-      <p>404</p>
-      <h1>This page does not exist.</h1>
-      <p>Return to the portfolio, structured resume or one of the project case studies.</p>
-    </main>
-  </div>`;
+  return snapshot(`
+    <p>404</p>
+    <h1>This page does not exist.</h1>
+    <p>Return to the portfolio, structured resume or one of the project case studies.</p>
+  `);
 }
 
 function personSchema() {
@@ -276,7 +214,7 @@ function personSchema() {
       '@type': 'Organization',
       name: 'IDEGO',
     },
-    alumniOf: {
+    affiliation: {
       '@type': 'CollegeOrUniversity',
       name: 'University of Gdańsk',
     },
@@ -309,7 +247,7 @@ function homepageSchema() {
       personSchema(),
       {
         '@type': 'ItemList',
-        name: 'Wojciech Sacewicz case studies',
+        name: `${profile.person.name} case studies`,
         itemListElement: profile.caseStudies.map((study, index) => ({
           '@type': 'ListItem',
           position: index + 1,
@@ -386,7 +324,7 @@ function contactSchema() {
 function routeDefinition(routePath) {
   if (routePath === '/') {
     return {
-      title: 'Wojciech Sacewicz — AI-Native Developer | Poland / Tricity',
+      title: `${profile.person.name} — AI-Native Developer | Poland / Tricity`,
       description: profile.person.summary,
       type: 'profile',
       snapshot: renderHomeSnapshot(),
@@ -396,7 +334,7 @@ function routeDefinition(routePath) {
 
   if (routePath === '/resume') {
     return {
-      title: 'Wojciech Sacewicz Resume — AI-Native Developer | Poland / Tricity',
+      title: `${profile.person.name} Resume — AI-Native Developer | Poland / Tricity`,
       description: `${profile.person.name} is an AI-native developer and product engineer in Poland / Tricity working with React, TypeScript, Cloudflare, coding agents and automation.`,
       type: 'profile',
       snapshot: renderResumeSnapshot(),
@@ -406,7 +344,7 @@ function routeDefinition(routePath) {
 
   if (routePath === '/contact') {
     return {
-      title: 'Contact Wojciech Sacewicz — AI-Native Developer',
+      title: `Contact ${profile.person.name} — AI-Native Developer`,
       description: `Contact ${profile.person.name} for AI-native product engineering, React, TypeScript, Cloudflare, internal tools and workflow automation.`,
       type: 'profile',
       snapshot: renderContactSnapshot(),
@@ -420,7 +358,7 @@ function routeDefinition(routePath) {
 
   if (study) {
     return {
-      title: `${study.title} | Wojciech Sacewicz`,
+      title: `${study.title} | ${profile.person.name}`,
       description: study.description,
       type: 'article',
       snapshot: renderCaseStudySnapshot(study),
@@ -429,7 +367,7 @@ function routeDefinition(routePath) {
   }
 
   return {
-    title: 'Page not found | Wojciech Sacewicz',
+    title: `Page not found | ${profile.person.name}`,
     description: 'The requested portfolio page does not exist.',
     type: 'website',
     snapshot: renderNotFoundSnapshot(),
@@ -448,14 +386,17 @@ function replaceMeta(document, attributeName, attributeValue, content) {
   );
   return document.replace(
     expression,
-    `<meta ${attributeName}="${escapeAttribute(attributeValue)}" content="${escapeAttribute(content)}" />`,
+    `<meta ${attributeName}="${escapeHtml(attributeValue)}" content="${escapeHtml(content)}" />`,
   );
 }
 
 function renderDocument(routePath, definition) {
   const canonical = canonicalUrl(routePath);
   let document = template;
-  document = document.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(definition.title)}</title>`);
+  document = document.replace(
+    /<title>[\s\S]*?<\/title>/i,
+    `<title>${escapeHtml(definition.title)}</title>`,
+  );
   document = replaceMeta(document, 'name', 'description', definition.description);
   document = replaceMeta(document, 'property', 'og:title', definition.title);
   document = replaceMeta(document, 'property', 'og:description', definition.description);
@@ -465,7 +406,7 @@ function renderDocument(routePath, definition) {
   document = replaceMeta(document, 'name', 'twitter:description', definition.description);
   document = document.replace(
     /<link[^>]+rel=["']canonical["'][^>]*>/i,
-    `<link rel="canonical" href="${escapeAttribute(canonical)}" />`,
+    `<link rel="canonical" href="${escapeHtml(canonical)}" />`,
   );
   document = document.replace(
     /<script type="application\/ld\+json" id="structured-data">[\s\S]*?<\/script>/i,
@@ -478,20 +419,20 @@ function renderDocument(routePath, definition) {
   return document;
 }
 
-async function writeRoute(routePath, definition) {
+async function writeRoute(routePath) {
   const targetDirectory = routePath === '/'
     ? distDirectory
     : path.join(distDirectory, routePath.slice(1));
   await mkdir(targetDirectory, { recursive: true });
   await writeFile(
     path.join(targetDirectory, 'index.html'),
-    renderDocument(routePath, definition),
+    renderDocument(routePath, routeDefinition(routePath)),
     'utf8',
   );
 }
 
 for (const routePath of indexedRoutes) {
-  await writeRoute(routePath, routeDefinition(routePath));
+  await writeRoute(routePath);
 }
 
 await writeFile(
@@ -514,23 +455,22 @@ ${indexedRoutes
 `;
 await writeFile(path.join(distDirectory, 'sitemap.xml'), sitemap, 'utf8');
 
+const searchAndRetrievalBots = [
+  'OAI-SearchBot',
+  'ChatGPT-User',
+  'Claude-SearchBot',
+  'Claude-User',
+  'PerplexityBot',
+  'Perplexity-User',
+];
+const trainingBots = ['GPTBot', 'ClaudeBot'];
+const robotGroups = [...searchAndRetrievalBots, ...trainingBots]
+  .map((bot) => `User-agent: ${bot}\nAllow: /`)
+  .join('\n\n');
 const robots = `User-agent: *
 Allow: /
 
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: GPTBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
+${robotGroups}
 
 User-agent: Google-Extended
 Allow: /
@@ -578,4 +518,6 @@ ${profile.faq
 `;
 await writeFile(path.join(distDirectory, 'llms-full.txt'), llmsFull, 'utf8');
 
-console.log(`Prerendered ${indexedRoutes.length} indexable routes plus 404, sitemap, robots and LLM discovery files.`);
+console.log(
+  `Prerendered ${indexedRoutes.length} indexable routes plus 404, sitemap, robots and LLM discovery files.`,
+);
