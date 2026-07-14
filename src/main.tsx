@@ -9,6 +9,9 @@ if (!rootElement) {
   throw new Error('Portfolio root element was not found.');
 }
 
+rootElement.replaceChildren();
+document.getElementById('seo-snapshot-style')?.remove();
+
 createRoot(rootElement).render(
   <StrictMode>
     <App />
