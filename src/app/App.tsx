@@ -8,6 +8,7 @@ import {
   NotFoundPage,
   ResumePage,
 } from '../features/discovery/DiscoveryModule';
+import '../features/discovery/case-study-details.css';
 import { HeroModule } from '../features/hero/HeroModule';
 import { ProfileModule } from '../features/profile/ProfileModule';
 import { WorkModule } from '../features/work/WorkModule';
@@ -15,19 +16,23 @@ import { usePortfolioRuntime } from './usePortfolioRuntime';
 import { IntroOverlay } from './IntroOverlay';
 import './app-shell.css';
 
-function normalizePathname(pathname: string): string {
+interface AppProps {
+  readonly pathname?: string;
+}
+
+export function normalizePathname(pathname: string): string {
   const normalized = pathname.replace(/\/+$/, '');
   return normalized || '/';
 }
 
-export default function App() {
+export default function App({ pathname = '/' }: AppProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const reducedMotion = Boolean(useReducedMotion());
-  const pathname = normalizePathname(window.location.pathname);
-  const isHomePage = pathname === '/';
-  const isContactPage = pathname === '/contact';
-  const isResumePage = pathname === '/resume';
-  const caseStudyMatch = pathname.match(/^\/case-studies\/([^/]+)$/);
+  const normalizedPathname = normalizePathname(pathname);
+  const isHomePage = normalizedPathname === '/';
+  const isContactPage = normalizedPathname === '/contact';
+  const isResumePage = normalizedPathname === '/resume';
+  const caseStudyMatch = normalizedPathname.match(/^\/case-studies\/([^/]+)$/);
 
   usePortfolioRuntime({ rootRef, reducedMotion });
 
@@ -61,7 +66,7 @@ export default function App() {
     <motion.div
       ref={rootRef}
       className="site-shell"
-      initial={{ opacity: 0 }}
+      initial={false}
       animate={{ opacity: 1 }}
       transition={{ duration: reducedMotion ? 0 : 0.35 }}
     >
