@@ -4,10 +4,10 @@ import { ActionLink } from './InterfaceElements';
 import './site-header.css';
 
 interface SiteHeaderProps {
-  readonly isContactPage: boolean;
+  readonly isSubpage: boolean;
 }
 
-export function SiteHeader({ isContactPage }: SiteHeaderProps) {
+export function SiteHeader({ isSubpage }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export function SiteHeader({ isContactPage }: SiteHeaderProps) {
 
   return (
     <header className="site-header">
-      <a className="wordmark" href={isContactPage ? '/' : '#top'} aria-label="Wojciech Sacewicz home">
+      <a className="wordmark" href={isSubpage ? '/' : '#top'} aria-label="Wojciech Sacewicz home">
         WS<span>.</span>
       </a>
 
@@ -49,19 +49,20 @@ export function SiteHeader({ isContactPage }: SiteHeaderProps) {
         {navigationItems.map((item) => (
           <a
             key={item.href}
-            href={isContactPage && item.href.startsWith('#') ? `/${item.href}` : item.href}
+            href={isSubpage && item.href.startsWith('#') ? `/${item.href}` : item.href}
             onClick={closeMenu}
           >
             {item.label}
           </a>
         ))}
+        <a href="/resume" onClick={closeMenu}>Resume</a>
       </nav>
 
       <ActionLink
         className="header-cta"
-        href={isContactPage ? '/' : '/contact'}
+        href={isSubpage ? '/' : '/contact'}
       >
-        {isContactPage ? 'Back to portfolio' : 'Contact'}
+        {isSubpage ? 'Back to portfolio' : 'Contact'}
       </ActionLink>
     </header>
   );
