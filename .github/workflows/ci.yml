@@ -1,0 +1,75 @@
+name: Portfolio CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'seo/**'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.4.0
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Cloudflare types
+        run: pnpm cloudflare:types
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build and server-render routes
+        run: pnpm build
+
+      - name: Verify SEO output and React parity
+        run: |
+          set +e
+          pnpm verify:seo > verify-seo.log 2>&1
+          status=$?
+          cat verify-seo.log
+          exit $status
+
+      - name: Upload SEO verification diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: seo-verification-${{ github.run_id }}
+          path: |
+            verify-seo.log
+            dist/
+          if-no-files-found: ignore
+          retention-days: 3
+
+      - name: Verify Cloudflare routing behavior
+        run: pnpm verify:routing
+
+      - name: Validate Cloudflare deployment bundle
+        run: pnpm cloudflare:check

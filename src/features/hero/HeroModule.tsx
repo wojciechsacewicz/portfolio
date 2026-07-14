@@ -1,5 +1,5 @@
 import { ActionLink } from '../../components/InterfaceElements';
-import { proofPoints } from '../../content/portfolioContent';
+import { portfolioContent, proofPoints } from '../../content/portfolioContent';
 import './hero-module.css';
 
 function ProofStrip() {
@@ -25,16 +25,18 @@ export function HeroModule() {
         <div className="hero-grid-lines" aria-hidden="true" />
 
         <div className="hero-copy" data-hero-copy>
-          <p className="eyebrow">AI Native Developer · Product Engineer</p>
+          <p className="eyebrow">
+            {portfolioContent.person.name} · AI-native developer · {portfolioContent.person.locationShort}
+          </p>
           <h1>
-            I build with AI.
-            <span>I ship like an engineer.</span>
+            AI-native product engineering.
+            <span>Shipped with engineering discipline.</span>
           </h1>
           <div className="hero-support">
             <p className="hero-lead">
-              I turn ambiguous product problems into working software: products,
-              internal tools and automations built with coding agents, product judgment
-              and verification in the loop.
+              I turn ambiguous product problems into working software: React and TypeScript
+              products, internal tools and automations built with coding agents, product
+              judgment and verification in the loop.
             </p>
             <div className="hero-principle">
               <span>Working principle / 01</span>
@@ -45,7 +47,9 @@ export function HeroModule() {
           </div>
           <div className="hero-actions">
             <ActionLink variant="primary" href="#work">See the evidence</ActionLink>
-            <ActionLink variant="secondary" href="/cv-portfolio-en.pdf" showArrow={false}>Open CV</ActionLink>
+            <ActionLink variant="secondary" href="/cv-portfolio-en.pdf" showArrow={false}>
+              Open CV
+            </ActionLink>
           </div>
         </div>
       </section>

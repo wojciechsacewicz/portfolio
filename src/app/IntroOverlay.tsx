@@ -8,14 +8,14 @@ interface IntroOverlayProps {
 }
 
 export function IntroOverlay({ reducedMotion }: IntroOverlayProps) {
-  const [isVisible, setIsVisible] = useState(() => {
-    if (reducedMotion) return false;
-    return sessionStorage.getItem(INTRO_SESSION_KEY) !== 'true';
-  });
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (!isVisible) return undefined;
+    if (reducedMotion || sessionStorage.getItem(INTRO_SESSION_KEY) === 'true') {
+      return undefined;
+    }
 
+    setIsVisible(true);
     sessionStorage.setItem(INTRO_SESSION_KEY, 'true');
     const timeoutId = window.setTimeout(() => setIsVisible(false), INTRO_DURATION_MS);
 
@@ -28,7 +28,7 @@ export function IntroOverlay({ reducedMotion }: IntroOverlayProps) {
       window.clearTimeout(timeoutId);
       window.removeEventListener('keydown', skipOnEscape);
     };
-  }, [isVisible]);
+  }, [reducedMotion]);
 
   if (!isVisible) return null;
 

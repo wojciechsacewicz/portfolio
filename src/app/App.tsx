@@ -1,7 +1,14 @@
 import { motion, useReducedMotion } from 'motion/react';
-import { useRef } from 'react';
+import { useRef, type ReactNode } from 'react';
 import { SiteHeader } from '../components/SiteHeader';
 import { ContactModule } from '../features/contact/ContactModule';
+import {
+  CaseStudyPage,
+  DiscoveryModule,
+  NotFoundPage,
+  ResumePage,
+} from '../features/discovery/DiscoveryModule';
+import '../features/discovery/case-study-details.css';
 import { HeroModule } from '../features/hero/HeroModule';
 import { ProfileModule } from '../features/profile/ProfileModule';
 import { WorkModule } from '../features/work/WorkModule';
@@ -9,38 +16,66 @@ import { usePortfolioRuntime } from './usePortfolioRuntime';
 import { IntroOverlay } from './IntroOverlay';
 import './app-shell.css';
 
-export default function App() {
+interface AppProps {
+  readonly pathname?: string;
+}
+
+export function normalizePathname(pathname: string): string {
+  const normalized = pathname.replace(/\/+$/, '');
+  return normalized || '/';
+}
+
+export default function App({ pathname = '/' }: AppProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const reducedMotion = Boolean(useReducedMotion());
-  const isContactPage = window.location.pathname.replace(/\/$/, '') === '/contact';
+  const normalizedPathname = normalizePathname(pathname);
+  const isHomePage = normalizedPathname === '/';
+  const isContactPage = normalizedPathname === '/contact';
+  const isResumePage = normalizedPathname === '/resume';
+  const caseStudyMatch = normalizedPathname.match(/^\/case-studies\/([^/]+)$/);
 
   usePortfolioRuntime({ rootRef, reducedMotion });
+
+  let content: ReactNode;
+  let skipTarget = '#main-content';
+
+  if (isHomePage) {
+    skipTarget = '#work';
+    content = (
+      <>
+        <HeroModule />
+        <WorkModule />
+        <ProfileModule />
+        <DiscoveryModule />
+        <ContactModule />
+      </>
+    );
+  } else if (isContactPage) {
+    skipTarget = '#contact-details';
+    content = <ContactModule standalone />;
+  } else if (isResumePage) {
+    skipTarget = '#resume';
+    content = <ResumePage />;
+  } else if (caseStudyMatch) {
+    content = <CaseStudyPage slug={caseStudyMatch[1]} />;
+  } else {
+    content = <NotFoundPage />;
+  }
 
   return (
     <motion.div
       ref={rootRef}
       className="site-shell"
-      initial={{ opacity: 0 }}
+      initial={false}
       animate={{ opacity: 1 }}
       transition={{ duration: reducedMotion ? 0 : 0.35 }}
     >
-      <IntroOverlay reducedMotion={reducedMotion} />
-      <a className="skip-link" href={isContactPage ? '#contact-details' : '#work'}>
+      {isHomePage ? <IntroOverlay reducedMotion={reducedMotion} /> : null}
+      <a className="skip-link" href={skipTarget}>
         Skip to content
       </a>
-      <SiteHeader isContactPage={isContactPage} />
-      <main>
-        {isContactPage ? (
-          <ContactModule standalone />
-        ) : (
-          <>
-            <HeroModule />
-            <WorkModule />
-            <ProfileModule />
-            <ContactModule />
-          </>
-        )}
-      </main>
+      <SiteHeader isSubpage={!isHomePage} />
+      <main id="main-content">{content}</main>
     </motion.div>
   );
 }

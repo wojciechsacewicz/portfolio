@@ -1,3 +1,5 @@
+import contentJson from './portfolioContent.json';
+
 export type ProjectTone = 'steel' | 'slate' | 'dark';
 
 export interface ProofPoint {
@@ -15,6 +17,7 @@ export interface PortfolioProject {
   readonly evidence: readonly string[];
   readonly stack: readonly string[];
   readonly url: string;
+  readonly caseStudyUrl: string;
   readonly image: string;
   readonly imageAlt: string;
   readonly tone: ProjectTone;
@@ -28,9 +31,12 @@ export interface WorkflowStep {
 
 export interface ExperienceEntry {
   readonly period: string;
+  readonly startDate: string;
+  readonly endDate?: string;
   readonly role: string;
   readonly company: string;
   readonly lead: string;
+  readonly summary: string;
   readonly bullets: readonly string[];
 }
 
@@ -39,176 +45,92 @@ export interface Technology {
   readonly label: string;
 }
 
-export const navigationItems = [
-  { label: 'Work', href: '#work' },
-  { label: 'Method', href: '#method' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Contact', href: '/contact' },
-] as const;
+export interface EvidenceLink {
+  readonly label: string;
+  readonly url: string;
+  readonly kind: string;
+}
 
-export const proofPoints = [
-  {
-    value: 'IDEGO',
-    label: 'Practical ownership of an AI product',
-    note: 'Commercial engineering, coordination, security and delivery.',
-  },
-  {
-    value: '40%',
-    label: 'Shorter report generation',
-    note: 'UiPath and SAP automation designed and deployed at DOVISTA.',
-  },
-  {
-    value: '2 live',
-    label: 'Products you can open',
-    note: 'Veldia and llmpolska are shipped products, not portfolio exercises.',
-  },
-] as const satisfies readonly ProofPoint[];
+export interface CaseStudy {
+  readonly slug: string;
+  readonly title: string;
+  readonly shortTitle: string;
+  readonly datePublished: string;
+  readonly dateModified: string;
+  readonly description: string;
+  readonly context: string;
+  readonly roleAndBoundaries: string;
+  readonly constraints: readonly string[];
+  readonly implementation: readonly string[];
+  readonly decisions: readonly string[];
+  readonly aiWorkflow: readonly string[];
+  readonly verification: readonly string[];
+  readonly outcome: string;
+  readonly measurement: string;
+  readonly limitations: string;
+  readonly technologies: readonly string[];
+  readonly evidence: readonly EvidenceLink[];
+  readonly liveUrl: string;
+  readonly image: string;
+  readonly entityType: 'SoftwareApplication' | 'WebSite' | 'Article';
+}
 
-export const projects = [
-  {
-    id: 'veldia',
-    number: '01',
-    name: 'Veldia',
-    descriptor: 'Shift work, moved from paper into a working product.',
-    summary:
-      'A mobile-first SaaS/PWA for small shift-based businesses. I work across the product: schedules, hours, availability, roles, onboarding, pricing, trial, SEO and the AI-assisted schedule draft.',
-    evidence: [
-      'Manager-reviewed AI schedule drafting',
-      'Work-hour and schedule workflows',
-      '30-day trial and conversion path',
-    ],
-    stack: ['React', 'PWA', 'Supabase', 'Cloudflare'],
-    url: 'https://veldia.pl/',
-    image: '/assets/veldia-dashboard.png',
-    imageAlt: 'Real Veldia manager dashboard',
-    tone: 'steel',
-  },
-  {
-    id: 'llmpolska',
-    number: '02',
-    name: 'llmpolska',
-    descriptor: 'A Polish home for practical AI work.',
-    summary:
-      'A community, tools and education platform built around React Router and Cloudflare Workers. The work combines engineering, positioning, brand, product navigation and an AI helper workflow.',
-    evidence: [
-      'React Router SSR on Cloudflare',
-      'Community and AI-tool discovery surfaces',
-      'Product positioning and distribution',
-    ],
-    stack: ['React Router', 'Cloudflare Workers', 'TypeScript'],
-    url: 'https://llmpolska.pl/',
-    image: 'https://llmpolska.pl/og-default.svg',
-    imageAlt: 'llmpolska visual identity',
-    tone: 'slate',
-  },
-  {
-    id: 'dovista',
-    number: '03',
-    name: 'DOVISTA automation',
-    descriptor: 'A measured process improvement, not an automation demo.',
-    summary:
-      'I mapped the reporting process with stakeholders, built and deployed a UiPath robot for SAP-related work, added OCR and prepared management-facing adoption material.',
-    evidence: [
-      '40% shorter report generation',
-      'Reduced manual data-entry risk',
-      'Process mapping through deployment',
-    ],
-    stack: ['UiPath', 'SAP', 'Document Understanding', 'OCR'],
-    url: '#experience',
-    image: '',
-    imageAlt: 'Process diagram showing documents moving through OCR, SAP and UiPath into a report',
-    tone: 'dark',
-  },
-] as const satisfies readonly PortfolioProject[];
+export interface PortfolioContent {
+  readonly siteUrl: string;
+  readonly lastModified: string;
+  readonly person: {
+    readonly name: string;
+    readonly alternateName: string;
+    readonly headline: string;
+    readonly currentJobTitle: string;
+    readonly location: string;
+    readonly locationShort: string;
+    readonly availability: string;
+    readonly summary: string;
+    readonly fit: string;
+    readonly education: string;
+    readonly languages: readonly string[];
+    readonly knowsAbout: readonly string[];
+    readonly links: {
+      readonly portfolio: string;
+      readonly github: string;
+      readonly linkedin: string;
+      readonly email: string;
+    };
+  };
+  readonly navigationItems: readonly {
+    readonly label: string;
+    readonly href: string;
+  }[];
+  readonly proofPoints: readonly ProofPoint[];
+  readonly roleMatches: readonly string[];
+  readonly capabilityGroups: readonly {
+    readonly title: string;
+    readonly items: readonly string[];
+  }[];
+  readonly projects: readonly PortfolioProject[];
+  readonly workflow: readonly WorkflowStep[];
+  readonly experience: readonly ExperienceEntry[];
+  readonly technologies: readonly Technology[];
+  readonly caseStudies: readonly CaseStudy[];
+  readonly faq: readonly {
+    readonly question: string;
+    readonly answer: string;
+  }[];
+}
 
-export const workflow = [
-  {
-    number: '01',
-    title: 'Clarify',
-    body: 'Turn an unclear ticket into a bounded problem and acceptance criteria.',
-  },
-  {
-    number: '02',
-    title: 'Research',
-    body: 'Map the repository, existing patterns, risks and reusable code.',
-  },
-  {
-    number: '03',
-    title: 'Build',
-    body: 'Implement the smallest complete slice with agent-assisted iteration.',
-  },
-  {
-    number: '04',
-    title: 'Review',
-    body: 'Inspect the diff, challenge assumptions and trace risky behavior.',
-  },
-  {
-    number: '05',
-    title: 'Verify',
-    body: 'Run focused tests, browser checks and the production build.',
-  },
-  {
-    number: '06',
-    title: 'Deliver',
-    body: 'Leave a clear change with evidence, rationale and a usable result.',
-  },
-] as const satisfies readonly WorkflowStep[];
+export const portfolioContent = contentJson as PortfolioContent;
 
-export const experience = [
-  {
-    period: 'Apr 2026 — now',
-    role: 'AI Native Developer Intern',
-    company: 'IDEGO',
-    lead:
-      'Commercial engineering work across backend services, web features and developer workflows. The formal title is intern; the working scope includes practical project ownership.',
-    bullets: [
-      'Coordinate team contributions and take responsibility for coherent delivery, quality and security.',
-      'Use Codex and Claude Code for repository research, implementation, refactoring, debugging, tests and documentation.',
-      'Turn unclear requirements into scoped plans, working prototypes and PR-ready changes.',
-    ],
-  },
-  {
-    period: 'Aug — Sep 2025',
-    role: 'RPA Intern',
-    company: 'DOVISTA Polska',
-    lead:
-      'Owned an SAP-related reporting automation from process mapping through deployment and management demo.',
-    bullets: [
-      'Built and deployed the UiPath workflow with stakeholders in the loop.',
-      'Cut report generation time by 40% and reduced manual data-entry risk.',
-      'Used Document Understanding and OCR for purchasing-document data.',
-    ],
-  },
-  {
-    period: 'Nov 2024 — Jan 2026',
-    role: 'Junior Recruiter',
-    company: '4Specialist',
-    lead:
-      'Built operational discipline before moving fully into engineering: repeatable verification, documentation and clear communication.',
-    bullets: [
-      'Standardized driver-document checks and reduced avoidable correction loops.',
-    ],
-  },
-] as const satisfies readonly ExperienceEntry[];
-
-export const technologies = [
-  { slug: 'react', label: 'React' },
-  { slug: 'typescript', label: 'TypeScript' },
-  { slug: 'cloudflare', label: 'Cloudflare' },
-  { slug: 'nodedotjs', label: 'Node.js' },
-  { slug: 'vite', label: 'Vite' },
-  { slug: 'threejs', label: 'Three.js' },
-  { slug: 'docker', label: 'Docker' },
-  { slug: 'github', label: 'GitHub' },
-  { slug: 'openai', label: 'Codex' },
-  { slug: 'anthropic', label: 'Claude' },
-  { slug: 'googlegemini', label: 'Gemini' },
-  { slug: 'adobephotoshop', label: 'Photoshop' },
-  { slug: 'adobepremierepro', label: 'Premiere' },
-  { slug: 'slack', label: 'Slack' },
-  { slug: 'google', label: 'Google' },
-  { slug: 'meta', label: 'Meta' },
-] as const satisfies readonly Technology[];
+export const navigationItems = portfolioContent.navigationItems;
+export const proofPoints = portfolioContent.proofPoints;
+export const projects = portfolioContent.projects;
+export const workflow = portfolioContent.workflow;
+export const experience = portfolioContent.experience;
+export const technologies = portfolioContent.technologies;
+export const caseStudies = portfolioContent.caseStudies;
+export const roleMatches = portfolioContent.roleMatches;
+export const capabilityGroups = portfolioContent.capabilityGroups;
+export const recruiterFaq = portfolioContent.faq;
 
 export function isExternalUrl(url: string): boolean {
   return url.startsWith('https://') || url.startsWith('http://');

@@ -9,15 +9,17 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "typecheck": "tsc -b --pretty false",
-    "lint": "oxlint src vite.config.ts",
+    "lint": "oxlint src scripts vite.config.ts",
     "test": "vitest run",
+    "verify:seo": "node scripts/verify-seo.mjs",
+    "verify:routing": "node scripts/verify-routing.mjs",
     "cloudflare:types": "wrangler types worker-configuration.d.ts",
     "cloudflare:check": "wrangler deploy --dry-run",
     "deploy": "pnpm build && wrangler deploy",
-    "check": "pnpm cloudflare:types && pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm cloudflare:check"
+    "check": "pnpm cloudflare:types && pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm verify:seo && pnpm verify:routing && pnpm cloudflare:check"
   },
   "dependencies": {
     "gsap": "3.15.0",

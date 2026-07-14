@@ -1,0 +1,285 @@
+.discovery-section {
+  display: grid;
+  gap: clamp(3rem, 7vw, 7rem);
+}
+
+.discovery-intro {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  max-width: 72rem;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.7;
+}
+
+.role-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.role-index li {
+  padding: 0.62rem 0.82rem;
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.capability-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.capability-card {
+  min-height: 18rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+  background: color-mix(in srgb, currentColor 3%, transparent);
+}
+
+.capability-card h3 {
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.25rem, 2vw, 2rem);
+}
+
+.capability-card ul {
+  display: grid;
+  gap: 0.72rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.capability-card li {
+  position: relative;
+  padding-left: 1rem;
+  line-height: 1.55;
+}
+
+.capability-card li::before {
+  position: absolute;
+  top: 0.72em;
+  left: 0;
+  width: 0.28rem;
+  height: 0.28rem;
+  border-radius: 50%;
+  background: currentColor;
+  content: '';
+  opacity: 0.45;
+}
+
+.discovery-subsection {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.7fr) minmax(0, 1.3fr);
+  gap: clamp(2rem, 5vw, 6rem);
+  align-items: start;
+}
+
+.discovery-subsection h2 {
+  max-width: 16ch;
+  margin: 0.65rem 0 0;
+  font-size: clamp(2rem, 4vw, 4.5rem);
+  line-height: 0.98;
+}
+
+.discovery-case-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.discovery-case-list article {
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  border-top: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+}
+
+.discovery-case-list h3 {
+  margin: 0.45rem 0 0.8rem;
+  font-size: clamp(1.45rem, 2.5vw, 2.5rem);
+}
+
+.discovery-case-list p:not(.eyebrow) {
+  max-width: 44rem;
+  margin-bottom: 1.4rem;
+  line-height: 1.65;
+}
+
+.recruiter-faq {
+  display: grid;
+}
+
+.recruiter-faq details {
+  padding: 1.2rem 0;
+  border-top: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+}
+
+.recruiter-faq summary {
+  cursor: pointer;
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  font-weight: 650;
+}
+
+.recruiter-faq p {
+  max-width: 50rem;
+  margin: 1rem 0 0;
+  line-height: 1.7;
+}
+
+.discovery-actions,
+.indexed-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.indexed-page {
+  width: min(100% - 2rem, 92rem);
+  margin: 0 auto;
+  padding: clamp(8rem, 14vw, 12rem) 0 clamp(5rem, 10vw, 10rem);
+}
+
+.indexed-page-hero {
+  display: grid;
+  gap: 1.2rem;
+  max-width: 72rem;
+  min-height: min(72vh, 48rem);
+  align-content: center;
+  padding-bottom: clamp(4rem, 8vw, 8rem);
+}
+
+.indexed-page-hero h1 {
+  max-width: 15ch;
+  margin: 0;
+  font-size: clamp(3rem, 8vw, 8rem);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+}
+
+.indexed-page-hero > p:not(.eyebrow) {
+  max-width: 54rem;
+  margin: 0;
+  font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+  line-height: 1.65;
+}
+
+.indexed-page-title {
+  font-weight: 650;
+}
+
+.indexed-page-section {
+  display: grid;
+  gap: 1.8rem;
+  padding: clamp(3rem, 7vw, 7rem) 0;
+  border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.indexed-page-section > h2 {
+  max-width: 18ch;
+  margin: 0;
+  font-size: clamp(2rem, 4.4vw, 4.8rem);
+  line-height: 0.98;
+}
+
+.indexed-page-section > p:not(.eyebrow) {
+  max-width: 55rem;
+  margin: 0;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.7;
+}
+
+.resume-experience-list {
+  display: grid;
+}
+
+.resume-experience-list article {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.35fr) minmax(0, 1fr);
+  gap: 2rem;
+  padding: 2rem 0;
+  border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.resume-experience-list h3 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.5vw, 2.4rem);
+}
+
+.resume-experience-list p {
+  max-width: 52rem;
+  line-height: 1.65;
+}
+
+.resume-company {
+  margin: 0.35rem 0 1rem;
+  font-weight: 650;
+}
+
+.case-study-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: color-mix(in srgb, currentColor 16%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.case-study-facts article {
+  min-height: 24rem;
+  padding: clamp(1.5rem, 3vw, 2.8rem);
+  background: var(--color-background, #0b0f14);
+}
+
+.case-study-facts h2 {
+  margin: 0.6rem 0 1.2rem;
+  font-size: clamp(1.4rem, 2.2vw, 2.3rem);
+}
+
+.case-study-facts p:not(.eyebrow) {
+  line-height: 1.7;
+}
+
+.case-study-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  align-items: center;
+  padding-top: clamp(3rem, 7vw, 7rem);
+  border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.case-study-navigation p {
+  margin-right: auto;
+  font-weight: 650;
+}
+
+.case-study-navigation a {
+  color: inherit;
+  text-underline-offset: 0.35em;
+}
+
+.not-found-page {
+  min-height: 100vh;
+}
+
+@media (max-width: 800px) {
+  .discovery-intro,
+  .capability-grid,
+  .discovery-subsection,
+  .case-study-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .capability-card,
+  .case-study-facts article {
+    min-height: auto;
+  }
+
+  .resume-experience-list article {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
