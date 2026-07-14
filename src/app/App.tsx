@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'motion/react';
-import { useRef } from 'react';
+import { useRef, type ReactNode } from 'react';
 import { SiteHeader } from '../components/SiteHeader';
 import { ContactModule } from '../features/contact/ContactModule';
 import {
@@ -31,7 +31,7 @@ export default function App() {
 
   usePortfolioRuntime({ rootRef, reducedMotion });
 
-  let content;
+  let content: ReactNode;
   let skipTarget = '#main-content';
 
   if (isHomePage) {
