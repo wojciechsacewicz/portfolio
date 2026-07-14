@@ -1,21 +1,21 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createServer } from 'vite';
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const distDirectory = path.join(projectRoot, 'dist');
-const profile = JSON.parse(
-  await readFile(path.join(projectRoot, 'src/content/seoProfile.json'), 'utf8'),
+const content = JSON.parse(
+  await readFile(path.join(projectRoot, 'src/content/portfolioContent.json'), 'utf8'),
 );
 const template = await readFile(path.join(distDirectory, 'index.html'), 'utf8');
 
-const personId = `${profile.siteUrl}/#wojciech-sacewicz`;
-const profileId = `${profile.siteUrl}/#profile`;
-const capabilities = profile.capabilityGroups.flatMap((group) => group.items);
+const personId = `${content.siteUrl}/#wojciech-sacewicz`;
+const websiteId = `${content.siteUrl}/#website`;
 const indexedRoutes = [
   '/',
   '/resume',
-  ...profile.caseStudies.map((study) => `/case-studies/${study.slug}`),
+  ...content.caseStudies.map((study) => `/case-studies/${study.slug}`),
   '/contact',
 ];
 
@@ -29,181 +29,34 @@ function escapeHtml(value) {
 }
 
 function canonicalUrl(routePath) {
-  return routePath === '/' ? `${profile.siteUrl}/` : `${profile.siteUrl}${routePath}`;
+  return routePath === '/' ? `${content.siteUrl}/` : `${content.siteUrl}${routePath}`;
 }
 
-function renderTags(items) {
-  return `<ul class="seo-tags">${items
-    .map((item) => `<li>${escapeHtml(item)}</li>`)
-    .join('')}</ul>`;
-}
-
-function renderNavigation() {
-  const caseStudyLinks = profile.caseStudies
-    .map(
-      (study) => `<a href="/case-studies/${escapeHtml(study.slug)}">${escapeHtml(study.shortTitle)}</a>`,
-    )
-    .join('');
-
-  return `<nav aria-label="Portfolio pages">
-    <a href="/">Portfolio</a>
-    <a href="/resume">Structured resume</a>
-    ${caseStudyLinks}
-    <a href="/contact">Contact</a>
-  </nav>`;
-}
-
-function renderCapabilityCards() {
-  return `<div class="seo-grid">${profile.capabilityGroups
-    .map(
-      (group) => `<article>
-        <h3>${escapeHtml(group.title)}</h3>
-        <ul>${group.items.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul>
-      </article>`,
-    )
-    .join('')}</div>`;
-}
-
-function renderCaseStudyCards() {
-  return `<div class="seo-grid">${profile.caseStudies
-    .map(
-      (study) => `<article>
-        <h3><a href="/case-studies/${escapeHtml(study.slug)}">${escapeHtml(study.title)}</a></h3>
-        <p>${escapeHtml(study.description)}</p>
-        <p><strong>Outcome:</strong> ${escapeHtml(study.outcome)}</p>
-        ${renderTags(study.technologies)}
-      </article>`,
-    )
-    .join('')}</div>`;
-}
-
-function renderExperienceCards() {
-  return `<div class="seo-grid">${profile.experience
-    .map(
-      (entry) => `<article>
-        <p>${escapeHtml(entry.period)}</p>
-        <h3>${escapeHtml(entry.role)} — ${escapeHtml(entry.company)}</h3>
-        <p>${escapeHtml(entry.summary)}</p>
-      </article>`,
-    )
-    .join('')}</div>`;
-}
-
-function renderFaqCards() {
-  return `<div class="seo-grid">${profile.faq
-    .map(
-      (item) => `<article>
-        <h3>${escapeHtml(item.question)}</h3>
-        <p>${escapeHtml(item.answer)}</p>
-      </article>`,
-    )
-    .join('')}</div>`;
-}
-
-function snapshot(content) {
-  return `<div class="seo-snapshot">${renderNavigation()}<main>${content}</main></div>`;
-}
-
-function renderHomeSnapshot() {
-  return snapshot(`
-    <p>${escapeHtml(profile.person.name)} · ${escapeHtml(profile.person.location)}</p>
-    <h1>AI-native developer and product engineer in Poland / Tricity</h1>
-    <p>${escapeHtml(profile.person.summary)}</p>
-    <p>${escapeHtml(profile.person.fit)}</p>
-    <div class="seo-links">
-      <a href="/resume">Read structured resume</a>
-      <a href="${escapeHtml(profile.person.links.github)}">GitHub</a>
-      <a href="${escapeHtml(profile.person.links.linkedin)}">LinkedIn</a>
-      <a href="/contact">Contact</a>
-    </div>
-    <section><h2>Relevant roles</h2>${renderTags(profile.roleAliases)}</section>
-    <section><h2>Capabilities, technologies and engineering workflows</h2>${renderCapabilityCards()}</section>
-    <section><h2>Selected evidence and case studies</h2>${renderCaseStudyCards()}</section>
-    <section><h2>Commercial experience</h2>${renderExperienceCards()}</section>
-    <section><h2>Recruiter and AI search questions</h2>${renderFaqCards()}</section>
-    <section>
-      <h2>Education and languages</h2>
-      <p>${escapeHtml(profile.person.education)}. ${escapeHtml(profile.person.languages.join(', '))}.</p>
-    </section>
-  `);
-}
-
-function renderResumeSnapshot() {
-  return snapshot(`
-    <p>Structured resume · updated ${escapeHtml(profile.lastModified)}</p>
-    <h1>${escapeHtml(profile.person.name)} — ${escapeHtml(profile.person.headline)}</h1>
-    <p><strong>Location:</strong> ${escapeHtml(profile.person.location)}</p>
-    <p>${escapeHtml(profile.person.summary)}</p>
-    <p>${escapeHtml(profile.person.fit)}</p>
-    <section><h2>Role matches</h2>${renderTags(profile.roleAliases)}</section>
-    <section><h2>Experience</h2>${renderExperienceCards()}</section>
-    <section><h2>Technical and product capabilities</h2>${renderCapabilityCards()}</section>
-    <section><h2>Case studies</h2>${renderCaseStudyCards()}</section>
-    <section>
-      <h2>Education and languages</h2>
-      <p>${escapeHtml(profile.person.education)}</p>
-      ${renderTags(profile.person.languages)}
-    </section>
-    <div class="seo-links">
-      <a href="/cv-portfolio-en.pdf">PDF CV</a>
-      <a href="/contact">Contact ${escapeHtml(profile.person.name)}</a>
-    </div>
-  `);
-}
-
-function renderCaseStudySnapshot(study) {
-  return snapshot(`
-    <p>Case study by ${escapeHtml(profile.person.name)}</p>
-    <h1>${escapeHtml(study.title)}</h1>
-    <p>${escapeHtml(study.description)}</p>
-    <section><h2>Problem</h2><p>${escapeHtml(study.problem)}</p></section>
-    <section><h2>Ownership and contribution</h2><p>${escapeHtml(study.ownership)}</p></section>
-    <section><h2>Outcome</h2><p>${escapeHtml(study.outcome)}</p></section>
-    <section><h2>Technology and methods</h2>${renderTags(study.technologies)}</section>
-    <div class="seo-links">
-      ${study.liveUrl ? `<a href="${escapeHtml(study.liveUrl)}">Open live product</a>` : ''}
-      <a href="/resume">${escapeHtml(profile.person.name)} resume</a>
-      <a href="/contact">Contact</a>
-    </div>
-  `);
-}
-
-function renderContactSnapshot() {
-  return snapshot(`
-    <p>Contact · ${escapeHtml(profile.person.location)}</p>
-    <h1>Contact ${escapeHtml(profile.person.name)}</h1>
-    <p>For product engineering, React and TypeScript development, Cloudflare work, internal tools, AI-native development or workflow automation.</p>
-    <div class="seo-links">
-      <a href="${escapeHtml(profile.person.links.email)}">Email</a>
-      <a href="${escapeHtml(profile.person.links.linkedin)}">LinkedIn</a>
-      <a href="${escapeHtml(profile.person.links.github)}">GitHub</a>
-      <a href="/resume">Structured resume</a>
-    </div>
-  `);
-}
-
-function renderNotFoundSnapshot() {
-  return snapshot(`
-    <p>404</p>
-    <h1>This page does not exist.</h1>
-    <p>Return to the portfolio, structured resume or one of the project case studies.</p>
-  `);
+function websiteSchema() {
+  return {
+    '@type': 'WebSite',
+    '@id': websiteId,
+    url: `${content.siteUrl}/`,
+    name: `${content.person.name} — Portfolio`,
+    description: content.person.summary,
+    inLanguage: 'en',
+  };
 }
 
 function personSchema() {
   return {
     '@type': 'Person',
     '@id': personId,
-    name: profile.person.name,
-    alternateName: profile.person.alternateName,
-    url: `${profile.siteUrl}/`,
-    image: `${profile.siteUrl}/assets/wojtek-profile.png`,
-    jobTitle: profile.roleAliases,
-    description: profile.person.summary,
-    email: profile.person.links.email.replace('mailto:', ''),
-    homeLocation: {
+    name: content.person.name,
+    alternateName: content.person.alternateName,
+    url: `${content.siteUrl}/`,
+    image: `${content.siteUrl}/assets/wojtek-profile.png`,
+    jobTitle: content.person.currentJobTitle,
+    description: content.person.summary,
+    email: content.person.links.email.replace('mailto:', ''),
+    workLocation: {
       '@type': 'Place',
-      name: profile.person.location,
+      name: 'Tricity metropolitan area',
       address: {
         '@type': 'PostalAddress',
         addressRegion: 'Pomeranian Voivodeship',
@@ -219,8 +72,20 @@ function personSchema() {
       name: 'University of Gdańsk',
     },
     knowsLanguage: ['Polish', 'English'],
-    knowsAbout: [...new Set([...profile.roleAliases, ...capabilities])],
-    sameAs: [profile.person.links.github, profile.person.links.linkedin],
+    knowsAbout: content.person.knowsAbout,
+    sameAs: [content.person.links.github, content.person.links.linkedin],
+  };
+}
+
+function breadcrumbSchema(items) {
+  return {
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
   };
 }
 
@@ -228,42 +93,26 @@ function homepageSchema() {
   return {
     '@context': 'https://schema.org',
     '@graph': [
-      {
-        '@type': 'WebSite',
-        '@id': `${profile.siteUrl}/#website`,
-        url: `${profile.siteUrl}/`,
-        name: `${profile.person.name} — Portfolio`,
-        description: profile.person.summary,
-        inLanguage: 'en',
-      },
+      websiteSchema(),
       {
         '@type': 'ProfilePage',
-        '@id': profileId,
-        url: `${profile.siteUrl}/`,
-        name: `${profile.person.name} — ${profile.person.headline}`,
-        dateModified: profile.lastModified,
+        '@id': `${content.siteUrl}/#profile`,
+        url: `${content.siteUrl}/`,
+        name: `${content.person.name} — ${content.person.headline}`,
+        description: content.person.summary,
+        dateModified: content.lastModified,
+        isPartOf: { '@id': websiteId },
         mainEntity: { '@id': personId },
       },
       personSchema(),
       {
         '@type': 'ItemList',
-        name: `${profile.person.name} case studies`,
-        itemListElement: profile.caseStudies.map((study, index) => ({
+        name: `${content.person.name} case studies`,
+        itemListElement: content.caseStudies.map((study, index) => ({
           '@type': 'ListItem',
           position: index + 1,
-          url: `${profile.siteUrl}/case-studies/${study.slug}`,
+          url: `${content.siteUrl}/case-studies/${study.slug}`,
           name: study.title,
-        })),
-      },
-      {
-        '@type': 'FAQPage',
-        mainEntity: profile.faq.map((item) => ({
-          '@type': 'Question',
-          name: item.question,
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: item.answer,
-          },
         })),
       },
     ],
@@ -271,51 +120,132 @@ function homepageSchema() {
 }
 
 function resumeSchema() {
+  const url = `${content.siteUrl}/resume`;
   return {
     '@context': 'https://schema.org',
     '@graph': [
+      websiteSchema(),
       personSchema(),
       {
         '@type': 'ProfilePage',
-        '@id': `${profile.siteUrl}/resume#profile`,
-        url: `${profile.siteUrl}/resume`,
-        name: `${profile.person.name} — Structured Resume`,
-        description: profile.person.fit,
-        dateModified: profile.lastModified,
+        '@id': `${url}#profile`,
+        url,
+        name: `${content.person.name} — Structured Resume`,
+        description: content.person.fit,
+        dateModified: content.lastModified,
+        isPartOf: { '@id': websiteId },
         mainEntity: { '@id': personId },
+        breadcrumb: { '@id': `${url}#breadcrumb` },
+      },
+      {
+        ...breadcrumbSchema([
+          { name: 'Portfolio', url: `${content.siteUrl}/` },
+          { name: 'Resume', url },
+        ]),
+        '@id': `${url}#breadcrumb`,
       },
     ],
   };
 }
 
+function caseStudyEntity(study) {
+  if (study.entityType === 'SoftwareApplication') {
+    return {
+      '@type': 'SoftwareApplication',
+      '@id': `${study.liveUrl}#software`,
+      name: study.shortTitle,
+      url: study.liveUrl,
+      description: study.description,
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Web',
+    };
+  }
+
+  if (study.entityType === 'WebSite') {
+    return {
+      '@type': 'WebSite',
+      '@id': `${study.liveUrl}#website`,
+      name: study.shortTitle,
+      url: study.liveUrl,
+      description: study.description,
+      inLanguage: 'pl',
+    };
+  }
+
+  return undefined;
+}
+
 function caseStudySchema(study) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'TechArticle',
-    '@id': `${profile.siteUrl}/case-studies/${study.slug}#article`,
-    url: `${profile.siteUrl}/case-studies/${study.slug}`,
+  const url = `${content.siteUrl}/case-studies/${study.slug}`;
+  const entity = caseStudyEntity(study);
+  const article = {
+    '@type': 'Article',
+    '@id': `${url}#article`,
+    url,
     headline: study.title,
     description: study.description,
-    dateModified: profile.lastModified,
+    datePublished: study.datePublished,
+    dateModified: study.dateModified,
     inLanguage: 'en',
     author: { '@id': personId },
-    about: study.technologies,
-    keywords: study.technologies.join(', '),
-    mainEntityOfPage: `${profile.siteUrl}/case-studies/${study.slug}`,
+    isPartOf: { '@id': websiteId },
+    mainEntityOfPage: url,
+    breadcrumb: { '@id': `${url}#breadcrumb` },
+    about: [
+      ...study.technologies.map((technology) => ({
+        '@type': 'Thing',
+        name: technology,
+      })),
+      ...(entity ? [{ '@id': entity['@id'] }] : []),
+    ],
+  };
+
+  if (study.image) {
+    article.image = study.image;
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      websiteSchema(),
+      personSchema(),
+      article,
+      {
+        ...breadcrumbSchema([
+          { name: 'Portfolio', url: `${content.siteUrl}/` },
+          { name: 'Case studies', url: `${content.siteUrl}/resume` },
+          { name: study.shortTitle, url },
+        ]),
+        '@id': `${url}#breadcrumb`,
+      },
+      ...(entity ? [entity] : []),
+    ],
   };
 }
 
 function contactSchema() {
+  const url = `${content.siteUrl}/contact`;
   return {
     '@context': 'https://schema.org',
     '@graph': [
+      websiteSchema(),
       personSchema(),
       {
         '@type': 'ContactPage',
-        url: `${profile.siteUrl}/contact`,
-        name: `Contact ${profile.person.name}`,
-        description: `Contact ${profile.person.name} for AI-native product engineering, React, TypeScript, Cloudflare, internal tools and automation work.`,
+        '@id': `${url}#page`,
+        url,
+        name: `Contact ${content.person.name}`,
+        description: `Contact ${content.person.name} for AI-native product engineering, React, TypeScript, Cloudflare, internal tools and workflow automation.`,
+        isPartOf: { '@id': websiteId },
         mainEntity: { '@id': personId },
+        breadcrumb: { '@id': `${url}#breadcrumb` },
+      },
+      {
+        ...breadcrumbSchema([
+          { name: 'Portfolio', url: `${content.siteUrl}/` },
+          { name: 'Contact', url },
+        ]),
+        '@id': `${url}#breadcrumb`,
       },
     ],
   };
@@ -324,122 +254,160 @@ function contactSchema() {
 function routeDefinition(routePath) {
   if (routePath === '/') {
     return {
-      title: `${profile.person.name} — AI-Native Developer | Poland / Tricity`,
-      description: profile.person.summary,
+      title: 'Wojciech Sacewicz — AI-Native Developer | Tricity, Poland',
+      description: content.person.summary,
       type: 'profile',
-      snapshot: renderHomeSnapshot(),
+      robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+      canonical: canonicalUrl(routePath),
+      image: `${content.siteUrl}/assets/wojtek-profile.png`,
       schema: homepageSchema(),
     };
   }
 
   if (routePath === '/resume') {
     return {
-      title: `${profile.person.name} Resume — AI-Native Developer | Poland / Tricity`,
-      description: `${profile.person.name} is an AI-native developer and product engineer in Poland / Tricity working with React, TypeScript, Cloudflare, coding agents and automation.`,
+      title: 'Wojciech Sacewicz Resume — AI-Native Developer | Tricity, Poland',
+      description: `${content.person.name} is an AI-native developer and product engineer in Tricity, Poland, working with React, TypeScript, Cloudflare, coding agents and automation.`,
       type: 'profile',
-      snapshot: renderResumeSnapshot(),
+      robots: 'index, follow, max-image-preview:large, max-snippet:-1',
+      canonical: canonicalUrl(routePath),
+      image: `${content.siteUrl}/assets/wojtek-profile.png`,
       schema: resumeSchema(),
     };
   }
 
   if (routePath === '/contact') {
     return {
-      title: `Contact ${profile.person.name} — AI-Native Developer`,
-      description: `Contact ${profile.person.name} for AI-native product engineering, React, TypeScript, Cloudflare, internal tools and workflow automation.`,
+      title: 'Contact Wojciech Sacewicz — AI-Native Developer',
+      description: `Contact ${content.person.name} for AI-native product engineering, React, TypeScript, Cloudflare, internal tools and workflow automation.`,
       type: 'profile',
-      snapshot: renderContactSnapshot(),
+      robots: 'index, follow',
+      canonical: canonicalUrl(routePath),
+      image: `${content.siteUrl}/assets/wojtek-profile.png`,
       schema: contactSchema(),
     };
   }
 
-  const study = profile.caseStudies.find(
+  const study = content.caseStudies.find(
     (candidate) => routePath === `/case-studies/${candidate.slug}`,
   );
 
   if (study) {
     return {
-      title: `${study.title} | ${profile.person.name}`,
+      title: `${study.title} | Wojciech Sacewicz`,
       description: study.description,
       type: 'article',
-      snapshot: renderCaseStudySnapshot(study),
+      robots: 'index, follow, max-image-preview:large, max-snippet:-1',
+      canonical: canonicalUrl(routePath),
+      image: study.image || `${content.siteUrl}/assets/wojtek-profile.png`,
       schema: caseStudySchema(study),
     };
   }
 
   return {
-    title: `Page not found | ${profile.person.name}`,
+    title: 'Page not found | Wojciech Sacewicz',
     description: 'The requested portfolio page does not exist.',
     type: 'website',
-    snapshot: renderNotFoundSnapshot(),
+    robots: 'noindex, nofollow',
+    canonical: null,
+    image: `${content.siteUrl}/assets/wojtek-profile.png`,
     schema: {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
       name: 'Page not found',
+      isPartOf: { '@id': websiteId },
     },
   };
 }
 
-function replaceMeta(document, attributeName, attributeValue, content) {
+function replaceMeta(document, attributeName, attributeValue, value) {
   const expression = new RegExp(
     `<meta[^>]+${attributeName}=["']${attributeValue}["'][^>]*>`,
     'i',
   );
   return document.replace(
     expression,
-    `<meta ${attributeName}="${escapeHtml(attributeValue)}" content="${escapeHtml(content)}" />`,
+    `<meta ${attributeName}="${escapeHtml(attributeValue)}" content="${escapeHtml(value)}" />`,
   );
 }
 
-function renderDocument(routePath, definition) {
-  const canonical = canonicalUrl(routePath);
+function renderDocument(markup, definition) {
   let document = template;
   document = document.replace(
     /<title>[\s\S]*?<\/title>/i,
     `<title>${escapeHtml(definition.title)}</title>`,
   );
   document = replaceMeta(document, 'name', 'description', definition.description);
+  document = replaceMeta(document, 'name', 'robots', definition.robots);
   document = replaceMeta(document, 'property', 'og:title', definition.title);
   document = replaceMeta(document, 'property', 'og:description', definition.description);
   document = replaceMeta(document, 'property', 'og:type', definition.type);
-  document = replaceMeta(document, 'property', 'og:url', canonical);
+  document = replaceMeta(
+    document,
+    'property',
+    'og:url',
+    definition.canonical ?? `${content.siteUrl}/`,
+  );
+  document = replaceMeta(document, 'property', 'og:image', definition.image);
   document = replaceMeta(document, 'name', 'twitter:title', definition.title);
   document = replaceMeta(document, 'name', 'twitter:description', definition.description);
-  document = document.replace(
-    /<link[^>]+rel=["']canonical["'][^>]*>/i,
-    `<link rel="canonical" href="${escapeHtml(canonical)}" />`,
-  );
+  document = replaceMeta(document, 'name', 'twitter:image', definition.image);
+
+  if (definition.canonical) {
+    document = document.replace(
+      /<link[^>]+rel=["']canonical["'][^>]*>/i,
+      `<link rel="canonical" href="${escapeHtml(definition.canonical)}" />`,
+    );
+  } else {
+    document = document.replace(/\s*<link[^>]+rel=["']canonical["'][^>]*>/i, '');
+  }
+
   document = document.replace(
     /<script type="application\/ld\+json" id="structured-data">[\s\S]*?<\/script>/i,
     `<script type="application/ld+json" id="structured-data">${JSON.stringify(definition.schema)}</script>`,
   );
-  document = document.replace(
-    '<div id="root"></div>',
-    `<div id="root">${definition.snapshot}</div>`,
-  );
+  document = document.replace('<div id="root"></div>', `<div id="root">${markup}</div>`);
   return document;
 }
 
-async function writeRoute(routePath) {
+async function writeRoute(routePath, markup, definition) {
   const targetDirectory = routePath === '/'
     ? distDirectory
     : path.join(distDirectory, routePath.slice(1));
   await mkdir(targetDirectory, { recursive: true });
   await writeFile(
     path.join(targetDirectory, 'index.html'),
-    renderDocument(routePath, routeDefinition(routePath)),
+    renderDocument(markup, definition),
     'utf8',
   );
 }
 
-for (const routePath of indexedRoutes) {
-  await writeRoute(routePath);
-}
+const vite = await createServer({
+  root: projectRoot,
+  appType: 'custom',
+  logLevel: 'error',
+  server: { middlewareMode: true },
+});
 
-await writeFile(
-  path.join(distDirectory, '404.html'),
-  renderDocument('/404', routeDefinition('/404')),
-  'utf8',
-);
+try {
+  const serverEntry = await vite.ssrLoadModule('/src/entry-server.tsx');
+
+  for (const routePath of indexedRoutes) {
+    await writeRoute(
+      routePath,
+      serverEntry.render(routePath),
+      routeDefinition(routePath),
+    );
+  }
+
+  await writeFile(
+    path.join(distDirectory, '404.html'),
+    renderDocument(serverEntry.render('/404'), routeDefinition('/404')),
+    'utf8',
+  );
+} finally {
+  await vite.close();
+}
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -447,7 +415,7 @@ ${indexedRoutes
   .map(
     (routePath) => `  <url>
     <loc>${escapeHtml(canonicalUrl(routePath))}</loc>
-    <lastmod>${profile.lastModified}</lastmod>
+    <lastmod>${content.lastModified}</lastmod>
   </url>`,
   )
   .join('\n')}
@@ -455,69 +423,89 @@ ${indexedRoutes
 `;
 await writeFile(path.join(distDirectory, 'sitemap.xml'), sitemap, 'utf8');
 
-const searchAndRetrievalBots = [
-  'OAI-SearchBot',
-  'ChatGPT-User',
-  'Claude-SearchBot',
-  'Claude-User',
-  'PerplexityBot',
-  'Perplexity-User',
-];
-const trainingBots = ['GPTBot', 'ClaudeBot'];
-const robotGroups = [...searchAndRetrievalBots, ...trainingBots]
-  .map((bot) => `User-agent: ${bot}\nAllow: /`)
-  .join('\n\n');
 const robots = `User-agent: *
 Allow: /
 
-${robotGroups}
-
-User-agent: Google-Extended
+User-agent: OAI-SearchBot
 Allow: /
 
-Sitemap: ${profile.siteUrl}/sitemap.xml
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: ${content.siteUrl}/sitemap.xml
 `;
 await writeFile(path.join(distDirectory, 'robots.txt'), robots, 'utf8');
 
-const llmsSummary = `# ${profile.person.name}
+const redirects = `/404 / 302
+/404.html / 302
+`;
+await writeFile(path.join(distDirectory, '_redirects'), redirects, 'utf8');
 
-> ${profile.person.summary}
+const llmsSummary = `# ${content.person.name}
 
-- Location: ${profile.person.location}
-- Primary profile: ${profile.person.headline}
-- Best fit: ${profile.person.fit}
-- Resume: ${profile.siteUrl}/resume
-- GitHub: ${profile.person.links.github}
-- LinkedIn: ${profile.person.links.linkedin}
+> ${content.person.summary}
+
+- Professional location: ${content.person.location}
+- Availability: ${content.person.availability}
+- Current formal title: ${content.person.currentJobTitle}
+- Professional profile: ${content.person.headline}
+- Best fit: ${content.person.fit}
+- Resume: ${content.siteUrl}/resume
+- GitHub: ${content.person.links.github}
+- LinkedIn: ${content.person.links.linkedin}
 
 ## Case studies
-${profile.caseStudies
-  .map((study) => `- [${study.title}](${profile.siteUrl}/case-studies/${study.slug}): ${study.outcome}`)
+${content.caseStudies
+  .map(
+    (study) =>
+      `- [${study.title}](${content.siteUrl}/case-studies/${study.slug}): ${study.outcome}`,
+  )
   .join('\n')}
 
 ## Core capabilities
-${profile.capabilityGroups
+${content.capabilityGroups
   .map((group) => `- ${group.title}: ${group.items.join(', ')}`)
   .join('\n')}
 `;
 await writeFile(path.join(distDirectory, 'llms.txt'), llmsSummary, 'utf8');
 
 const llmsFull = `${llmsSummary}
-## Relevant roles
-${profile.roleAliases.map((role) => `- ${role}`).join('\n')}
+## Role matches
+${content.roleMatches.map((role) => `- ${role}`).join('\n')}
 
 ## Experience
-${profile.experience
+${content.experience
   .map((entry) => `- ${entry.period}: ${entry.role}, ${entry.company}. ${entry.summary}`)
   .join('\n')}
 
-## Recruiter questions
-${profile.faq
-  .map((item) => `### ${item.question}\n${item.answer}`)
+## Case-study evidence and limitations
+${content.caseStudies
+  .map(
+    (study) => `### ${study.title}
+${study.description}
+
+Outcome: ${study.outcome}
+
+Measurement: ${study.measurement}
+
+Limitations: ${study.limitations}
+
+Evidence:
+${study.evidence.map((item) => `- ${item.label}: ${item.url}`).join('\n')}`,
+  )
   .join('\n\n')}
 `;
 await writeFile(path.join(distDirectory, 'llms-full.txt'), llmsFull, 'utf8');
 
 console.log(
-  `Prerendered ${indexedRoutes.length} indexable routes plus 404, sitemap, robots and LLM discovery files.`,
+  `Server-rendered ${indexedRoutes.length} indexable routes plus a noindex 404, sitemap, robots and discovery files.`,
 );
