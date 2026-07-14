@@ -13,7 +13,7 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
 
     steps:
       - name: Check out repository
@@ -46,23 +46,14 @@ jobs:
       - name: Test
         run: pnpm test
 
-      - name: Build and prerender
+      - name: Build and server-render routes
         run: pnpm build
 
-      - name: Verify generated discovery files
-        run: |
-          test -f dist/index.html
-          test -f dist/resume/index.html
-          test -f dist/case-studies/veldia/index.html
-          test -f dist/case-studies/llmpolska/index.html
-          test -f dist/case-studies/dovista-automation/index.html
-          test -f dist/contact/index.html
-          test -f dist/404.html
-          test -f dist/sitemap.xml
-          test -f dist/robots.txt
-          test -f dist/llms.txt
-          grep -q 'AI-native developer and product engineer in Poland / Tricity' dist/index.html
-          grep -q 'Wojciech Sacewicz Resume' dist/resume/index.html
+      - name: Verify SEO output and React parity
+        run: pnpm verify:seo
+
+      - name: Verify Cloudflare routing behavior
+        run: pnpm verify:routing
 
       - name: Validate Cloudflare deployment bundle
         run: pnpm cloudflare:check
