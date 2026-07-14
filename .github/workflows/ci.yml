@@ -58,7 +58,7 @@ jobs:
           exit $status
 
       - name: Upload SEO verification diagnostics
-        if: always()
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: seo-verification-${{ github.run_id }}
