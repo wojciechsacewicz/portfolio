@@ -9,10 +9,10 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "typecheck": "tsc -b --pretty false",
-    "lint": "oxlint src vite.config.ts",
+    "lint": "oxlint src scripts vite.config.ts",
     "test": "vitest run",
     "cloudflare:types": "wrangler types worker-configuration.d.ts",
     "cloudflare:check": "wrangler deploy --dry-run",
