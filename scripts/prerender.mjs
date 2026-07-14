@@ -366,7 +366,11 @@ function renderDocument(markup, definition) {
     /<script type="application\/ld\+json" id="structured-data">[\s\S]*?<\/script>/i,
     `<script type="application/ld+json" id="structured-data">${JSON.stringify(definition.schema)}</script>`,
   );
-  document = document.replace('<div id="root"></div>', `<div id="root">${markup}</div>`);
+  document = document.replace(
+    /<div id="root" data-render-mode="fallback">[\s\S]*?<\/div>/i,
+    `<div id="root" data-render-mode="ssr">${markup}</div>`,
+  );
+  document = document.replace(/\s*<style id="static-fallback-style">[\s\S]*?<\/style>/i, '');
   return document;
 }
 
