@@ -1,0 +1,572 @@
+{
+  "siteUrl": "https://sacewi.cz",
+  "lastModified": "2026-07-14",
+  "person": {
+    "name": "Wojciech Sacewicz",
+    "alternateName": "Wojtek Sacewicz",
+    "headline": "AI-Native Developer and Product Engineer",
+    "currentJobTitle": "AI Native Developer Intern",
+    "location": "Tricity metropolitan area, Pomeranian Voivodeship, Poland",
+    "locationShort": "Tricity, Poland",
+    "availability": "Available for local and hybrid work in the Tricity area and remote collaboration across Europe.",
+    "summary": "Wojciech Sacewicz is an AI-native software developer and product engineer based in the Tricity metropolitan area, Poland. He builds React and TypeScript products, Cloudflare services, internal tools and automation workflows, using coding agents with review, tests and verification in the loop.",
+    "fit": "Best suited to product engineering, AI-assisted software development, full-stack web work, internal tools, workflow automation and teams adopting coding agents without lowering engineering standards.",
+    "education": "Computer Science and Econometrics at the University of Gdańsk",
+    "languages": [
+      "Polish",
+      "English (C1)"
+    ],
+    "knowsAbout": [
+      "React",
+      "TypeScript",
+      "React Router",
+      "Node.js",
+      "Cloudflare Workers",
+      "Supabase",
+      "Progressive Web Apps",
+      "AI-assisted software development",
+      "OpenAI Codex",
+      "Claude Code",
+      "Software verification",
+      "Internal tools",
+      "Workflow automation",
+      "UiPath",
+      "SAP automation",
+      "Document Understanding",
+      "OCR"
+    ],
+    "links": {
+      "portfolio": "https://sacewi.cz/",
+      "github": "https://github.com/wojciechsacewicz",
+      "linkedin": "https://www.linkedin.com/in/wojciech-sacewicz/",
+      "email": "mailto:wojciechsacewicz@outlook.com"
+    }
+  },
+  "navigationItems": [
+    {
+      "label": "Work",
+      "href": "#work"
+    },
+    {
+      "label": "Method",
+      "href": "#method"
+    },
+    {
+      "label": "Experience",
+      "href": "#experience"
+    },
+    {
+      "label": "Resume",
+      "href": "/resume"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact"
+    }
+  ],
+  "proofPoints": [
+    {
+      "value": "IDEGO",
+      "label": "Practical ownership of an AI product",
+      "note": "Commercial engineering, coordination, security and delivery."
+    },
+    {
+      "value": "40%",
+      "label": "Shorter report generation",
+      "note": "UiPath and SAP automation designed and deployed at DOVISTA."
+    },
+    {
+      "value": "2 live",
+      "label": "Products you can open",
+      "note": "Veldia and llmpolska are shipped products, not portfolio exercises."
+    }
+  ],
+  "roleMatches": [
+    "AI-Native Developer",
+    "AI Product Engineer",
+    "AI-Assisted Product Engineer",
+    "Software Engineer",
+    "Full-Stack Developer",
+    "Frontend Developer",
+    "React Developer",
+    "TypeScript Developer",
+    "Cloudflare Developer",
+    "Automation Engineer",
+    "RPA Developer",
+    "Junior Software Engineer",
+    "Early-Career Product Engineer"
+  ],
+  "capabilityGroups": [
+    {
+      "title": "Product engineering",
+      "items": [
+        "Full-stack web product delivery",
+        "React and TypeScript applications",
+        "SaaS and progressive web apps",
+        "Internal tools and operational software",
+        "Product discovery and requirement scoping",
+        "UX iteration and conversion flows"
+      ]
+    },
+    {
+      "title": "AI-native development",
+      "items": [
+        "OpenAI Codex and Claude Code workflows",
+        "Repository research with coding agents",
+        "Agent-assisted implementation and refactoring",
+        "Prompt and context engineering",
+        "Code review and assumption checks",
+        "Tests, browser verification and production builds"
+      ]
+    },
+    {
+      "title": "Cloud and web stack",
+      "items": [
+        "React",
+        "React Router",
+        "TypeScript",
+        "Node.js",
+        "Vite",
+        "Cloudflare Workers",
+        "Cloudflare static assets",
+        "Supabase",
+        "Docker",
+        "GitHub"
+      ]
+    },
+    {
+      "title": "Automation and business systems",
+      "items": [
+        "UiPath",
+        "SAP workflow automation",
+        "Document Understanding",
+        "OCR",
+        "Process mapping",
+        "Stakeholder communication",
+        "Measured workflow improvement"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "veldia",
+      "number": "01",
+      "name": "Veldia",
+      "descriptor": "Shift work, moved from paper into a working product.",
+      "summary": "A mobile-first SaaS/PWA for small shift-based businesses. I work across schedules, hours, availability, roles, onboarding, pricing, trial, SEO and the manager-reviewed AI schedule draft.",
+      "evidence": [
+        "Manager-reviewed AI schedule drafting",
+        "Work-hour and schedule workflows",
+        "30-day trial and conversion path"
+      ],
+      "stack": [
+        "React",
+        "PWA",
+        "Supabase",
+        "Cloudflare"
+      ],
+      "url": "https://veldia.pl/",
+      "caseStudyUrl": "/case-studies/veldia",
+      "image": "/assets/veldia-dashboard.png",
+      "imageAlt": "Real Veldia manager dashboard",
+      "tone": "steel"
+    },
+    {
+      "id": "llmpolska",
+      "number": "02",
+      "name": "llmpolska",
+      "descriptor": "A Polish home for practical AI work.",
+      "summary": "A community, tools and education platform built around React Router and Cloudflare Workers. The work combines engineering, positioning, brand, product navigation and an AI helper workflow.",
+      "evidence": [
+        "React Router SSR on Cloudflare",
+        "Community and AI-tool discovery surfaces",
+        "Product positioning and distribution"
+      ],
+      "stack": [
+        "React Router",
+        "Cloudflare Workers",
+        "TypeScript"
+      ],
+      "url": "https://llmpolska.pl/",
+      "caseStudyUrl": "/case-studies/llmpolska",
+      "image": "https://llmpolska.pl/og-default.svg",
+      "imageAlt": "llmpolska visual identity",
+      "tone": "slate"
+    },
+    {
+      "id": "dovista",
+      "number": "03",
+      "name": "DOVISTA automation",
+      "descriptor": "A measured process improvement, not an automation demo.",
+      "summary": "I mapped the reporting process with stakeholders, built and deployed a UiPath robot for SAP-related work, added OCR and prepared management-facing adoption material.",
+      "evidence": [
+        "40% shorter report generation",
+        "Reduced manual data-entry risk",
+        "Process mapping through deployment"
+      ],
+      "stack": [
+        "UiPath",
+        "SAP",
+        "Document Understanding",
+        "OCR"
+      ],
+      "url": "/case-studies/dovista-automation",
+      "caseStudyUrl": "/case-studies/dovista-automation",
+      "image": "",
+      "imageAlt": "Process diagram showing documents moving through OCR, SAP and UiPath into a report",
+      "tone": "dark"
+    }
+  ],
+  "workflow": [
+    {
+      "number": "01",
+      "title": "Clarify",
+      "body": "Turn an unclear ticket into a bounded problem and acceptance criteria."
+    },
+    {
+      "number": "02",
+      "title": "Research",
+      "body": "Map the repository, existing patterns, risks and reusable code."
+    },
+    {
+      "number": "03",
+      "title": "Build",
+      "body": "Implement the smallest complete slice with agent-assisted iteration."
+    },
+    {
+      "number": "04",
+      "title": "Review",
+      "body": "Inspect the diff, challenge assumptions and trace risky behavior."
+    },
+    {
+      "number": "05",
+      "title": "Verify",
+      "body": "Run focused tests, browser checks and the production build."
+    },
+    {
+      "number": "06",
+      "title": "Deliver",
+      "body": "Leave a clear change with evidence, rationale and a usable result."
+    }
+  ],
+  "experience": [
+    {
+      "period": "Apr 2026 — present",
+      "startDate": "2026-04",
+      "role": "AI Native Developer Intern",
+      "company": "IDEGO",
+      "lead": "Commercial engineering work across backend services, web features and developer workflows. The formal title is intern; the working scope includes practical project ownership.",
+      "summary": "Commercial engineering across backend services, web features and developer workflows, with practical responsibility for coherent delivery, quality and security.",
+      "bullets": [
+        "Coordinate team contributions and take responsibility for coherent delivery, quality and security.",
+        "Use Codex and Claude Code for repository research, implementation, refactoring, debugging, tests and documentation.",
+        "Turn unclear requirements into scoped plans, working prototypes and PR-ready changes."
+      ]
+    },
+    {
+      "period": "Aug — Sep 2025",
+      "startDate": "2025-08",
+      "endDate": "2025-09",
+      "role": "RPA Intern",
+      "company": "DOVISTA Polska",
+      "lead": "Owned an SAP-related reporting automation from process mapping through deployment and management demo.",
+      "summary": "Owned an SAP-related reporting automation from process mapping through deployment, reducing report generation time by 40% for the scoped reporting workflow.",
+      "bullets": [
+        "Built and deployed the UiPath workflow with stakeholders in the loop.",
+        "Cut report generation time by 40% and reduced manual data-entry risk.",
+        "Used Document Understanding and OCR for purchasing-document data."
+      ]
+    },
+    {
+      "period": "Nov 2024 — Jan 2026",
+      "startDate": "2024-11",
+      "endDate": "2026-01",
+      "role": "Junior Recruiter",
+      "company": "4Specialist",
+      "lead": "Built operational discipline before moving fully into engineering: repeatable verification, documentation and clear communication.",
+      "summary": "Built operational discipline through repeatable verification, documentation and clear communication before moving fully into engineering.",
+      "bullets": [
+        "Standardized driver-document checks and reduced avoidable correction loops."
+      ]
+    }
+  ],
+  "technologies": [
+    {
+      "slug": "react",
+      "label": "React"
+    },
+    {
+      "slug": "typescript",
+      "label": "TypeScript"
+    },
+    {
+      "slug": "cloudflare",
+      "label": "Cloudflare"
+    },
+    {
+      "slug": "nodedotjs",
+      "label": "Node.js"
+    },
+    {
+      "slug": "vite",
+      "label": "Vite"
+    },
+    {
+      "slug": "threejs",
+      "label": "Three.js"
+    },
+    {
+      "slug": "docker",
+      "label": "Docker"
+    },
+    {
+      "slug": "github",
+      "label": "GitHub"
+    },
+    {
+      "slug": "openai",
+      "label": "Codex"
+    },
+    {
+      "slug": "anthropic",
+      "label": "Claude"
+    },
+    {
+      "slug": "googlegemini",
+      "label": "Gemini"
+    },
+    {
+      "slug": "adobephotoshop",
+      "label": "Photoshop"
+    },
+    {
+      "slug": "adobepremierepro",
+      "label": "Premiere"
+    },
+    {
+      "slug": "slack",
+      "label": "Slack"
+    },
+    {
+      "slug": "google",
+      "label": "Google"
+    },
+    {
+      "slug": "meta",
+      "label": "Meta"
+    }
+  ],
+  "caseStudies": [
+    {
+      "slug": "veldia",
+      "title": "Veldia — shift management SaaS and PWA",
+      "shortTitle": "Veldia",
+      "datePublished": "2026-07-14",
+      "dateModified": "2026-07-14",
+      "description": "A mobile-first product for small shift-based businesses, covering schedules, hours, availability, roles, onboarding, pricing, trial and manager-reviewed AI schedule drafting.",
+      "context": "Small shift-based businesses often coordinate schedules and work hours through paper, chat messages and fragmented spreadsheets. Veldia turns those recurring operational tasks into one mobile-first workflow for managers and employees.",
+      "roleAndBoundaries": "I own the product direction and work across positioning, interface design, React implementation, schedule and hour workflows, onboarding, pricing, trial, SEO and the AI-assisted schedule draft. The case study describes the product surfaces I built and does not claim customer adoption figures that have not been publicly measured.",
+      "constraints": [
+        "The main workflows must remain usable on a phone during or immediately after a shift.",
+        "Small-business users need a simple interface rather than enterprise workforce-management complexity.",
+        "An AI-generated schedule must remain a draft reviewed and approved by a manager.",
+        "The product must support a useful trial and a clear path from onboarding to recurring use."
+      ],
+      "implementation": [
+        "React and TypeScript power the application interface and workflow logic.",
+        "Supabase provides the backend-connected data and account layer.",
+        "Cloudflare serves the product and public acquisition surfaces.",
+        "The operational model covers schedules, recorded hours, availability, roles and manager review."
+      ],
+      "decisions": [
+        "Treat AI as a drafting assistant, not an autonomous scheduling authority.",
+        "Prioritize the recurring hours-and-schedule workflow before adding secondary features.",
+        "Design mobile-first because the product is used around shift work, not only at a desk."
+      ],
+      "aiWorkflow": [
+        "The product uses AI to propose a schedule draft from the available planning context.",
+        "A manager reviews and changes the draft before it becomes the working schedule.",
+        "Coding agents are used during development with repository research, review, tests and browser verification."
+      ],
+      "verification": [
+        "Core flows are checked in the browser against the same mobile-first paths used by the live product.",
+        "Production builds and deployment checks are part of the delivery workflow.",
+        "The public product and real interface screenshots provide externally checkable evidence that the system exists."
+      ],
+      "outcome": "A live mobile-first SaaS/PWA with real operational workflows rather than a portfolio-only prototype.",
+      "measurement": "No public adoption or time-saved metric is claimed. The verifiable outcome is a publicly accessible product with implemented schedule, hour, availability, role, onboarding and trial workflows.",
+      "limitations": "The case study does not publish private user data, customer-specific usage figures or internal account information.",
+      "technologies": [
+        "React",
+        "TypeScript",
+        "PWA",
+        "Supabase",
+        "Cloudflare",
+        "AI-assisted scheduling"
+      ],
+      "evidence": [
+        {
+          "label": "Live Veldia product",
+          "url": "https://veldia.pl/",
+          "kind": "live product"
+        },
+        {
+          "label": "Manager dashboard screenshot",
+          "url": "/assets/veldia-dashboard.png",
+          "kind": "screenshot"
+        },
+        {
+          "label": "Schedule workflow screenshot",
+          "url": "/assets/veldia-schedule.png",
+          "kind": "screenshot"
+        }
+      ],
+      "liveUrl": "https://veldia.pl/",
+      "image": "https://sacewi.cz/assets/veldia-dashboard.png",
+      "entityType": "SoftwareApplication"
+    },
+    {
+      "slug": "llmpolska",
+      "title": "llmpolska — practical AI platform for Poland",
+      "shortTitle": "llmpolska",
+      "datePublished": "2026-07-14",
+      "dateModified": "2026-07-14",
+      "description": "A Polish community, tools and education platform focused on practical AI work, product discovery and useful implementation knowledge.",
+      "context": "Polish AI practitioners need a focused place for practical tools, education and community rather than another generic AI news site. llmpolska is structured around useful discovery and implementation-oriented content.",
+      "roleAndBoundaries": "I work across product positioning, brand, information architecture, navigation, React Router implementation, Cloudflare delivery and AI-tool discovery surfaces. Public claims are limited to the live product and the implementation visible on the site.",
+      "constraints": [
+        "The platform must be understandable to Polish users with different levels of AI experience.",
+        "Content and tool pages need crawlable server-rendered output for discovery and sharing.",
+        "Brand, navigation and distribution need to work as one product rather than separate marketing exercises."
+      ],
+      "implementation": [
+        "React Router provides route-level rendering and application structure.",
+        "Cloudflare Workers deliver server-rendered pages close to users.",
+        "TypeScript keeps product and content surfaces consistent.",
+        "Navigation and discovery surfaces connect community, tools and education."
+      ],
+      "decisions": [
+        "Use server rendering so useful pages are available without waiting for client JavaScript.",
+        "Organize the platform around practical tasks and tools instead of a chronological news feed.",
+        "Treat positioning and distribution as part of the product architecture."
+      ],
+      "aiWorkflow": [
+        "The platform includes AI-helper and tool-discovery concepts where they make navigation or implementation knowledge easier to use.",
+        "Coding agents support repository research and implementation, followed by normal review and verification."
+      ],
+      "verification": [
+        "Server-rendered routes can be inspected directly in the page response.",
+        "The production site provides externally accessible evidence of the product, brand and navigation.",
+        "Deployment and browser checks are part of the release workflow."
+      ],
+      "outcome": "A live server-rendered platform that combines engineering, distribution and product positioning.",
+      "measurement": "No traffic or community-size metric is claimed in this case study. The externally verifiable evidence is the live server-rendered platform and its public discovery surfaces.",
+      "limitations": "The platform is evolving; the case study does not present projected community growth as an achieved result.",
+      "technologies": [
+        "React Router",
+        "TypeScript",
+        "Cloudflare Workers",
+        "SSR",
+        "Product design"
+      ],
+      "evidence": [
+        {
+          "label": "Live llmpolska platform",
+          "url": "https://llmpolska.pl/",
+          "kind": "live website"
+        },
+        {
+          "label": "Public visual identity",
+          "url": "https://llmpolska.pl/og-default.svg",
+          "kind": "public asset"
+        }
+      ],
+      "liveUrl": "https://llmpolska.pl/",
+      "image": "https://llmpolska.pl/og-default.svg",
+      "entityType": "WebSite"
+    },
+    {
+      "slug": "dovista-automation",
+      "title": "DOVISTA — SAP reporting automation with UiPath",
+      "shortTitle": "DOVISTA automation",
+      "datePublished": "2026-07-14",
+      "dateModified": "2026-07-14",
+      "description": "An SAP-related reporting workflow mapped, implemented and deployed with UiPath, Document Understanding and OCR.",
+      "context": "A purchasing-report workflow required repetitive manual processing and exposed the team to avoidable data-entry errors. The work connected purchasing documents, OCR, validated SAP data and an automated report-generation process.",
+      "roleAndBoundaries": "During an RPA internship at DOVISTA Polska, I mapped the process with stakeholders, built and deployed the UiPath workflow, integrated the SAP-related steps, added Document Understanding and OCR, and prepared management-facing adoption material. Business data, exact SAP screens and internal timings remain confidential.",
+      "constraints": [
+        "The workflow operated around an existing enterprise SAP process rather than a greenfield system.",
+        "Purchasing documents required extraction and validation before automation could continue safely.",
+        "The result needed stakeholder confidence, a management demonstration and a deployable operating process.",
+        "Confidential business data and internal system details cannot be published."
+      ],
+      "implementation": [
+        "Purchasing documents entered a Document Understanding and OCR step.",
+        "Extracted values were checked against the validated SAP-related source data.",
+        "UiPath orchestrated the repetitive workflow and generated the resulting report.",
+        "The deployment included process mapping, stakeholder feedback and adoption material."
+      ],
+      "decisions": [
+        "Keep source-data validation in the workflow instead of automating unverified OCR output.",
+        "Treat adoption and management communication as part of deployment, not as post-project documentation.",
+        "Measure the scoped reporting process rather than presenting a generic automation-performance claim."
+      ],
+      "aiWorkflow": [
+        "This was an RPA and document-processing project, not a generative-AI project.",
+        "Document Understanding and OCR were used for extraction; business validation remained part of the workflow."
+      ],
+      "verification": [
+        "The workflow was reviewed with stakeholders from process mapping through deployment.",
+        "The completed process was demonstrated to management.",
+        "The result was recorded against the scoped report-generation workflow after deployment."
+      ],
+      "outcome": "Report generation time for the scoped workflow was reduced by 40% while manual data-entry risk was lowered.",
+      "measurement": "The portfolio records the result as a 40% reduction for the scoped report-generation process. The underlying internal timings, run count and business documents are not public, so the claim is intentionally limited to that workflow.",
+      "limitations": "No confidential purchasing data, SAP screens, customer information or internal measurement records are published.",
+      "technologies": [
+        "UiPath",
+        "SAP",
+        "Document Understanding",
+        "OCR",
+        "Process automation"
+      ],
+      "evidence": [
+        {
+          "label": "Public process-flow reconstruction",
+          "url": "/case-studies/dovista-automation",
+          "kind": "case-study diagram"
+        },
+        {
+          "label": "Employment and project description",
+          "url": "/resume",
+          "kind": "portfolio record"
+        }
+      ],
+      "liveUrl": "",
+      "image": "",
+      "entityType": "Article"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What kind of developer is Wojciech Sacewicz?",
+      "answer": "An early-career AI-native software developer and product engineer who works across React and TypeScript products, backend-connected web features, Cloudflare delivery, internal tools and workflow automation."
+    },
+    {
+      "question": "Where is Wojciech Sacewicz based?",
+      "answer": "In the Tricity metropolitan area in Poland, with availability for local, hybrid and remote European work."
+    },
+    {
+      "question": "How does he use AI coding agents?",
+      "answer": "Across repository research, requirement clarification, implementation, refactoring, debugging, review and documentation, followed by tests, browser verification and production-build checks."
+    },
+    {
+      "question": "What evidence shows product and engineering ownership?",
+      "answer": "Live products including Veldia and llmpolska, commercial work at IDEGO and a deployed DOVISTA automation that reduced report generation time by 40% for the scoped workflow."
+    },
+    {
+      "question": "What roles are the strongest match?",
+      "answer": "AI-native developer, junior software engineer, product engineer, React or TypeScript developer, full-stack web developer, internal-tools developer and automation engineer."
+    }
+  ]
+}
