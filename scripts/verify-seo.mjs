@@ -16,6 +16,19 @@ function countMatches(value, expression) {
   return [...value.matchAll(expression)].length;
 }
 
+function visibleText(document) {
+  return document
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function extractStructuredData(document, filePath) {
   const match = document.match(
     /<script type="application\/ld\+json" id="structured-data">([\s\S]*?)<\/script>/i,
@@ -77,12 +90,13 @@ for (const routePath of routes) {
 }
 
 const homepage = await readFile(path.join(distDirectory, 'index.html'), 'utf8');
+const homepageText = visibleText(homepage);
 invariant(
-  homepage.includes('AI-native product engineering.'),
+  homepageText.includes('AI-native product engineering.'),
   'Homepage: server-rendered and hydrated H1 copy is missing',
 );
 invariant(
-  homepage.includes('Wojciech Sacewicz · AI-native developer · Tricity, Poland'),
+  homepageText.includes('Wojciech Sacewicz · AI-native developer · Tricity, Poland'),
   'Homepage: person, role and professional location are not visible near the H1',
 );
 
@@ -105,6 +119,7 @@ for (const study of content.caseStudies) {
     'index.html',
   );
   const document = await readFile(filePath, 'utf8');
+  const documentText = visibleText(document);
 
   for (const requiredText of [
     `Case study by ${content.person.name}`,
@@ -120,7 +135,7 @@ for (const study of content.caseStudies) {
     'Disclosure boundary',
     'What can be checked.',
   ]) {
-    invariant(document.includes(requiredText), `${filePath}: missing ${requiredText}`);
+    invariant(documentText.includes(requiredText), `${filePath}: missing ${requiredText}`);
   }
 
   const schema = extractStructuredData(document, filePath);
