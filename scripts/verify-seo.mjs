@@ -45,6 +45,25 @@ function expectedCanonical(routePath) {
   return routePath === '/' ? `${content.siteUrl}/` : `${content.siteUrl}${routePath}`;
 }
 
+const baseTemplate = await readFile(path.join(projectRoot, 'index.html'), 'utf8');
+const baseTemplateText = visibleText(baseTemplate);
+invariant(
+  baseTemplate.includes('data-render-mode="fallback"'),
+  'index.html: crawler fallback render marker is missing',
+);
+invariant(
+  countMatches(baseTemplate, /<h1(?:\s|>)/g) === 1,
+  'index.html: raw app shell must contain exactly one fallback h1',
+);
+invariant(
+  baseTemplateText.includes('Wojciech Sacewicz · AI-native developer · Tricity, Poland'),
+  'index.html: fallback person, role and location are missing',
+);
+invariant(
+  baseTemplateText.includes('AI-native product engineering.'),
+  'index.html: fallback h1 copy is missing',
+);
+
 const routes = [
   '/',
   '/resume',
@@ -60,6 +79,12 @@ for (const routePath of routes) {
   const canonical = expectedCanonical(routePath);
 
   invariant(document.includes('class="site-shell"'), `${filePath}: React route was not server-rendered`);
+  invariant(
+    document.includes('data-render-mode="ssr"'),
+    `${filePath}: SSR render marker is missing`,
+  );
+  invariant(!document.includes('class="static-fallback"'), `${filePath}: fallback markup was not replaced`);
+  invariant(!document.includes('id="static-fallback-style"'), `${filePath}: fallback styles remain`);
   invariant(!document.includes('seo-snapshot'), `${filePath}: legacy snapshot markup remains`);
   invariant(countMatches(document, /<h1(?:\s|>)/g) === 1, `${filePath}: expected exactly one h1`);
   invariant(
@@ -175,6 +200,10 @@ invariant(redirects.includes('/404 / 302'), '_redirects: direct /404 redirect mi
 
 const mainSource = await readFile(path.join(projectRoot, 'src/main.tsx'), 'utf8');
 invariant(mainSource.includes('hydrateRoot'), 'src/main.tsx: hydration is not configured');
+invariant(
+  mainSource.includes("dataset.renderMode === 'ssr'"),
+  'src/main.tsx: hydration is not guarded by the SSR marker',
+);
 invariant(!mainSource.includes('replaceChildren'), 'src/main.tsx: prerendered markup is still deleted');
 
-console.log(`Verified React SSG parity, metadata, schema, canonicals and evidence for ${routes.length} routes.`);
+console.log(`Verified crawler fallback, React SSG parity, metadata, schema, canonicals and evidence for ${routes.length} routes.`);
