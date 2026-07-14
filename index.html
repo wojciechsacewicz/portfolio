@@ -36,10 +36,45 @@
     <meta name="twitter:image" content="https://sacewi.cz/assets/wojtek-profile.png" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script type="application/ld+json" id="structured-data">{}</script>
+    <style id="static-fallback-style">
+      .static-fallback {
+        box-sizing: border-box;
+        min-height: 100vh;
+        padding: clamp(5rem, 12vw, 10rem) clamp(1.25rem, 6vw, 6rem);
+        color: #e9eef5;
+        background: #0b0f14;
+        font-family: system-ui, sans-serif;
+      }
+      .static-fallback p { max-width: 52rem; line-height: 1.65; }
+      .static-fallback h1 {
+        max-width: 14ch;
+        margin: 1.25rem 0;
+        font-size: clamp(3rem, 9vw, 8rem);
+        line-height: .92;
+        letter-spacing: -.055em;
+      }
+      .static-fallback nav { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+      .static-fallback a { color: inherit; text-underline-offset: .3em; }
+    </style>
     <title>Wojciech Sacewicz — AI-Native Developer | Tricity, Poland</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root" data-render-mode="fallback">
+      <main class="static-fallback" id="main-content">
+        <p>Wojciech Sacewicz · AI-native developer · Tricity, Poland</p>
+        <h1>AI-native product engineering.</h1>
+        <p>
+          React and TypeScript products, Cloudflare services, internal tools and workflow
+          automations built with coding agents, product judgment and verification in the loop.
+        </p>
+        <nav aria-label="Portfolio pages">
+          <a href="/resume">Structured resume</a>
+          <a href="/case-studies/veldia">Veldia case study</a>
+          <a href="/case-studies/llmpolska">llmpolska case study</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
