@@ -1,0 +1,65 @@
+name: Portfolio CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'seo/**'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Cloudflare types
+        run: pnpm cloudflare:types
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build and prerender
+        run: pnpm build
+
+      - name: Verify generated discovery files
+        run: |
+          test -f dist/index.html
+          test -f dist/resume/index.html
+          test -f dist/case-studies/veldia/index.html
+          test -f dist/case-studies/llmpolska/index.html
+          test -f dist/case-studies/dovista-automation/index.html
+          test -f dist/contact/index.html
+          test -f dist/404.html
+          test -f dist/sitemap.xml
+          test -f dist/robots.txt
+          test -f dist/llms.txt
+          grep -q 'AI-native developer and product engineer in Poland / Tricity' dist/index.html
+          grep -q 'Wojciech Sacewicz Resume' dist/resume/index.html
+
+      - name: Validate Cloudflare deployment bundle
+        run: pnpm cloudflare:check
