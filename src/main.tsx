@@ -15,8 +15,10 @@ const application = (
   </StrictMode>
 );
 
-if (rootElement.hasChildNodes()) {
+if (rootElement.dataset.renderMode === 'ssr') {
   hydrateRoot(rootElement, application);
 } else {
+  rootElement.textContent = '';
+  rootElement.dataset.renderMode = 'client';
   createRoot(rootElement).render(application);
 }
