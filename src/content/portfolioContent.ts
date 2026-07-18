@@ -119,7 +119,54 @@ export interface PortfolioContent {
   }[];
 }
 
-export const portfolioContent = contentJson as PortfolioContent;
+const baseContent = contentJson as PortfolioContent;
+
+const muminkTattooProject: PortfolioProject = {
+  id: 'mumink-tattoo',
+  number: '04',
+  name: 'Mumink Tattoo',
+  descriptor: 'A distinctive studio website backed by a custom media workflow.',
+  summary:
+    'A production website and lightweight CMS for a tattoo and permanent-makeup studio in Tczew. I designed and built the public experience, gallery management, Cloudflare Worker API, D1/R2 storage, deployment and local-search foundations.',
+  evidence: [
+    'Custom gallery CMS with image editing',
+    'Cloudflare Worker, D1 and R2 architecture',
+    'Local SEO and conversion-focused service pages',
+  ],
+  stack: ['React', 'TypeScript', 'Cloudflare', 'Hono'],
+  url: 'https://muminktattoo.pl/',
+  caseStudyUrl: 'https://muminktattoo.pl/',
+  image: 'https://muminktattoo.pl/og-image.png',
+  imageAlt: 'Mumink Tattoo studio website in Tczew',
+  tone: 'dark',
+};
+
+const liveProductsProofPoint: ProofPoint = {
+  value: '3 live',
+  label: 'Products you can open',
+  note: 'Veldia, llmpolska and Mumink Tattoo are shipped products, not portfolio exercises.',
+};
+
+export const portfolioContent: PortfolioContent = {
+  ...baseContent,
+  lastModified: '2026-07-18',
+  proofPoints: baseContent.proofPoints.map((point) =>
+    point.label === liveProductsProofPoint.label ? liveProductsProofPoint : point,
+  ),
+  projects: [
+    ...baseContent.projects.filter((project) => project.id !== muminkTattooProject.id),
+    muminkTattooProject,
+  ],
+  faq: baseContent.faq.map((entry) =>
+    entry.question === 'What evidence shows product and engineering ownership?'
+      ? {
+          ...entry,
+          answer:
+            'Live products including Veldia, llmpolska and Mumink Tattoo, commercial work at IDEGO and a deployed DOVISTA automation that reduced report generation time by 40% for the scoped workflow.',
+        }
+      : entry,
+  ),
+};
 
 export const navigationItems = portfolioContent.navigationItems;
 export const proofPoints = portfolioContent.proofPoints;

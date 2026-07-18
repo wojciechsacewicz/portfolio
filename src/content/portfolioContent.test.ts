@@ -11,17 +11,29 @@ import {
 } from './portfolioContent';
 
 describe('portfolio content model', () => {
-  it('keeps every featured project linked to evidence and a case study', () => {
+  it('keeps every featured project linked to evidence and a usable destination', () => {
     for (const project of projects) {
       expect(project.evidence.length).toBeGreaterThanOrEqual(3);
       expect(project.url.length).toBeGreaterThan(1);
-      expect(project.caseStudyUrl).toMatch(/^\/case-studies\/[a-z0-9-]+$/);
+      expect(
+        isExternalUrl(project.caseStudyUrl) ||
+          /^\/case-studies\/[a-z0-9-]+$/.test(project.caseStudyUrl),
+      ).toBe(true);
       expect(project.summary).not.toContain('[TO VERIFY]');
     }
   });
 
+  it('includes the live Mumink Tattoo client project', () => {
+    expect(projects.find((project) => project.id === 'mumink-tattoo')).toMatchObject({
+      name: 'Mumink Tattoo',
+      url: 'https://muminktattoo.pl/',
+      image: 'https://muminktattoo.pl/og-image.png',
+      stack: ['React', 'TypeScript', 'Cloudflare', 'Hono'],
+    });
+  });
+
   it('preserves the recruiter scan path', () => {
-    expect(proofPoints.map((point) => point.value)).toEqual(['IDEGO', '40%', '2 live']);
+    expect(proofPoints.map((point) => point.value)).toEqual(['IDEGO', '40%', '3 live']);
     expect(experience[0].company).toBe('IDEGO');
     expect(workflow.at(-1)?.title).toBe('Deliver');
   });
