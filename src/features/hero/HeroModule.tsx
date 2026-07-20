@@ -7,7 +7,7 @@ export function HeroModule() {
       <div className="hero-grid-lines" aria-hidden="true" />
 
       <div className="hero-copy" data-hero-copy>
-        <p className="eyebrow">Wojciech Sacewicz · AI-native developer</p>
+        <p className="eyebrow">Wojciech Sacewicz · Tricity, Poland</p>
         <h1>Wojciech Sacewicz.</h1>
         <p className="hero-role">
           Product engineering across React, Cloudflare and automation.
