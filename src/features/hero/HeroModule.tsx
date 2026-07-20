@@ -1,4 +1,5 @@
 import { ActionLink } from '../../components/InterfaceElements';
+import { CrtMonitor } from './crt-monitor/CrtMonitor';
 import './hero-module.css';
 
 export function HeroModule() {
@@ -39,27 +40,8 @@ export function HeroModule() {
         </dl>
       </div>
 
-      <div className="hero-stage" data-reveal aria-label="Preview of selected portfolio projects">
-        <div className="hero-stage-header">
-          <span>Selected work</span>
-          <span>2025—2026</span>
-        </div>
-
-        <div className="hero-frame hero-frame-primary">
-          <img src="/assets/veldia-dashboard.png" alt="Veldia manager dashboard" />
-        </div>
-        <div className="hero-frame hero-frame-secondary">
-          <img src="/assets/veldia-schedule.png" alt="Veldia schedule interface" />
-        </div>
-        <div className="hero-frame hero-frame-signal" aria-hidden="true">
-          <span>llmpolska</span>
-          <strong>Practical AI in Polish.</strong>
-        </div>
-
-        <div className="hero-stage-footer">
-          <span>03 live products</span>
-          <span>01 deployed automation</span>
-        </div>
+      <div className="hero-stage" data-reveal>
+        <CrtMonitor />
       </div>
 
       <a className="hero-scroll" href="#work">
