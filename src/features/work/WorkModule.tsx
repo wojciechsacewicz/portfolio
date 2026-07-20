@@ -7,6 +7,13 @@ import {
 } from '../../content/portfolioContent';
 import './work-module.css';
 
+const projectMeta: Record<string, { readonly type: string; readonly year: string }> = {
+  veldia: { type: 'SaaS / PWA', year: '2026' },
+  llmpolska: { type: 'Platform / Community', year: '2026' },
+  dovista: { type: 'RPA / SAP', year: '2025' },
+  'mumink-tattoo': { type: 'Client website / CMS', year: '2026' },
+};
+
 const dovistaFlow = [
   { label: 'Input', detail: 'Purchasing documents' },
   { label: 'OCR', detail: 'Document Understanding' },
@@ -85,62 +92,40 @@ export function WorkModule() {
   if (!activeProject) return null;
 
   const external = isExternalUrl(activeProject.url);
+  const activeMeta = projectMeta[activeProject.id] ?? { type: 'Project', year: '2026' };
 
   return (
     <section className="section work-section" id="work">
       <header className="work-heading" data-reveal>
-        <p className="eyebrow">2025 to 2026</p>
-        <h2>Selected work</h2>
-        <p>Three live products and one deployed automation.</p>
+        <p className="eyebrow">Work / 04</p>
+        <h2>Projects</h2>
+        <p>Products and automation that are live, deployed or publicly checkable.</p>
       </header>
 
       <div className="work-browser">
-        <div className="work-index" aria-label="Selected projects">
-          {projects.map((project) => {
-            const isActive = project.id === activeProject.id;
-            return (
-              <button
-                key={project.id}
-                className={isActive ? 'work-index-item is-active' : 'work-index-item'}
-                type="button"
-                aria-pressed={isActive}
-                onClick={() => setActiveProjectId(project.id)}
-              >
-                <span className="work-index-number">{project.number}</span>
-                <span className="work-index-title">
-                  <strong>{project.name}</strong>
-                  <small>{project.descriptor}</small>
-                </span>
-                <span className="work-index-proof">
-                  {project.evidence[0] ?? project.descriptor}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-
         <article
           key={activeProject.id}
+          id={`project-panel-${activeProject.id}`}
           className={`work-preview work-preview-${activeProject.tone}`}
-          aria-live="polite"
-          data-reveal
+          role="tabpanel"
+          aria-labelledby={`project-tab-${activeProject.id}`}
+          data-project
         >
-          <div className="work-preview-visual">
+          <div className="work-preview-visual project-visual">
             <ProjectVisual key={activeProject.id} project={activeProject} />
+            <div className="work-preview-overlay">
+              <span>{activeMeta.type}</span>
+              <strong>{activeProject.name}</strong>
+            </div>
           </div>
 
           <div className="work-preview-copy">
-            <div>
-              <p className="work-preview-label">{activeProject.name}</p>
-              <p>{activeProject.descriptor}</p>
-            </div>
-
+            <p>{activeProject.descriptor}</p>
             <div className="work-preview-stack" aria-label={`${activeProject.name} technology stack`}>
               {activeProject.stack.map((technology) => (
                 <span key={technology}>{technology}</span>
               ))}
             </div>
-
             <ActionLink
               href={activeProject.url}
               target={external ? '_blank' : undefined}
@@ -150,6 +135,33 @@ export function WorkModule() {
             </ActionLink>
           </div>
         </article>
+
+        <div className="work-index" role="tablist" aria-label="Selected projects">
+          {projects.map((project) => {
+            const isActive = project.id === activeProject.id;
+            const meta = projectMeta[project.id] ?? { type: 'Project', year: '2026' };
+
+            return (
+              <button
+                key={project.id}
+                id={`project-tab-${project.id}`}
+                className={isActive ? 'work-index-item is-active' : 'work-index-item'}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-controls={`project-panel-${project.id}`}
+                onClick={() => setActiveProjectId(project.id)}
+                onFocus={() => setActiveProjectId(project.id)}
+                onMouseEnter={() => setActiveProjectId(project.id)}
+              >
+                <span className="work-index-number">{project.number}</span>
+                <strong>{project.name}</strong>
+                <span className="work-index-type">{meta.type}</span>
+                <span className="work-index-year">{meta.year}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
