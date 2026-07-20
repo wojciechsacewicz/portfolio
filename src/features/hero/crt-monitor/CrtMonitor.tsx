@@ -6,7 +6,7 @@ import './crt-monitor.css';
 
 const SCREEN_WIDTH = 1024;
 const SCREEN_HEIGHT = 768;
-const BASE_ROTATION = { x: -0.055, y: -0.34, z: -0.015 } as const;
+const BASE_ROTATION = { x: -0.035, y: -0.045, z: -0.008 } as const;
 
 function drawScreen(
   context: CanvasRenderingContext2D,
@@ -27,16 +27,16 @@ function drawScreen(
     height * 0.5,
     width * 0.72,
   );
-  background.addColorStop(0, '#102c3c');
-  background.addColorStop(0.48, '#071923');
+  background.addColorStop(0, '#123247');
+  background.addColorStop(0.48, '#071b26');
   background.addColorStop(1, '#02080d');
   context.fillStyle = background;
   context.fillRect(0, 0, width, height);
 
-  const rowHeight = 152;
+  const rowHeight = 164;
   const cycleHeight = rowHeight * CRT_PROJECTS.length;
-  const scrollOffset = reducedMotion ? 0 : (elapsedSeconds * 27) % cycleHeight;
-  const baseY = 146;
+  const scrollOffset = reducedMotion ? 0 : (elapsedSeconds * 24) % cycleHeight;
+  const baseY = 154;
 
   context.textAlign = 'center';
   context.textBaseline = 'middle';
@@ -51,22 +51,22 @@ function drawScreen(
 
       const centerDistance = Math.abs(y - height * 0.5);
       const focus = Math.max(0, 1 - centerDistance / (height * 0.6));
-      const textSize = 52 + focus * 9;
-      const textAlpha = 0.48 + focus * 0.52;
+      const textSize = 58 + focus * 12;
+      const textAlpha = 0.5 + focus * 0.5;
 
       context.strokeStyle = `rgba(120, 214, 255, ${0.12 + focus * 0.14})`;
       context.lineWidth = 2;
       context.beginPath();
-      context.moveTo(112, y + rowHeight * 0.48);
-      context.lineTo(width - 112, y + rowHeight * 0.48);
+      context.moveTo(104, y + rowHeight * 0.48);
+      context.lineTo(width - 104, y + rowHeight * 0.48);
       context.stroke();
 
       context.save();
       context.globalAlpha = textAlpha;
       context.shadowColor = '#77d9ff';
-      context.shadowBlur = 12 + focus * 18;
-      context.fillStyle = '#d7f4ff';
-      context.font = `500 ${textSize}px "JetBrains Mono", "Courier New", monospace`;
+      context.shadowBlur = 14 + focus * 20;
+      context.fillStyle = '#dff7ff';
+      context.font = `600 ${textSize}px "JetBrains Mono", "Courier New", monospace`;
       context.fillText(project, width * 0.5, y);
       context.restore();
     });
@@ -171,9 +171,9 @@ export function CrtMonitor() {
     const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     const screenTexture = new THREE.CanvasTexture(screenCanvas);
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
-    camera.position.set(7.9, 4.25, 10.8);
-    camera.lookAt(0, -0.15, -0.65);
+    const camera = new THREE.PerspectiveCamera(31, 1, 0.1, 100);
+    camera.position.set(4.4, 3.15, 12.9);
+    camera.lookAt(0, -0.24, -0.62);
 
     let renderer: THREE.WebGLRenderer;
     try {
@@ -191,27 +191,31 @@ export function CrtMonitor() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.08;
+    renderer.toneMappingExposure = 1.02;
     renderer.domElement.className = 'crt-monitor__canvas';
     renderer.domElement.setAttribute('aria-hidden', 'true');
     mount.prepend(renderer.domElement);
 
     const model = createCrtMonitorModel(screenTexture);
-    model.root.scale.setScalar(0.84);
-    model.root.position.set(0.05, 0.2, 0);
+    model.root.scale.setScalar(0.98);
+    model.root.position.set(0.02, 0.12, 0);
     model.root.rotation.set(BASE_ROTATION.x, BASE_ROTATION.y, BASE_ROTATION.z);
     scene.add(model.root);
 
-    const hemisphere = new THREE.HemisphereLight(0xbddfff, 0x05070a, 2.3);
+    const hemisphere = new THREE.HemisphereLight(0xc4d8e7, 0x05070a, 1.7);
     scene.add(hemisphere);
 
-    const keyLight = new THREE.DirectionalLight(0xffe8d7, 4.1);
+    const keyLight = new THREE.DirectionalLight(0xffe7d5, 3.45);
     keyLight.position.set(-5.5, 7.5, 8.5);
     scene.add(keyLight);
 
-    const rimLight = new THREE.DirectionalLight(0x709ed1, 3.1);
+    const rimLight = new THREE.DirectionalLight(0x709ed1, 1.7);
     rimLight.position.set(6, 2.5, -5);
     scene.add(rimLight);
+
+    const fillLight = new THREE.DirectionalLight(0x9cb9cf, 0.85);
+    fillLight.position.set(5, -1, 5);
+    scene.add(fillLight);
 
     const pointer = new THREE.Vector2(0, 0);
     const smoothedPointer = new THREE.Vector2(0, 0);
@@ -278,32 +282,32 @@ export function CrtMonitor() {
       if (elapsed - lastScreenUpdate > 1 / 30) {
         drawScreen(screenContext, elapsed, reducedMotion);
         screenTexture.needsUpdate = true;
-        model.screenLight.intensity = reducedMotion ? 13.5 : 13.5 + Math.sin(elapsed * 17) * 0.45;
+        model.screenLight.intensity = reducedMotion ? 12 : 12 + Math.sin(elapsed * 17) * 0.38;
         lastScreenUpdate = elapsed;
       }
 
       smoothedPointer.lerp(pointer, reducedMotion ? 1 : 0.055);
-      const idleYaw = reducedMotion ? 0 : Math.sin(elapsed * 0.42) * 0.025;
-      const idlePitch = reducedMotion ? 0 : Math.sin(elapsed * 0.31) * 0.012;
-      const floatOffset = reducedMotion ? 0 : Math.sin(elapsed * 0.72) * 0.035;
+      const idleYaw = reducedMotion ? 0 : Math.sin(elapsed * 0.42) * 0.02;
+      const idlePitch = reducedMotion ? 0 : Math.sin(elapsed * 0.31) * 0.01;
+      const floatOffset = reducedMotion ? 0 : Math.sin(elapsed * 0.72) * 0.032;
 
       model.root.rotation.x = THREE.MathUtils.lerp(
         model.root.rotation.x,
-        BASE_ROTATION.x - smoothedPointer.y * 0.11 + idlePitch,
+        BASE_ROTATION.x - smoothedPointer.y * 0.095 + idlePitch,
         0.065,
       );
       model.root.rotation.y = THREE.MathUtils.lerp(
         model.root.rotation.y,
-        BASE_ROTATION.y + smoothedPointer.x * 0.19 + idleYaw,
+        BASE_ROTATION.y + smoothedPointer.x * 0.16 + idleYaw,
         0.065,
       );
       model.root.rotation.z = THREE.MathUtils.lerp(
         model.root.rotation.z,
-        BASE_ROTATION.z - smoothedPointer.x * 0.012,
+        BASE_ROTATION.z - smoothedPointer.x * 0.01,
         0.065,
       );
-      model.root.position.x = 0.05 + smoothedPointer.x * 0.11;
-      model.root.position.y = 0.2 + floatOffset - smoothedPointer.y * 0.06;
+      model.root.position.x = 0.02 + smoothedPointer.x * 0.09;
+      model.root.position.y = 0.12 + floatOffset - smoothedPointer.y * 0.05;
 
       renderer.render(scene, camera);
 
