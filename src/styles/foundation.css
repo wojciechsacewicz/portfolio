@@ -13,22 +13,23 @@
 }
 
 :root {
-  color: #edf2f7;
-  background: #0b0f14;
+  color: #10171f;
+  background: #f6f5f1;
   font-family: "Geist", system-ui, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  --paper: #0b0f14;
-  --ink: #edf2f7;
-  --muted: #8b99a8;
-  --line: rgba(175, 192, 212, 0.16);
+  --paper: #f6f5f1;
+  --ink: #10171f;
+  --muted: #697681;
+  --line: rgba(16, 23, 31, 0.12);
+  --line-strong: rgba(16, 23, 31, 0.22);
   --steel: #5d7fa3;
-  --steel-light: #afc0d4;
+  --steel-light: #d9e5f0;
   --steel-mid: #7a95b1;
   --steel-dark: #3d5874;
-  --surface: #111820;
-  --surface-raised: #17212c;
-  --dark: #080c11;
+  --surface: #ecece7;
+  --surface-raised: #ffffff;
+  --dark: #10171f;
 }
 
 * {
@@ -36,13 +37,15 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
+  background: var(--paper);
 }
 
 body {
   margin: 0;
   min-width: 320px;
   overflow-x: hidden;
+  color: var(--ink);
   background: var(--paper);
 }
 
@@ -69,12 +72,12 @@ svg {
 }
 
 ::selection {
-  background: var(--steel-light);
-  color: #0b0f14;
+  color: var(--ink);
+  background: #c7d8e8;
 }
 
 :focus-visible {
-  outline: 3px solid var(--steel-light);
+  outline: 2px solid var(--steel-dark);
   outline-offset: 4px;
 }
 
