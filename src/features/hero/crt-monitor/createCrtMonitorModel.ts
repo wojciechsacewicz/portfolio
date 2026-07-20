@@ -59,7 +59,7 @@ function createBadgeTexture() {
   }
 
   context.clearRect(0, 0, canvas.width, canvas.height);
-  context.fillStyle = 'rgba(12, 16, 20, 0.9)';
+  context.fillStyle = 'rgba(10, 13, 16, 0.92)';
   context.font = '500 45px "JetBrains Mono", monospace';
   context.fillText('SACEWICZ', 12, 63);
 
@@ -71,13 +71,13 @@ function createBadgeTexture() {
 }
 
 function addSideVents(root: THREE.Group, material: THREE.Material) {
-  const geometry = new THREE.BoxGeometry(0.055, 0.09, 1.24);
-  const vents = new THREE.InstancedMesh(geometry, material, 11);
+  const geometry = new THREE.BoxGeometry(0.05, 0.075, 1.08);
+  const vents = new THREE.InstancedMesh(geometry, material, 12);
   vents.name = 'right-side-vent-array';
   const matrix = new THREE.Matrix4();
 
-  for (let index = 0; index < 11; index += 1) {
-    matrix.makeTranslation(2.86, 1.35 - index * 0.18, -0.35);
+  for (let index = 0; index < 12; index += 1) {
+    matrix.makeTranslation(2.89, 1.46 - index * 0.17, -1.28);
     vents.setMatrixAt(index, matrix);
   }
 
@@ -86,15 +86,15 @@ function addSideVents(root: THREE.Group, material: THREE.Material) {
 }
 
 function addFrontGrille(root: THREE.Group, material: THREE.Material) {
-  const geometry = new THREE.BoxGeometry(0.09, 0.09, 0.07);
-  const grille = new THREE.InstancedMesh(geometry, material, 24);
+  const geometry = new THREE.BoxGeometry(0.09, 0.08, 0.055);
+  const grille = new THREE.InstancedMesh(geometry, material, 25);
   grille.name = 'lower-front-grille';
   const matrix = new THREE.Matrix4();
-  const rotation = new THREE.Matrix4().makeRotationZ(-0.16);
+  const rotation = new THREE.Matrix4().makeRotationZ(-0.14);
 
-  for (let index = 0; index < 24; index += 1) {
-    const x = -2.15 + index * 0.155;
-    matrix.makeTranslation(x, -1.42, 1.54);
+  for (let index = 0; index < 25; index += 1) {
+    const x = -2.18 + index * 0.158;
+    matrix.makeTranslation(x, -1.42, 1.42);
     matrix.multiply(rotation);
     grille.setMatrixAt(index, matrix);
   }
@@ -131,62 +131,52 @@ export function createCrtMonitorModel(screenTexture: THREE.CanvasTexture): CrtMo
   });
 
   const frontBody = createRoundedBox({
-    name: 'front-shell',
-    size: [5.8, 4.55, 2.4],
-    position: [0, 0.45, -0.05],
+    name: 'main-shell',
+    size: [5.8, 4.55, 3.7],
+    position: [0, 0.45, -0.7],
     material: shellMaterial,
-    radius: 0.28,
-    segments: 7,
+    radius: 0.3,
+    segments: 8,
   });
   root.add(frontBody);
 
-  const middleBody = createRoundedBox({
-    name: 'middle-shell',
-    size: [5.25, 4.15, 2],
-    position: [0, 0.52, -1.93],
-    material: shellMaterial,
-    radius: 0.26,
-    segments: 7,
-  });
-  root.add(middleBody);
-
   const rearBody = createRoundedBox({
     name: 'rear-shell',
-    size: [4.7, 3.7, 1.2],
-    position: [0, 0.62, -3.28],
+    size: [4.72, 3.68, 1.18],
+    position: [0, 0.56, -2.86],
     material: darkPlasticMaterial,
-    radius: 0.23,
-    segments: 6,
+    radius: 0.24,
+    segments: 7,
   });
   root.add(rearBody);
 
   const frontPanel = createRoundedBox({
     name: 'front-panel',
-    size: [5.4, 4.04, 0.42],
-    position: [0, 0.53, 1.26],
+    size: [5.42, 4.04, 0.3],
+    position: [0, 0.53, 1.18],
     material: trimMaterial,
     radius: 0.24,
-    segments: 7,
+    segments: 8,
   });
   root.add(frontPanel);
 
   const screenTrim = createRoundedBox({
     name: 'screen-trim',
-    size: [4.92, 3.61, 0.38],
-    position: [0, 0.76, 1.48],
+    size: [4.94, 3.63, 0.2],
+    position: [0, 0.76, 1.35],
     material: shellMaterial,
-    radius: 0.27,
-    segments: 7,
+    radius: 0.28,
+    segments: 8,
   });
   root.add(screenTrim);
 
   const bezel = createRoundedBox({
     name: 'screen-bezel',
-    size: [4.58, 3.27, 0.38],
-    position: [0, 0.78, 1.68],
+    size: [4.6, 3.29, 0.18],
+    position: [0, 0.78, 1.47],
     material: bezelMaterial,
     radius: 0.32,
-    segments: 8,
+    segments: 9,
   });
   root.add(bezel);
 
@@ -195,24 +185,24 @@ export function createCrtMonitorModel(screenTexture: THREE.CanvasTexture): CrtMo
     color: 0xffffff,
     toneMapped: false,
   });
-  const screen = new THREE.Mesh(createCurvedScreenGeometry(4.18, 2.86), screenMaterial);
+  const screen = new THREE.Mesh(createCurvedScreenGeometry(4.2, 2.88), screenMaterial);
   screen.name = 'phosphor-screen';
-  screen.position.set(0, 0.81, 1.89);
+  screen.position.set(0, 0.81, 1.59);
   root.add(screen);
 
   const glassMaterial = new THREE.MeshPhysicalMaterial({
     color: 0xaed8e9,
     transparent: true,
-    opacity: 0.09,
-    roughness: 0.12,
+    opacity: 0.08,
+    roughness: 0.1,
     metalness: 0,
     clearcoat: 1,
-    clearcoatRoughness: 0.08,
+    clearcoatRoughness: 0.07,
     depthWrite: false,
   });
-  const glass = new THREE.Mesh(createCurvedScreenGeometry(4.2, 2.88), glassMaterial);
+  const glass = new THREE.Mesh(createCurvedScreenGeometry(4.22, 2.9), glassMaterial);
   glass.name = 'screen-glass';
-  glass.position.set(0, 0.81, 1.91);
+  glass.position.set(0, 0.81, 1.61);
   root.add(glass);
 
   const powerKnobMaterial = new THREE.MeshStandardMaterial({
@@ -223,7 +213,7 @@ export function createCrtMonitorModel(screenTexture: THREE.CanvasTexture): CrtMo
   const knob = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.14, 40), powerKnobMaterial);
   knob.name = 'power-knob';
   knob.rotation.x = Math.PI / 2;
-  knob.position.set(1.95, -1.35, 1.55);
+  knob.position.set(1.95, -1.35, 1.43);
   root.add(knob);
 
   const knobRing = new THREE.Mesh(
@@ -231,13 +221,13 @@ export function createCrtMonitorModel(screenTexture: THREE.CanvasTexture): CrtMo
     recessMaterial,
   );
   knobRing.name = 'power-knob-ring';
-  knobRing.position.set(1.95, -1.35, 1.635);
+  knobRing.position.set(1.95, -1.35, 1.515);
   root.add(knobRing);
 
   const ledMaterial = new THREE.MeshBasicMaterial({ color: 0xa2f34d, toneMapped: false });
   const led = new THREE.Mesh(new THREE.SphereGeometry(0.045, 20, 12), ledMaterial);
   led.name = 'status-led';
-  led.position.set(1.43, -1.36, 1.62);
+  led.position.set(1.43, -1.36, 1.5);
   root.add(led);
 
   addSideVents(root, recessMaterial);
@@ -253,14 +243,14 @@ export function createCrtMonitorModel(screenTexture: THREE.CanvasTexture): CrtMo
     });
     const badge = new THREE.Mesh(new THREE.PlaneGeometry(0.92, 0.17), badgeMaterial);
     badge.name = 'front-badge';
-    badge.position.set(-1.87, -1.35, 1.61);
+    badge.position.set(-1.87, -1.35, 1.49);
     root.add(badge);
   }
 
   const neck = createRoundedBox({
     name: 'pedestal-neck',
     size: [1.9, 0.42, 1.5],
-    position: [0, -1.9, -0.05],
+    position: [0, -1.9, -0.12],
     material: darkPlasticMaterial,
     radius: 0.16,
   });
@@ -270,7 +260,7 @@ export function createCrtMonitorModel(screenTexture: THREE.CanvasTexture): CrtMo
   const base = createRoundedBox({
     name: 'pedestal-base',
     size: [4.25, 0.34, 2.45],
-    position: [0, -2.22, -0.12],
+    position: [0, -2.22, -0.18],
     material: darkPlasticMaterial,
     radius: 0.18,
     segments: 6,
@@ -280,15 +270,15 @@ export function createCrtMonitorModel(screenTexture: THREE.CanvasTexture): CrtMo
   const baseInset = createRoundedBox({
     name: 'pedestal-base-inset',
     size: [3.75, 0.18, 2.05],
-    position: [0, -2.38, -0.1],
+    position: [0, -2.38, -0.17],
     material: recessMaterial,
     radius: 0.12,
   });
   root.add(baseInset);
 
-  const screenLight = new THREE.PointLight(0x86d9ff, 14, 8, 2.2);
+  const screenLight = new THREE.PointLight(0x86d9ff, 12, 7, 2.2);
   screenLight.name = 'screen-spill-light';
-  screenLight.position.set(0, 0.72, 2.45);
+  screenLight.position.set(0, 0.72, 2.15);
   root.add(screenLight);
 
   const shadow = new THREE.Mesh(
@@ -303,7 +293,7 @@ export function createCrtMonitorModel(screenTexture: THREE.CanvasTexture): CrtMo
   shadow.name = 'contact-shadow';
   shadow.rotation.x = -Math.PI / 2;
   shadow.scale.y = 0.42;
-  shadow.position.set(0.2, -2.56, -0.2);
+  shadow.position.set(0.2, -2.56, -0.25);
   root.add(shadow);
 
   root.userData.sculptRuntime = {
@@ -315,13 +305,13 @@ export function createCrtMonitorModel(screenTexture: THREE.CanvasTexture): CrtMo
       pedestal: base.name,
     },
     sockets: {
-      screenCenter: [0, 0.81, 1.89],
-      powerControl: [1.95, -1.35, 1.55],
-      pedestalPivot: [0, -1.9, -0.05],
+      screenCenter: [0, 0.81, 1.59],
+      powerControl: [1.95, -1.35, 1.43],
+      pedestalPivot: [0, -1.9, -0.12],
     },
     colliders: [
-      { type: 'box', size: [5.8, 4.55, 3.5], center: [0, 0.45, -1.1] },
-      { type: 'box', size: [4.25, 0.5, 2.45], center: [0, -2.2, -0.12] },
+      { type: 'box', size: [5.8, 4.55, 4.2], center: [0, 0.45, -0.9] },
+      { type: 'box', size: [4.25, 0.5, 2.45], center: [0, -2.2, -0.18] },
     ],
     detailInventory: CRT_MONITOR_SPEC.detailInventory,
   };
