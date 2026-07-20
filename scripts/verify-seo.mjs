@@ -60,7 +60,7 @@ invariant(
   'index.html: fallback person, role and location are missing',
 );
 invariant(
-  baseTemplateText.includes('AI-native product engineering.'),
+  baseTemplateText.includes('Wojciech Sacewicz.'),
   'index.html: fallback h1 copy is missing',
 );
 
@@ -117,12 +117,12 @@ for (const routePath of routes) {
 const homepage = await readFile(path.join(distDirectory, 'index.html'), 'utf8');
 const homepageText = visibleText(homepage);
 invariant(
-  homepageText.includes('AI-native product engineering.'),
+  homepageText.includes('Wojciech Sacewicz.'),
   'Homepage: server-rendered and hydrated H1 copy is missing',
 );
 invariant(
-  homepageText.includes('Wojciech Sacewicz · AI-native developer · Tricity, Poland'),
-  'Homepage: person, role and professional location are not visible near the H1',
+  homepageText.includes('Wojciech Sacewicz · Tricity, Poland'),
+  'Homepage: person and professional location are not visible near the H1',
 );
 
 const homepageSchema = extractStructuredData(homepage, 'dist/index.html');

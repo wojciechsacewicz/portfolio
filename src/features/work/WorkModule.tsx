@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ActionLink, SectionHeading } from '../../components/InterfaceElements';
+import { ActionLink } from '../../components/InterfaceElements';
 import {
   isExternalUrl,
   projects,
@@ -7,24 +7,20 @@ import {
 } from '../../content/portfolioContent';
 import './work-module.css';
 
-interface ProjectVisualProps {
-  readonly project: PortfolioProject;
-}
-
 const dovistaFlow = [
-  { label: 'Input docs', detail: 'Purchasing data' },
+  { label: 'Input', detail: 'Purchasing documents' },
   { label: 'OCR', detail: 'Document Understanding' },
-  { label: 'SAP', detail: 'Validated source data' },
+  { label: 'SAP', detail: 'Validated data' },
   { label: 'UiPath', detail: 'Automated workflow' },
-  { label: 'Report', detail: '40% faster output' },
+  { label: 'Report', detail: '40% faster' },
 ] as const;
 
 function DovistaProcessVisual() {
   return (
     <div className="dovista-process" aria-hidden="true">
       <div className="process-status">
-        <span>CASE / 03</span>
-        <span>DEPLOYED</span>
+        <span>DOVISTA / DEPLOYED</span>
+        <strong>−40%</strong>
       </div>
       <div className="process-flow">
         {dovistaFlow.map((step, index) => (
@@ -35,11 +31,6 @@ function DovistaProcessVisual() {
           </div>
         ))}
       </div>
-      <div className="process-outcome">
-        <span>Measured outcome</span>
-        <strong>−40%</strong>
-        <small>report generation time</small>
-      </div>
     </div>
   );
 }
@@ -48,8 +39,8 @@ function VeldiaProductVisual() {
   return (
     <div className="veldia-product" aria-hidden="true">
       <div className="veldia-product-header">
-        <span className="veldia-mark">V</span>
-        <span>REAL PRODUCT / LIVE</span>
+        <span>VELDIA</span>
+        <span>LIVE PRODUCT</span>
       </div>
       <div className="veldia-device veldia-device-primary">
         <img src="/assets/veldia-dashboard.png" alt="" loading="lazy" />
@@ -57,104 +48,108 @@ function VeldiaProductVisual() {
       <div className="veldia-device veldia-device-secondary">
         <img src="/assets/veldia-schedule.png" alt="" loading="lazy" />
       </div>
-      <div className="veldia-product-note">
-        <strong>Hours after the shift.</strong>
-        <span>Ready to review.</span>
-      </div>
     </div>
   );
 }
 
-function ProjectVisual({ project }: ProjectVisualProps) {
+function ProjectVisual({ project }: { readonly project: PortfolioProject }) {
   const [hasImageFailed, setHasImageFailed] = useState(false);
-  const external = isExternalUrl(project.url);
 
-  return (
-    <a
-      className={`project-visual${hasImageFailed ? ' project-visual-fallback' : ''}`}
-      href={project.url}
-      target={external ? '_blank' : undefined}
-      rel={external ? 'noreferrer' : undefined}
-      aria-label={`Open ${project.name}`}
-    >
-      {project.id === 'dovista' ? (
-        <DovistaProcessVisual />
-      ) : project.id === 'veldia' ? (
-        <VeldiaProductVisual />
-      ) : hasImageFailed ? (
-        <div className="project-visual-placeholder" aria-hidden="true">
-          <span>{project.number}</span>
-          <strong>{project.name}</strong>
-        </div>
-      ) : (
-        <img
-          src={project.image}
-          alt={project.imageAlt}
-          loading="lazy"
-          onError={() => setHasImageFailed(true)}
-        />
-      )}
-      <span className="visual-label">{external ? 'Live evidence' : 'Process evidence'}</span>
-    </a>
-  );
-}
+  if (project.id === 'dovista') return <DovistaProcessVisual />;
+  if (project.id === 'veldia') return <VeldiaProductVisual />;
 
-interface ProjectArticleProps {
-  readonly project: PortfolioProject;
-}
-
-function ProjectArticle({ project }: ProjectArticleProps) {
-  const external = isExternalUrl(project.url);
-
-  return (
-    <article className={`project project-${project.tone}`} data-project>
-      <div className="project-index">{project.number}</div>
-
-      <div className="project-copy">
-        <p className="project-kicker">{project.descriptor}</p>
-        <h3>{project.name}</h3>
-        <p className="project-summary">{project.summary}</p>
-
-        <ul className="evidence-list">
-          {project.evidence.map((evidenceItem) => (
-            <li key={evidenceItem}>{evidenceItem}</li>
-          ))}
-        </ul>
-
-        <div className="stack-row" aria-label={`${project.name} technology stack`}>
-          {project.stack.map((technology) => (
-            <span key={technology}>{technology}</span>
-          ))}
-        </div>
-
-        <ActionLink
-          className="project-link"
-          href={project.url}
-          target={external ? '_blank' : undefined}
-          rel={external ? 'noreferrer' : undefined}
-        >
-          {external ? 'Open live product' : 'Read experience'}
-        </ActionLink>
+  if (hasImageFailed) {
+    return (
+      <div className="project-visual-placeholder" aria-hidden="true">
+        <span>{project.number}</span>
+        <strong>{project.name}</strong>
       </div>
+    );
+  }
 
-      <ProjectVisual project={project} />
-    </article>
+  return (
+    <img
+      className="project-image"
+      src={project.image}
+      alt={project.imageAlt}
+      loading="lazy"
+      onError={() => setHasImageFailed(true)}
+    />
   );
 }
 
 export function WorkModule() {
+  const [activeProjectId, setActiveProjectId] = useState(projects[0]?.id ?? '');
+  const activeProject = projects.find((project) => project.id === activeProjectId) ?? projects[0];
+
+  if (!activeProject) return null;
+
+  const external = isExternalUrl(activeProject.url);
+
   return (
     <section className="section work-section" id="work">
-      <SectionHeading
-        eyebrow="Selected work / 2025—2026"
-        title="Proof over potential."
-        description="Each project shows a different part of the job: product ownership, full-stack delivery and process automation with a measured outcome."
-      />
+      <header className="work-heading" data-reveal>
+        <p className="eyebrow">2025 to 2026</p>
+        <h2>Selected work</h2>
+        <p>Three live products and one deployed automation.</p>
+      </header>
 
-      <div className="project-list">
-        {projects.map((project) => (
-          <ProjectArticle key={project.id} project={project} />
-        ))}
+      <div className="work-browser">
+        <div className="work-index" aria-label="Selected projects">
+          {projects.map((project) => {
+            const isActive = project.id === activeProject.id;
+            return (
+              <button
+                key={project.id}
+                className={isActive ? 'work-index-item is-active' : 'work-index-item'}
+                type="button"
+                aria-pressed={isActive}
+                onClick={() => setActiveProjectId(project.id)}
+              >
+                <span className="work-index-number">{project.number}</span>
+                <span className="work-index-title">
+                  <strong>{project.name}</strong>
+                  <small>{project.descriptor}</small>
+                </span>
+                <span className="work-index-proof">
+                  {project.evidence[0] ?? project.descriptor}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        <article
+          key={activeProject.id}
+          className={`work-preview work-preview-${activeProject.tone}`}
+          aria-live="polite"
+          data-reveal
+        >
+          <div className="work-preview-visual">
+            <ProjectVisual key={activeProject.id} project={activeProject} />
+          </div>
+
+          <div className="work-preview-copy">
+            <div>
+              <p className="work-preview-label">{activeProject.name}</p>
+              <p>{activeProject.descriptor}</p>
+            </div>
+
+            <div className="work-preview-stack" aria-label={`${activeProject.name} technology stack`}>
+              {activeProject.stack.map((technology) => (
+                <span key={technology}>{technology}</span>
+              ))}
+            </div>
+
+            <ActionLink
+              href={activeProject.url}
+              target={external ? '_blank' : undefined}
+              rel={external ? 'noreferrer' : undefined}
+            >
+              {external ? 'Open project' : 'Read case study'}
+            </ActionLink>
+          </div>
+        </article>
       </div>
     </section>
   );

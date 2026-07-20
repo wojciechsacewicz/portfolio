@@ -11,7 +11,6 @@
   background: var(--steel-light);
   color: #0b0f14;
   padding: 0.75rem 1rem;
-  border-radius: 999px;
 }
 
 .skip-link:focus {
@@ -19,37 +18,38 @@
 }
 
 .section {
-  padding: 8rem 3vw;
+  padding: clamp(5.5rem, 9vw, 9rem) 3vw;
 }
 
 .eyebrow {
-  margin: 0 0 1.4rem;
+  margin: 0 0 1.2rem;
   font-family: "JetBrains Mono", monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.13em;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .section-heading {
-  max-width: 1020px;
-  margin-bottom: 4.8rem;
+  max-width: 920px;
+  margin-bottom: 4rem;
 }
 
 .section-heading-compact {
-  margin-bottom: 2.7rem;
+  margin-bottom: 2.5rem;
 }
 
 .section-heading h2 {
   margin: 0;
-  font-size: clamp(3rem, 6vw, 6.4rem);
-  line-height: 0.95;
-  letter-spacing: -0.065em;
-  font-weight: 660;
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  font-weight: 650;
 }
 
 .section-heading > p:last-child {
-  max-width: 720px;
-  font-size: 1.05rem;
+  max-width: 680px;
+  margin-top: 1.4rem;
+  font-size: 1rem;
   line-height: 1.65;
   color: var(--muted);
 }
@@ -58,125 +58,39 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.7rem;
-  font-size: 0.82rem;
+  gap: 0.65rem;
+  min-height: 44px;
+  font-size: 0.76rem;
+  font-weight: 650;
   text-transform: uppercase;
   letter-spacing: 0.07em;
 }
 
 .action-link-primary,
 .action-link-secondary {
-  min-height: 48px;
-  border: 1px solid rgba(255, 255, 255, 0.26);
-  border-radius: 999px;
-  padding: 0.8rem 1.2rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   transition:
-    transform 0.25s ease,
-    background 0.25s ease,
-    color 0.25s ease;
-}
-
-.action-link-primary:hover,
-.action-link-secondary:hover {
-  transform: translateY(-2px);
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .action-link-primary {
   background: var(--steel-light);
-  color: #0b0f14;
   border-color: var(--steel-light);
+  color: #0b0f14;
 }
 
 .action-link-secondary:hover {
-  background: var(--steel-light);
-  color: #0b0f14;
-}
-
-.intro-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  background: #080c11;
-  color: #edf2f7;
-  animation: intro-exit 0.55s 2.15s cubic-bezier(0.76, 0, 0.24, 1) forwards;
-}
-
-.intro-overlay::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(rgba(175, 192, 212, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(175, 192, 212, 0.05) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(circle, black, transparent 72%);
-}
-
-.intro-copy {
-  position: relative;
-  width: min(86vw, 980px);
-  min-height: 1.1em;
-  font-size: clamp(2.8rem, 7vw, 7rem);
-  font-weight: 650;
-  line-height: 0.95;
-  letter-spacing: -0.065em;
-}
-
-.intro-copy span {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transform: translateY(26px);
-  animation: intro-line 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-.intro-copy span:nth-child(2) {
-  color: var(--steel-light);
-  animation-delay: 0.62s;
-}
-
-.intro-copy span:nth-child(3) {
-  animation-delay: 1.28s;
-}
-
-.intro-skip {
-  position: absolute;
-  right: 2rem;
-  bottom: 2rem;
-  border: 0;
-  padding: 0.5rem;
-  background: transparent;
-  color: rgba(237, 242, 247, 0.55);
-  font: 0.68rem "JetBrains Mono", monospace;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
-@keyframes intro-line {
-  0% { opacity: 0; transform: translateY(26px); }
-  22%, 72% { opacity: 1; transform: none; }
-  100% { opacity: 0; transform: translateY(-18px); }
-}
-
-@keyframes intro-exit {
-  to { opacity: 0; visibility: hidden; transform: translateY(-100%); }
-}
-
-@media (max-width: 760px) {
-  .intro-skip {
-    right: 1rem;
-    bottom: 1rem;
-  }
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
 }
 
 .action-link-text {
   position: relative;
-  font-weight: 650;
-  letter-spacing: 0.05em;
+  padding-bottom: 0.2rem;
 }
 
 .action-link-text::after {
@@ -184,12 +98,12 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -0.35rem;
+  bottom: 0;
   height: 1px;
   background: currentColor;
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 0.25s ease;
+  transition: transform 0.2s ease;
 }
 
 .action-link-text:hover::after {
@@ -199,10 +113,10 @@
 
 @media (max-width: 760px) {
   .section {
-    padding: 5.5rem 1rem;
+    padding: 5rem 1rem;
   }
 
   .section-heading {
-    margin-bottom: 3rem;
+    margin-bottom: 2.75rem;
   }
 }

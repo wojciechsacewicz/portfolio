@@ -1,10 +1,12 @@
 .hero {
   position: relative;
   min-height: 100svh;
-  padding: clamp(10rem, 16vh, 13rem) 3vw 4rem;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.7fr);
+  gap: clamp(3rem, 7vw, 8rem);
   align-items: center;
-  color: #f2f4ec;
+  padding: clamp(8.5rem, 13vh, 10rem) 3vw 4rem;
+  color: #edf2f7;
   background: #080c11;
   overflow: hidden;
 }
@@ -13,9 +15,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at 18% 24%, rgba(93, 127, 163, 0.2), transparent 30%),
-    radial-gradient(circle at 88% 82%, rgba(122, 149, 177, 0.1), transparent 30%);
+  background: radial-gradient(circle at 18% 22%, rgba(93, 127, 163, 0.16), transparent 34%);
   pointer-events: none;
 }
 
@@ -23,147 +23,175 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
   background-size: 64px 64px;
-  mask-image: linear-gradient(to bottom, black, transparent 92%);
+  mask-image: linear-gradient(to bottom, black, transparent 88%);
+}
+
+.hero-copy,
+.hero-portrait {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-copy {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: 1540px;
-  margin-inline: auto;
+  max-width: 940px;
 }
 
-.hero h1 {
-  max-width: 1500px;
-  margin: 0;
-  font-size: clamp(5rem, 10.6vw, 11rem);
-  line-height: 0.82;
-  letter-spacing: -0.082em;
-  font-weight: 690;
-}
-
-.hero h1 span {
-  display: block;
+.hero .eyebrow {
   color: var(--steel-light);
 }
 
-.hero-support {
-  max-width: 1150px;
-  margin-top: clamp(2.8rem, 5vw, 5rem);
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.6fr);
-  gap: clamp(2rem, 7vw, 7rem);
-  align-items: start;
-}
-
-.hero-lead {
-  max-width: 760px;
+.hero h1 {
+  max-width: 10ch;
   margin: 0;
-  font-size: clamp(1.18rem, 1.7vw, 1.55rem);
-  line-height: 1.55;
-  color: rgba(242, 244, 236, 0.76);
+  font-size: clamp(4.25rem, 7.2vw, 6.5rem);
+  line-height: 0.91;
+  letter-spacing: -0.07em;
+  font-weight: 680;
 }
 
-.hero-principle {
-  padding-top: 0.25rem;
-  border-top: 1px solid rgba(175, 192, 212, 0.3);
+.hero-role {
+  max-width: 720px;
+  margin: 2.2rem 0 0;
+  font-size: clamp(1.35rem, 2.1vw, 2rem);
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  color: var(--steel-light);
 }
 
-.hero-principle span {
-  display: block;
-  margin: 0.75rem 0 1rem;
-  color: var(--steel-mid);
+.hero-summary {
+  max-width: 620px;
+  margin: 1.1rem 0 0;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: rgba(237, 242, 247, 0.62);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.hero-facts {
+  display: grid;
+  grid-template-columns: 0.65fr 1.2fr 1fr;
+  gap: 1.5rem;
+  max-width: 760px;
+  margin: clamp(3rem, 7vh, 5rem) 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(175, 192, 212, 0.24);
+}
+
+.hero-facts div {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.hero-facts dt {
+  color: rgba(175, 192, 212, 0.62);
   font: 0.62rem "JetBrains Mono", monospace;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
-.hero-principle p {
+.hero-facts dd {
   margin: 0;
-  color: rgba(242, 244, 236, 0.62);
-  font-size: 0.95rem;
-  line-height: 1.55;
+  font-size: 0.9rem;
+  line-height: 1.45;
 }
 
-.hero-actions {
-  display: flex;
-  gap: 0.8rem;
-  margin-top: 2.4rem;
-  flex-wrap: wrap;
+.hero-portrait {
+  width: min(100%, 540px);
+  margin: 0 0 0 auto;
+  align-self: stretch;
+  min-height: 560px;
+  max-height: 720px;
+  overflow: hidden;
+  background: var(--surface);
 }
 
-.proof-strip {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-bottom: 1px solid var(--line);
+.hero-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+  pointer-events: none;
 }
 
-.proof-card {
-  min-height: 230px;
-  padding: 2.2rem 3vw;
-  border-right: 1px solid var(--line);
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 1.3rem;
-  align-items: start;
+.hero-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: saturate(0.82) contrast(1.04);
 }
 
-.proof-card:last-child { border-right: 0; }
-
-.proof-card strong {
-  font-size: clamp(2.4rem, 4vw, 5rem);
-  letter-spacing: -0.07em;
-  line-height: 0.8;
+.hero-portrait figcaption {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 0.55rem 0.7rem;
+  background: rgba(8, 12, 17, 0.82);
+  font: 0.62rem "JetBrains Mono", monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.proof-card h2 {
-  margin: 0;
-  font-size: 1.1rem;
-  letter-spacing: -0.03em;
-}
+@media (max-width: 1000px) {
+  .hero {
+    grid-template-columns: 1fr 0.62fr;
+    gap: 3rem;
+  }
 
-.proof-card p {
-  margin: 0.65rem 0 0;
-  color: var(--muted);
-  line-height: 1.5;
-  font-size: 0.92rem;
-}
+  .hero h1 {
+    font-size: clamp(4rem, 9vw, 6rem);
+  }
 
-@media (max-width: 1050px) {
-  .hero { padding-top: 10rem; }
-  .hero h1 { font-size: clamp(5rem, 12.8vw, 9rem); }
+  .hero-facts {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-facts div:last-child {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 760px) {
   .hero {
     min-height: auto;
-    padding: 9rem 1rem 4.5rem;
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+    padding: 8rem 1rem 4rem;
   }
 
   .hero h1 {
-    font-size: clamp(4.1rem, 18vw, 6.2rem);
-    line-height: 0.86;
+    max-width: 8ch;
+    font-size: clamp(3.7rem, 17vw, 5.2rem);
   }
 
-  .hero-support {
+  .hero-role {
+    margin-top: 1.7rem;
+    font-size: 1.35rem;
+  }
+
+  .hero-facts {
     grid-template-columns: 1fr;
-    gap: 2rem;
-    margin-top: 2.6rem;
+    gap: 1.25rem;
+    margin-top: 3rem;
   }
 
-  .hero-lead { font-size: 1.05rem; }
-  .hero-principle { max-width: 360px; }
+  .hero-facts div:last-child {
+    grid-column: auto;
+  }
 
-  .proof-strip { grid-template-columns: 1fr; }
-
-  .proof-card {
-    min-height: auto;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-    padding: 2rem 1rem;
+  .hero-portrait {
+    width: 100%;
+    min-height: 0;
+    max-height: none;
+    aspect-ratio: 4 / 5;
   }
 }

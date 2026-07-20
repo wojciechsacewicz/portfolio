@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react';
-import { navigationItems } from '../content/portfolioContent';
-import { ActionLink } from './InterfaceElements';
 import './site-header.css';
 
 interface SiteHeaderProps {
   readonly isSubpage: boolean;
 }
+
+const primaryNavigationItems = [
+  { label: 'Work', href: '#work' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'About', href: '#about' },
+  { label: 'Resume', href: '/resume' },
+  { label: 'Contact', href: '#contact' },
+] as const;
 
 export function SiteHeader({ isSubpage }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -46,7 +52,7 @@ export function SiteHeader({ isSubpage }: SiteHeaderProps) {
         className={isMenuOpen ? 'site-nav is-open' : 'site-nav'}
         aria-label="Primary navigation"
       >
-        {navigationItems.map((item) => (
+        {primaryNavigationItems.map((item) => (
           <a
             key={item.href}
             href={isSubpage && item.href.startsWith('#') ? `/${item.href}` : item.href}
@@ -55,15 +61,7 @@ export function SiteHeader({ isSubpage }: SiteHeaderProps) {
             {item.label}
           </a>
         ))}
-        <a href="/resume" onClick={closeMenu}>Resume</a>
       </nav>
-
-      <ActionLink
-        className="header-cta"
-        href={isSubpage ? '/' : '/contact'}
-      >
-        {isSubpage ? 'Back to portfolio' : 'Contact'}
-      </ActionLink>
     </header>
   );
 }
