@@ -1,0 +1,72 @@
+name: CRT visual review
+
+on:
+  push:
+    branches:
+      - feat/threejs-crt-hero
+    paths:
+      - src/features/hero/**
+      - package.json
+      - pnpm-lock.yaml
+      - .github/workflows/crt-visual-review.yml
+
+permissions:
+  contents: read
+
+jobs:
+  screenshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out feature branch
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.4.0
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build site
+        run: pnpm build
+
+      - name: Install Chromium
+        run: npx --yes playwright@latest install --with-deps chromium
+
+      - name: Start preview server
+        run: |
+          pnpm preview --host 127.0.0.1 --port 4173 > /tmp/portfolio-preview.log 2>&1 &
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4173 > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/portfolio-preview.log
+          exit 1
+
+      - name: Capture hero screenshot
+        run: |
+          npx --yes playwright@latest screenshot \
+            --browser chromium \
+            --viewport-size "1440,1000" \
+            --wait-for-timeout 5000 \
+            http://127.0.0.1:4173 \
+            /tmp/crt-hero.png
+
+      - name: Upload screenshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: crt-hero-screenshot
+          path: /tmp/crt-hero.png
+          retention-days: 1
