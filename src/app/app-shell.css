@@ -1,5 +1,8 @@
 .site-shell {
   min-height: 100vh;
+  overflow: clip;
+  color: var(--ink);
+  background: var(--paper);
 }
 
 .skip-link {
@@ -8,24 +11,39 @@
   top: 1rem;
   z-index: 1000;
   transform: translateY(-180%);
-  background: var(--steel-light);
-  color: #0b0f14;
   padding: 0.75rem 1rem;
+  color: var(--paper);
+  background: var(--ink);
 }
 
 .skip-link:focus {
   transform: none;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .section {
-  padding: clamp(5.5rem, 9vw, 9rem) 3vw;
+  width: min(100%, 1380px);
+  margin: 0 auto;
+  padding: clamp(5.5rem, 9vw, 9rem) clamp(1rem, 3vw, 2.5rem);
 }
 
 .eyebrow {
   margin: 0 0 1.2rem;
+  color: var(--muted);
   font-family: "JetBrains Mono", monospace;
   font-size: 0.68rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -41,17 +59,17 @@
 .section-heading h2 {
   margin: 0;
   font-size: clamp(2.8rem, 5vw, 5rem);
+  font-weight: 650;
   line-height: 0.98;
   letter-spacing: -0.055em;
-  font-weight: 650;
 }
 
 .section-heading > p:last-child {
   max-width: 680px;
   margin-top: 1.4rem;
+  color: var(--muted);
   font-size: 1rem;
   line-height: 1.65;
-  color: var(--muted);
 }
 
 .action-link {
@@ -62,14 +80,13 @@
   min-height: 44px;
   font-size: 0.76rem;
   font-weight: 650;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.04em;
 }
 
 .action-link-primary,
 .action-link-secondary {
   padding: 0.75rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--line-strong);
   transition:
     background 0.2s ease,
     color 0.2s ease,
@@ -77,15 +94,15 @@
 }
 
 .action-link-primary {
-  background: var(--steel-light);
-  border-color: var(--steel-light);
-  color: #0b0f14;
+  color: var(--paper);
+  background: var(--ink);
+  border-color: var(--ink);
 }
 
 .action-link-secondary:hover {
+  color: var(--paper);
   background: var(--ink);
   border-color: var(--ink);
-  color: var(--paper);
 }
 
 .action-link-text {
@@ -96,9 +113,7 @@
 .action-link-text::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: auto 0 0;
   height: 1px;
   background: currentColor;
   transform: scaleX(0);
@@ -118,26 +133,26 @@
   display: grid;
   place-items: center;
   overflow: hidden;
-  background: #080c11;
-  color: #edf2f7;
-  animation: intro-exit 0.55s 2.15s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  color: var(--ink);
+  background: var(--paper);
+  animation: intro-exit 0.6s 2.15s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
 
 .intro-overlay::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(rgba(175, 192, 212, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(175, 192, 212, 0.05) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(circle, black, transparent 72%);
+  width: min(74vw, 900px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(61, 88, 116, 0.16);
+  border-radius: 50%;
+  transform: scaleY(0.34) rotate(-10deg);
 }
 
 .intro-copy {
   position: relative;
-  width: min(86vw, 980px);
+  width: min(90vw, 1180px);
   min-height: 1.1em;
+  text-align: center;
   font-size: clamp(2.8rem, 7vw, 7rem);
   font-weight: 650;
   line-height: 0.95;
@@ -153,7 +168,7 @@
 }
 
 .intro-copy span:nth-child(2) {
-  color: var(--steel-light);
+  color: var(--steel-dark);
   animation-delay: 0.62s;
 }
 
@@ -167,10 +182,10 @@
   bottom: 2rem;
   border: 0;
   padding: 0.5rem;
+  color: var(--muted);
   background: transparent;
-  color: rgba(237, 242, 247, 0.55);
   font: 0.68rem "JetBrains Mono", monospace;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
 }
