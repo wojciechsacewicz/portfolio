@@ -29,39 +29,37 @@ export function usePortfolioRuntime({
       gsap.registerPlugin(ScrollTrigger);
 
       const lenis = new Lenis({
-        duration: 1.05,
+        lerp: 0.085,
         smoothWheel: true,
+        syncTouch: false,
+        wheelMultiplier: 0.9,
+        autoRaf: true,
+        anchors: true,
       });
 
-      function renderFrame(timeInSeconds: number) {
-        lenis.raf(timeInSeconds * 1000);
-      }
-
       lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add(renderFrame);
-      gsap.ticker.lagSmoothing(0);
 
       const context = gsap.context(() => {
         const heroCopy = rootElement.querySelector<HTMLElement>('[data-hero-copy]');
         if (heroCopy) {
           gsap.from(heroCopy.children, {
-            y: 42,
+            y: 36,
             opacity: 0,
-            duration: 1,
-            stagger: 0.08,
+            duration: 0.9,
+            stagger: 0.07,
             ease: 'power3.out',
           });
         }
 
         gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((element) => {
           gsap.from(element, {
-            y: 48,
+            y: 42,
             opacity: 0,
-            duration: 0.85,
+            duration: 0.8,
             ease: 'power3.out',
             scrollTrigger: {
               trigger: element,
-              start: 'top 86%',
+              start: 'top 88%',
               once: true,
             },
           });
@@ -73,7 +71,7 @@ export function usePortfolioRuntime({
 
           gsap.fromTo(
             image,
-            { scale: 1.08 },
+            { scale: 1.06 },
             {
               scale: 1,
               ease: 'none',
@@ -93,7 +91,6 @@ export function usePortfolioRuntime({
       disposeRuntime = () => {
         context.revert();
         lenis.destroy();
-        gsap.ticker.remove(renderFrame);
       };
     });
 
