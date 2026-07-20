@@ -7,18 +7,17 @@ export function HeroModule() {
       <div className="hero-grid-lines" aria-hidden="true" />
 
       <div className="hero-copy" data-hero-copy>
-        <p className="eyebrow">Wojciech Sacewicz · Tricity, Poland</p>
+        <p className="eyebrow">Wojciech Sacewicz · AI-native developer</p>
         <h1>Wojciech Sacewicz.</h1>
         <p className="hero-role">
-          AI-native developer building React products, internal tools and automation.
+          Product engineering across React, Cloudflare and automation.
         </p>
         <p className="hero-summary">
-          Currently working at IDEGO and studying Computer Science and Econometrics at the
-          University of Gdańsk.
+          Building commercial software at IDEGO and independent products in Tricity, Poland.
         </p>
 
         <div className="hero-actions">
-          <ActionLink variant="primary" href="#work">Selected work</ActionLink>
+          <ActionLink variant="primary" href="#work">View work</ActionLink>
           <ActionLink variant="secondary" href="/cv-portfolio-en.pdf" showArrow={false}>
             Open CV
           </ActionLink>
@@ -30,20 +29,42 @@ export function HeroModule() {
             <dd>IDEGO</dd>
           </div>
           <div>
-            <dt>Main stack</dt>
-            <dd>React, TypeScript, Cloudflare</dd>
+            <dt>Stack</dt>
+            <dd>React / TypeScript / Cloudflare</dd>
           </div>
           <div>
-            <dt>Work</dt>
-            <dd>Tricity and remote Europe</dd>
+            <dt>Based</dt>
+            <dd>Tricity, Poland</dd>
           </div>
         </dl>
       </div>
 
-      <figure className="hero-portrait" data-reveal>
-        <img src="/assets/wojtek-profile.png" alt="Wojciech Sacewicz" />
-        <figcaption>Gdynia · 2026</figcaption>
-      </figure>
+      <div className="hero-stage" data-reveal aria-label="Preview of selected portfolio projects">
+        <div className="hero-stage-header">
+          <span>Selected work</span>
+          <span>2025—2026</span>
+        </div>
+
+        <div className="hero-frame hero-frame-primary">
+          <img src="/assets/veldia-dashboard.png" alt="Veldia manager dashboard" />
+        </div>
+        <div className="hero-frame hero-frame-secondary">
+          <img src="/assets/veldia-schedule.png" alt="Veldia schedule interface" />
+        </div>
+        <div className="hero-frame hero-frame-signal" aria-hidden="true">
+          <span>llmpolska</span>
+          <strong>Practical AI in Polish.</strong>
+        </div>
+
+        <div className="hero-stage-footer">
+          <span>03 live products</span>
+          <span>01 deployed automation</span>
+        </div>
+      </div>
+
+      <a className="hero-scroll" href="#work">
+        Scroll to work <span aria-hidden="true">↓</span>
+      </a>
     </section>
   );
 }
