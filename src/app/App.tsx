@@ -4,7 +4,6 @@ import { SiteHeader } from '../components/SiteHeader';
 import { ContactModule } from '../features/contact/ContactModule';
 import {
   CaseStudyPage,
-  DiscoveryModule,
   NotFoundPage,
   ResumePage,
 } from '../features/discovery/DiscoveryModule';
@@ -13,7 +12,6 @@ import { HeroModule } from '../features/hero/HeroModule';
 import { ProfileModule } from '../features/profile/ProfileModule';
 import { WorkModule } from '../features/work/WorkModule';
 import { usePortfolioRuntime } from './usePortfolioRuntime';
-import { IntroOverlay } from './IntroOverlay';
 import './app-shell.css';
 
 interface AppProps {
@@ -46,8 +44,6 @@ export default function App({ pathname = '/' }: AppProps) {
         <HeroModule />
         <WorkModule />
         <ProfileModule />
-        <DiscoveryModule />
-        <ContactModule />
       </>
     );
   } else if (isContactPage) {
@@ -68,9 +64,8 @@ export default function App({ pathname = '/' }: AppProps) {
       className="site-shell"
       initial={false}
       animate={{ opacity: 1 }}
-      transition={{ duration: reducedMotion ? 0 : 0.35 }}
+      transition={{ duration: reducedMotion ? 0 : 0.25 }}
     >
-      {isHomePage ? <IntroOverlay reducedMotion={reducedMotion} /> : null}
       <a className="skip-link" href={skipTarget}>
         Skip to content
       </a>
