@@ -95,18 +95,15 @@ export function WorkModule() {
       </header>
 
       <div className="work-browser">
-        <div className="work-index" role="tablist" aria-label="Selected projects">
+        <div className="work-index" aria-label="Selected projects">
           {projects.map((project) => {
             const isActive = project.id === activeProject.id;
             return (
               <button
                 key={project.id}
-                id={`project-tab-${project.id}`}
                 className={isActive ? 'work-index-item is-active' : 'work-index-item'}
                 type="button"
-                role="tab"
-                aria-selected={isActive}
-                aria-controls={`project-panel-${project.id}`}
+                aria-pressed={isActive}
                 onClick={() => setActiveProjectId(project.id)}
               >
                 <span className="work-index-number">{project.number}</span>
@@ -124,10 +121,8 @@ export function WorkModule() {
 
         <article
           key={activeProject.id}
-          id={`project-panel-${activeProject.id}`}
           className={`work-preview work-preview-${activeProject.tone}`}
-          role="tabpanel"
-          aria-labelledby={`project-tab-${activeProject.id}`}
+          aria-live="polite"
           data-reveal
         >
           <div className="work-preview-visual">
