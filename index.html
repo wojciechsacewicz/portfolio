@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0b0f14" />
+    <meta name="theme-color" content="#f6f5f1" />
     <meta
       name="robots"
       content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
@@ -11,13 +11,13 @@
     <meta name="author" content="Wojciech Sacewicz" />
     <meta
       name="description"
-      content="Portfolio of Wojciech Sacewicz, an AI-native developer in Tricity building React products, internal tools and automation."
+      content="Portfolio of Wojciech Sacewicz, an AI-native product engineer in Tricity building web products, internal tools and automation."
     />
     <link rel="canonical" href="https://sacewi.cz/" />
-    <meta property="og:title" content="Wojciech Sacewicz | AI-Native Developer" />
+    <meta property="og:title" content="Wojciech Sacewicz | AI-Native Product Engineer" />
     <meta
       property="og:description"
-      content="React products, internal tools and automation by Wojciech Sacewicz."
+      content="Web products, internal tools and automation by Wojciech Sacewicz."
     />
     <meta property="og:type" content="profile" />
     <meta property="og:url" content="https://sacewi.cz/" />
@@ -25,13 +25,13 @@
     <meta property="og:image" content="https://sacewi.cz/assets/wojtek-profile.png" />
     <meta
       property="og:image:alt"
-      content="Portrait of Wojciech Sacewicz, AI-native developer"
+      content="Portrait of Wojciech Sacewicz, AI-native product engineer"
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Wojciech Sacewicz | AI-Native Developer" />
+    <meta name="twitter:title" content="Wojciech Sacewicz | AI-Native Product Engineer" />
     <meta
       name="twitter:description"
-      content="React products, internal tools and automation by Wojciech Sacewicz."
+      content="Web products, internal tools and automation by Wojciech Sacewicz."
     />
     <meta name="twitter:image" content="https://sacewi.cz/assets/wojtek-profile.png" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -40,32 +40,36 @@
       .static-fallback {
         box-sizing: border-box;
         min-height: 100vh;
+        display: grid;
+        place-content: center;
+        justify-items: center;
         padding: clamp(5rem, 12vw, 10rem) clamp(1.25rem, 6vw, 6rem);
-        color: #e9eef5;
-        background: #0b0f14;
+        color: #10171f;
+        background: #f6f5f1;
         font-family: system-ui, sans-serif;
+        text-align: center;
       }
-      .static-fallback p { max-width: 46rem; line-height: 1.65; }
+      .static-fallback p { max-width: 46rem; line-height: 1.55; }
       .static-fallback h1 {
         max-width: 12ch;
-        margin: 1.25rem 0;
-        font-size: clamp(3.5rem, 8vw, 7rem);
-        line-height: .92;
-        letter-spacing: -.055em;
+        margin: 1.5rem 0;
+        font-size: clamp(3.8rem, 10vw, 9rem);
+        line-height: .86;
+        letter-spacing: -.075em;
       }
-      .static-fallback nav { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+      .static-fallback nav { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 2rem; }
       .static-fallback a { color: inherit; text-underline-offset: .3em; }
     </style>
-    <title>Wojciech Sacewicz | AI-Native Developer</title>
+    <title>Wojciech Sacewicz | AI-Native Product Engineer</title>
   </head>
   <body>
     <div id="root" data-render-mode="fallback">
       <main class="static-fallback" id="main-content">
-        <p>Wojciech Sacewicz · AI-native developer · Tricity, Poland</p>
-        <h1>Wojciech Sacewicz.</h1>
-        <p>AI-native developer building React products, internal tools and automation.</p>
+        <p>AI-native product engineer · Tricity, Poland</p>
+        <h1>Wojciech Sacewicz</h1>
+        <p>I build web products, internal tools and automation.</p>
         <nav aria-label="Portfolio pages">
-          <a href="#work">Selected work</a>
+          <a href="#work">Projects</a>
           <a href="/resume">Resume</a>
           <a href="/contact">Contact</a>
         </nav>

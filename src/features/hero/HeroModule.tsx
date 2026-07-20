@@ -1,52 +1,35 @@
-import { ActionLink } from '../../components/InterfaceElements';
-import { CrtMonitor } from './crt-monitor/CrtMonitor';
+import { motion, useReducedMotion } from 'motion/react';
 import './hero-module.css';
 
+const heroTransition = { duration: 0.85, ease: [0.22, 1, 0.36, 1] } as const;
+
 export function HeroModule() {
+  const reducedMotion = Boolean(useReducedMotion());
+  const initial = reducedMotion ? false : { opacity: 0, y: 28 };
+
   return (
     <section className="hero" id="top">
-      <div className="hero-grid-lines" aria-hidden="true" />
+      <div className="hero-orbit" aria-hidden="true">
+        <span />
+      </div>
 
-      <div className="hero-copy" data-hero-copy>
-        <p className="eyebrow">Wojciech Sacewicz · Tricity, Poland</p>
-        <h1>Wojciech Sacewicz.</h1>
-        <p className="hero-role">
-          Product engineering across React, Cloudflare and automation.
-        </p>
+      <motion.div
+        className="hero-copy"
+        initial={initial}
+        animate={{ opacity: 1, y: 0 }}
+        transition={heroTransition}
+      >
+        <p className="hero-kicker">AI-native product engineer · Tricity, Poland</p>
+        <h1>Wojciech Sacewicz</h1>
         <p className="hero-summary">
-          Building commercial software at IDEGO and independent products in Tricity, Poland.
+          I build web products, internal tools and automation.
         </p>
 
-        <div className="hero-actions">
-          <ActionLink variant="primary" href="#work">View work</ActionLink>
-          <ActionLink variant="secondary" href="/cv-portfolio-en.pdf" showArrow={false}>
-            Open CV
-          </ActionLink>
-        </div>
-
-        <dl className="hero-facts" aria-label="Current professional details">
-          <div>
-            <dt>Now</dt>
-            <dd>IDEGO</dd>
-          </div>
-          <div>
-            <dt>Stack</dt>
-            <dd>React / TypeScript / Cloudflare</dd>
-          </div>
-          <div>
-            <dt>Based</dt>
-            <dd>Tricity, Poland</dd>
-          </div>
-        </dl>
-      </div>
-
-      <div className="hero-stage" data-reveal>
-        <CrtMonitor />
-      </div>
-
-      <a className="hero-scroll" href="#work">
-        Scroll to work <span aria-hidden="true">↓</span>
-      </a>
+        <nav className="hero-actions" aria-label="Portfolio shortcuts">
+          <a href="#work">View projects</a>
+          <a href="mailto:wojciechsacewicz@outlook.com">Email me</a>
+        </nav>
+      </motion.div>
     </section>
   );
 }

@@ -1,5 +1,11 @@
-import { useState } from 'react';
-import { ActionLink } from '../../components/InterfaceElements';
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from 'motion/react';
+import { useState, type PointerEvent as ReactPointerEvent } from 'react';
 import {
   isExternalUrl,
   projects,
@@ -8,34 +14,24 @@ import {
 import './work-module.css';
 
 const projectMeta: Record<string, { readonly type: string; readonly year: string }> = {
-  veldia: { type: 'SaaS / PWA', year: '2026' },
-  llmpolska: { type: 'Platform / Community', year: '2026' },
-  dovista: { type: 'RPA / SAP', year: '2025' },
-  'mumink-tattoo': { type: 'Client website / CMS', year: '2026' },
+  veldia: { type: 'Product', year: '2026' },
+  llmpolska: { type: 'Platform', year: '2026' },
+  dovista: { type: 'Automation', year: '2025' },
+  'mumink-tattoo': { type: 'Client work', year: '2026' },
 };
 
-const dovistaFlow = [
-  { label: 'Input', detail: 'Purchasing documents' },
-  { label: 'OCR', detail: 'Document Understanding' },
-  { label: 'SAP', detail: 'Validated data' },
-  { label: 'UiPath', detail: 'Automated workflow' },
-  { label: 'Report', detail: '40% faster' },
-] as const;
+const dovistaFlow = ['Documents', 'OCR', 'SAP', 'Report'] as const;
 
 function DovistaProcessVisual() {
   return (
     <div className="dovista-process" aria-hidden="true">
-      <div className="process-status">
-        <span>DOVISTA / DEPLOYED</span>
-        <strong>−40%</strong>
-      </div>
-      <div className="process-flow">
+      <strong>−40%</strong>
+      <div className="dovista-flow">
         {dovistaFlow.map((step, index) => (
-          <div className="process-node" key={step.label}>
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <strong>{step.label}</strong>
-            <small>{step.detail}</small>
-          </div>
+          <span key={step}>
+            {step}
+            {index < dovistaFlow.length - 1 ? <i>→</i> : null}
+          </span>
         ))}
       </div>
     </div>
@@ -45,10 +41,6 @@ function DovistaProcessVisual() {
 function VeldiaProductVisual() {
   return (
     <div className="veldia-product" aria-hidden="true">
-      <div className="veldia-product-header">
-        <span>VELDIA</span>
-        <span>LIVE PRODUCT</span>
-      </div>
       <div className="veldia-device veldia-device-primary">
         <img src="/assets/veldia-dashboard.png" alt="" loading="lazy" />
       </div>
@@ -65,10 +57,9 @@ function ProjectVisual({ project }: { readonly project: PortfolioProject }) {
   if (project.id === 'dovista') return <DovistaProcessVisual />;
   if (project.id === 'veldia') return <VeldiaProductVisual />;
 
-  if (hasImageFailed) {
+  if (hasImageFailed || !project.image) {
     return (
       <div className="project-visual-placeholder" aria-hidden="true">
-        <span>{project.number}</span>
         <strong>{project.name}</strong>
       </div>
     );
@@ -85,83 +76,101 @@ function ProjectVisual({ project }: { readonly project: PortfolioProject }) {
   );
 }
 
-export function WorkModule() {
-  const [activeProjectId, setActiveProjectId] = useState(projects[0]?.id ?? '');
-  const activeProject = projects.find((project) => project.id === activeProjectId) ?? projects[0];
+interface ProjectCardProps {
+  readonly project: PortfolioProject;
+  readonly index: number;
+  readonly isWide: boolean;
+}
 
-  if (!activeProject) return null;
+function ProjectCard({ project, index, isWide }: ProjectCardProps) {
+  const reducedMotion = Boolean(useReducedMotion());
+  const pointerX = useMotionValue(0.5);
+  const pointerY = useMotionValue(0.5);
+  const rotateX = useSpring(useTransform(pointerY, [0, 1], [3.5, -3.5]), {
+    stiffness: 180,
+    damping: 24,
+  });
+  const rotateY = useSpring(useTransform(pointerX, [0, 1], [-4.5, 4.5]), {
+    stiffness: 180,
+    damping: 24,
+  });
+  const shineX = useTransform(pointerX, [0, 1], ['10%', '90%']);
+  const shineY = useTransform(pointerY, [0, 1], ['10%', '90%']);
+  const meta = projectMeta[project.id] ?? { type: 'Project', year: '2026' };
+  const external = isExternalUrl(project.url);
 
-  const external = isExternalUrl(activeProject.url);
-  const activeMeta = projectMeta[activeProject.id] ?? { type: 'Project', year: '2026' };
+  function updatePointer(event: ReactPointerEvent<HTMLElement>) {
+    if (reducedMotion || event.pointerType === 'touch') return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    pointerX.set((event.clientX - bounds.left) / bounds.width);
+    pointerY.set((event.clientY - bounds.top) / bounds.height);
+  }
+
+  function resetPointer() {
+    pointerX.set(0.5);
+    pointerY.set(0.5);
+  }
 
   return (
-    <section className="section work-section" id="work">
-      <header className="work-heading" data-reveal>
-        <p className="eyebrow">Work / 04</p>
-        <h2>Projects</h2>
-        <p>Products and automation that are live, deployed or publicly checkable.</p>
-      </header>
-
-      <div className="work-browser">
-        <article
-          key={activeProject.id}
-          id={`project-panel-${activeProject.id}`}
-          className={`work-preview work-preview-${activeProject.tone}`}
-          role="tabpanel"
-          aria-labelledby={`project-tab-${activeProject.id}`}
-          data-project
-        >
-          <div className="work-preview-visual project-visual">
-            <ProjectVisual key={activeProject.id} project={activeProject} />
-            <div className="work-preview-overlay">
-              <span>{activeMeta.type}</span>
-              <strong>{activeProject.name}</strong>
-            </div>
-          </div>
-
-          <div className="work-preview-copy">
-            <p>{activeProject.descriptor}</p>
-            <div className="work-preview-stack" aria-label={`${activeProject.name} technology stack`}>
-              {activeProject.stack.map((technology) => (
-                <span key={technology}>{technology}</span>
-              ))}
-            </div>
-            <ActionLink
-              href={activeProject.url}
-              target={external ? '_blank' : undefined}
-              rel={external ? 'noreferrer' : undefined}
-            >
-              {external ? 'Open project' : 'Read case study'}
-            </ActionLink>
-          </div>
-        </article>
-
-        <div className="work-index" role="tablist" aria-label="Selected projects">
-          {projects.map((project) => {
-            const isActive = project.id === activeProject.id;
-            const meta = projectMeta[project.id] ?? { type: 'Project', year: '2026' };
-
-            return (
-              <button
-                key={project.id}
-                id={`project-tab-${project.id}`}
-                className={isActive ? 'work-index-item is-active' : 'work-index-item'}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                aria-controls={`project-panel-${project.id}`}
-                onClick={() => setActiveProjectId(project.id)}
-                onFocus={() => setActiveProjectId(project.id)}
-                onMouseEnter={() => setActiveProjectId(project.id)}
-              >
-                <span className="work-index-number">{project.number}</span>
-                <strong>{project.name}</strong>
-                <span className="work-index-type">{meta.type}</span>
-                <span className="work-index-year">{meta.year}</span>
-              </button>
-            );
-          })}
+    <motion.article
+      className={`project-card project-card-${project.id}${isWide ? ' project-card-wide' : ''}`}
+      style={reducedMotion ? undefined : { rotateX, rotateY, transformPerspective: 1200 }}
+      initial={reducedMotion ? false : { opacity: 0, y: 42 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{ duration: 0.7, delay: Math.min(index * 0.04, 0.16), ease: [0.22, 1, 0.36, 1] }}
+      onPointerMove={updatePointer}
+      onPointerLeave={resetPointer}
+      onPointerCancel={resetPointer}
+    >
+      <a
+        className="project-card-link"
+        href={project.url}
+        target={external ? '_blank' : undefined}
+        rel={external ? 'noreferrer' : undefined}
+        aria-label={`${project.name}: ${project.descriptor}`}
+      >
+        <div className="project-card-media">
+          <ProjectVisual project={project} />
+          <motion.span
+            className="project-card-shine"
+            aria-hidden="true"
+            style={reducedMotion ? undefined : { left: shineX, top: shineY }}
+          />
         </div>
+
+        <div className="project-card-copy">
+          <div className="project-card-title">
+            <h3>{project.name}</h3>
+            <span aria-hidden="true">↗</span>
+          </div>
+          <p>{project.descriptor}</p>
+          <div className="project-card-meta" aria-label={`${meta.type}, ${meta.year}`}>
+            <span>{meta.type}</span>
+            <span>{meta.year}</span>
+          </div>
+        </div>
+      </a>
+    </motion.article>
+  );
+}
+
+export function WorkModule() {
+  return (
+    <section className="work-section" id="work" aria-labelledby="work-heading">
+      <h2 className="sr-only" id="work-heading">Selected projects</h2>
+      <div className="project-grid">
+        {projects.map((project, index) => {
+          const isLastUnpairedCard = index === projects.length - 1 && projects.length % 2 === 0;
+          return (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+              isWide={index === 0 || isLastUnpairedCard}
+            />
+          );
+        })}
       </div>
     </section>
   );
