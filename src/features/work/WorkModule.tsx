@@ -1,38 +1,119 @@
-import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-  useTransform,
-} from 'motion/react';
-import { useState, type PointerEvent as ReactPointerEvent } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
+import { useState } from 'react';
 import {
   isExternalUrl,
   projects,
   type PortfolioProject,
 } from '../../content/portfolioContent';
+import {
+  ProjectDitherShader,
+  type DitherPalette,
+} from './ProjectDitherShader';
 import './work-module.css';
 
-const projectMeta: Record<string, { readonly type: string; readonly year: string }> = {
-  veldia: { type: 'Product', year: '2026' },
-  llmpolska: { type: 'Platform', year: '2026' },
-  dovista: { type: 'Automation', year: '2025' },
-  'mumink-tattoo': { type: 'Client work', year: '2026' },
+interface ProjectPresentation {
+  readonly type: string;
+  readonly year: string;
+  readonly status?: string;
+  readonly palette: DitherPalette;
+}
+
+const projectPresentation: Record<string, ProjectPresentation> = {
+  'mumink-tattoo': {
+    type: 'Client work',
+    year: '2026',
+    palette: {
+      dark: [0.02, 0.02, 0.025],
+      accent: [0.28, 0.28, 0.3],
+      paper: [0.95, 0.94, 0.91],
+      hoverAccent: [0.36, 0.36, 0.38],
+      hoverPaper: [1, 0.98, 0.94],
+    },
+  },
+  veldia: {
+    type: 'Product',
+    year: '2026',
+    palette: {
+      dark: [0.03, 0.09, 0.15],
+      accent: [0.18, 0.51, 0.74],
+      paper: [0.56, 0.84, 1],
+      hoverAccent: [0.25, 0.58, 0.8],
+      hoverPaper: [0.68, 0.89, 1],
+    },
+  },
+  dovista: {
+    type: 'Automation',
+    year: '2025',
+    palette: {
+      dark: [0.07, 0.09, 0.1],
+      accent: [0.4, 0.43, 0.45],
+      paper: [0.86, 0.88, 0.89],
+      hoverAccent: [0.34, 0.46, 0.54],
+      hoverPaper: [0.9, 0.93, 0.94],
+    },
+  },
+  llmpolska: {
+    type: 'Platform',
+    year: '2026',
+    palette: {
+      dark: [0.035, 0.047, 0.075],
+      accent: [0.925, 0.153, 0.145],
+      paper: [0.85, 0.87, 0.91],
+      hoverAccent: [0.98, 0.23, 0.2],
+      hoverPaper: [0.78, 0.84, 0.92],
+    },
+  },
+  roletailor: {
+    type: 'Desktop app',
+    year: '2026',
+    status: 'Currently building',
+    palette: {
+      dark: [0.02, 0.12, 0.14],
+      accent: [0.33, 0.89, 0.78],
+      paper: [0.27, 0.48, 0.88],
+      hoverAccent: [0.4, 0.94, 0.84],
+      hoverPaper: [0.58, 0.74, 0.98],
+    },
+  },
 };
 
-const dovistaFlow = ['Documents', 'OCR', 'SAP', 'Report'] as const;
+const dovistaFlow = [
+  ['01', 'Documents', 'Input'],
+  ['02', 'OCR extraction', 'UiPath DU'],
+  ['03', 'SAP process', 'Robot'],
+  ['04', 'Final report', 'Output'],
+] as const;
 
 function DovistaProcessVisual() {
   return (
     <div className="dovista-process" aria-hidden="true">
-      <strong>−40%</strong>
+      <div className="dovista-report">
+        <span>Management report</span>
+        <strong>
+          SAP
+          <br />→ PDF
+        </strong>
+        <div className="dovista-report-lines">
+          <i />
+          <i />
+          <i />
+        </div>
+      </div>
+
       <div className="dovista-flow">
-        {dovistaFlow.map((step, index) => (
-          <span key={step}>
-            {step}
-            {index < dovistaFlow.length - 1 ? <i>→</i> : null}
-          </span>
-        ))}
+        <div>
+          <strong>−40%</strong>
+          <span>report generation time</span>
+        </div>
+        <ol>
+          {dovistaFlow.map(([number, label, detail]) => (
+            <li key={number}>
+              <b>{number}</b>
+              <span>{label}</span>
+              <em>{detail}</em>
+            </li>
+          ))}
+        </ol>
       </div>
     </div>
   );
@@ -41,116 +122,166 @@ function DovistaProcessVisual() {
 function VeldiaProductVisual() {
   return (
     <div className="veldia-product" aria-hidden="true">
-      <div className="veldia-device veldia-device-primary">
-        <img src="/assets/veldia-dashboard.png" alt="" loading="lazy" />
+      <div className="veldia-preview">
+        <span>Manager overview</span>
+        <div className="veldia-dashboard">
+          <img src="/assets/veldia-dashboard.png" alt="" loading="lazy" />
+        </div>
       </div>
-      <div className="veldia-device veldia-device-secondary">
-        <img src="/assets/veldia-schedule.png" alt="" loading="lazy" />
+
+      <div className="veldia-preview">
+        <span>Schedule workflow</span>
+        <div className="veldia-schedule">
+          <div>
+            <img src="/assets/veldia-schedule.png" alt="" loading="lazy" />
+          </div>
+          <i aria-hidden="true" />
+        </div>
       </div>
     </div>
   );
 }
 
-function ProjectVisual({ project }: { readonly project: PortfolioProject }) {
+function FramedProjectImage({ project }: { readonly project: PortfolioProject }) {
   const [hasImageFailed, setHasImageFailed] = useState(false);
-
-  if (project.id === 'dovista') return <DovistaProcessVisual />;
-  if (project.id === 'veldia') return <VeldiaProductVisual />;
 
   if (hasImageFailed || !project.image) {
     return (
       <div className="project-visual-placeholder" aria-hidden="true">
+        <span>{project.number}</span>
         <strong>{project.name}</strong>
       </div>
     );
   }
 
   return (
-    <img
-      className="project-image"
-      src={project.image}
-      alt={project.imageAlt}
-      loading="lazy"
-      onError={() => setHasImageFailed(true)}
-    />
+    <div className={`project-frame project-frame-${project.id}`}>
+      {project.id === 'roletailor' ? (
+        <div className="project-window-bar" aria-hidden="true">
+          <i />
+          <i />
+          <i />
+        </div>
+      ) : null}
+      <img
+        src={project.image}
+        alt={project.imageAlt}
+        loading="lazy"
+        onError={() => setHasImageFailed(true)}
+      />
+    </div>
   );
 }
 
-interface ProjectCardProps {
-  readonly project: PortfolioProject;
-  readonly index: number;
-  readonly isWide: boolean;
+function ProjectVisual({ project }: { readonly project: PortfolioProject }) {
+  if (project.id === 'dovista') return <DovistaProcessVisual />;
+  if (project.id === 'veldia') return <VeldiaProductVisual />;
+
+  return <FramedProjectImage project={project} />;
 }
 
-function ProjectCard({ project, index, isWide }: ProjectCardProps) {
+function ProjectLink({
+  href,
+  project,
+}: {
+  readonly href: string;
+  readonly project: PortfolioProject;
+}) {
+  const external = isExternalUrl(href);
+  const label =
+    project.id === 'roletailor'
+      ? 'View source'
+      : external
+        ? 'View project'
+        : 'View case study';
+
+  return (
+    <a
+      href={href}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noreferrer' : undefined}
+    >
+      {label}
+      <span aria-hidden="true">↗</span>
+    </a>
+  );
+}
+
+function technologyMark(technology: string): string {
+  return technology
+    .split(/\s+/)
+    .map((part) => part.charAt(0))
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+}
+
+function ProjectCard({
+  project,
+  index,
+}: {
+  readonly project: PortfolioProject;
+  readonly index: number;
+}) {
   const reducedMotion = Boolean(useReducedMotion());
-  const pointerX = useMotionValue(0.5);
-  const pointerY = useMotionValue(0.5);
-  const rotateX = useSpring(useTransform(pointerY, [0, 1], [3.5, -3.5]), {
-    stiffness: 180,
-    damping: 24,
-  });
-  const rotateY = useSpring(useTransform(pointerX, [0, 1], [-4.5, 4.5]), {
-    stiffness: 180,
-    damping: 24,
-  });
-  const shineX = useTransform(pointerX, [0, 1], ['10%', '90%']);
-  const shineY = useTransform(pointerY, [0, 1], ['10%', '90%']);
-  const meta = projectMeta[project.id] ?? { type: 'Project', year: '2026' };
-  const external = isExternalUrl(project.url);
-
-  function updatePointer(event: ReactPointerEvent<HTMLElement>) {
-    if (reducedMotion || event.pointerType === 'touch') return;
-    const bounds = event.currentTarget.getBoundingClientRect();
-    pointerX.set((event.clientX - bounds.left) / bounds.width);
-    pointerY.set((event.clientY - bounds.top) / bounds.height);
-  }
-
-  function resetPointer() {
-    pointerX.set(0.5);
-    pointerY.set(0.5);
-  }
+  const [isActive, setIsActive] = useState(false);
+  const presentation = projectPresentation[project.id] ?? projectPresentation.veldia!;
+  const primaryDestination = project.caseStudyUrl || project.url;
 
   return (
     <motion.article
-      className={`project-card project-card-${project.id}${isWide ? ' project-card-wide' : ''}`}
-      style={reducedMotion ? undefined : { rotateX, rotateY, transformPerspective: 1200 }}
-      initial={reducedMotion ? false : { opacity: 0, y: 42 }}
+      className={`project-card project-card-${project.id}`}
+      initial={reducedMotion ? false : { opacity: 0, y: 22 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: 0.7, delay: Math.min(index * 0.04, 0.16), ease: [0.22, 1, 0.36, 1] }}
-      onPointerMove={updatePointer}
-      onPointerLeave={resetPointer}
-      onPointerCancel={resetPointer}
+      viewport={{ once: true, amount: 0.16 }}
+      transition={{
+        duration: reducedMotion ? 0 : 0.5,
+        delay: reducedMotion ? 0 : Math.min(index * 0.04, 0.12),
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      onPointerEnter={() => setIsActive(true)}
+      onPointerLeave={() => setIsActive(false)}
+      onFocusCapture={() => setIsActive(true)}
+      onBlurCapture={() => setIsActive(false)}
     >
       <a
-        className="project-card-link"
-        href={project.url}
-        target={external ? '_blank' : undefined}
-        rel={external ? 'noreferrer' : undefined}
-        aria-label={`${project.name}: ${project.descriptor}`}
+        className="project-card-media"
+        href={primaryDestination}
+        target={isExternalUrl(primaryDestination) ? '_blank' : undefined}
+        rel={isExternalUrl(primaryDestination) ? 'noreferrer' : undefined}
+        aria-label={`Open ${project.name}`}
       >
-        <div className="project-card-media">
-          <ProjectVisual project={project} />
-          <motion.span
-            className="project-card-shine"
-            aria-hidden="true"
-            style={reducedMotion ? undefined : { left: shineX, top: shineY }}
-          />
+        <ProjectDitherShader active={isActive} palette={presentation.palette} />
+        <ProjectVisual project={project} />
+      </a>
+
+      <div className="project-card-copy">
+        <div className="project-heading">
+          <div>
+            <h3>{project.name}</h3>
+            {presentation.status ? (
+              <span className="project-status">{presentation.status}</span>
+            ) : null}
+          </div>
+          <span className="project-year">
+            {presentation.type} · {presentation.year}
+          </span>
         </div>
 
-        <div className="project-card-copy">
-          <div className="project-card-title">
-            <h3>{project.name}</h3>
-            <span aria-hidden="true">↗</span>
-          </div>
-          <p>{project.descriptor}</p>
-          <div className="project-card-meta" aria-label={`${meta.type}, ${meta.year}`}>
-            <span>{meta.type}</span>
-            <span>{meta.year}</span>
-          </div>
+        <p className="project-description">{project.descriptor}</p>
+
+        <div className="project-card-footer">
+          <ProjectLink href={primaryDestination} project={project} />
+          <ul className="project-stack" aria-label={`${project.name} technology stack`}>
+            {project.stack.slice(0, 4).map((technology) => (
+              <li key={technology} title={technology}>
+                <span aria-hidden="true">{technologyMark(technology)}</span>
+                <span className="sr-only">{technology}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-      </a>
+      </div>
     </motion.article>
   );
 }
@@ -158,19 +289,18 @@ function ProjectCard({ project, index, isWide }: ProjectCardProps) {
 export function WorkModule() {
   return (
     <section className="work-section" id="work" aria-labelledby="work-heading">
-      <h2 className="sr-only" id="work-heading">Selected projects</h2>
-      <div className="project-grid">
-        {projects.map((project, index) => {
-          const isLastUnpairedCard = index === projects.length - 1 && projects.length % 2 === 0;
-          return (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              index={index}
-              isWide={index === 0 || isLastUnpairedCard}
-            />
-          );
-        })}
+      <header className="module-heading work-heading">
+        <p className="module-label">Projects</p>
+        <div>
+          <h2 id="work-heading">Selected work.</h2>
+          <p>Client work, owned products and one measured automation.</p>
+        </div>
+      </header>
+
+      <div className="project-list">
+        {projects.map((project, index) => (
+          <ProjectCard key={project.id} project={project} index={index} />
+        ))}
       </div>
     </section>
   );

@@ -11,7 +11,6 @@ import '../features/discovery/case-study-details.css';
 import { HeroModule } from '../features/hero/HeroModule';
 import { ProfileModule } from '../features/profile/ProfileModule';
 import { WorkModule } from '../features/work/WorkModule';
-import { IntroOverlay } from './IntroOverlay';
 import { usePortfolioRuntime } from './usePortfolioRuntime';
 import './app-shell.css';
 
@@ -65,9 +64,8 @@ export default function App({ pathname = '/' }: AppProps) {
       className="site-shell"
       initial={false}
       animate={{ opacity: 1 }}
-      transition={{ duration: reducedMotion ? 0 : 0.25 }}
+      transition={{ duration: reducedMotion ? 0 : 0.2 }}
     >
-      {isHomePage ? <IntroOverlay reducedMotion={reducedMotion} /> : null}
       <a className="skip-link" href={skipTarget}>
         Skip to content
       </a>

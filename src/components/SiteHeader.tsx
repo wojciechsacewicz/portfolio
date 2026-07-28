@@ -5,10 +5,14 @@ interface SiteHeaderProps {
 }
 
 const primaryNavigationItems = [
-  { label: 'Work', href: '#work' },
-  { label: 'About', href: '#about' },
+  { label: 'Projects', href: '#work' },
   { label: 'Resume', href: '/resume' },
+  { label: 'Contact', href: '/contact' },
 ] as const;
+
+function resolveNavigationHref(href: string, isSubpage: boolean): string {
+  return isSubpage && href.startsWith('#') ? `/${href}` : href;
+}
 
 export function SiteHeader({ isSubpage }: SiteHeaderProps) {
   return (
@@ -20,7 +24,7 @@ export function SiteHeader({ isSubpage }: SiteHeaderProps) {
 
         <nav className="site-nav" aria-label="Primary navigation">
           {primaryNavigationItems.map((item) => (
-            <a key={item.href} href={isSubpage && item.href.startsWith('#') ? `/${item.href}` : item.href}>
+            <a key={item.href} href={resolveNavigationHref(item.href, isSubpage)}>
               {item.label}
             </a>
           ))}

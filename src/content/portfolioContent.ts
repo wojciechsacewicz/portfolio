@@ -121,11 +121,21 @@ export interface PortfolioContent {
 
 const baseContent = contentJson as PortfolioContent;
 
+function findBaseProject(id: string): PortfolioProject {
+  const project = baseContent.projects.find((candidate) => candidate.id === id);
+
+  if (!project) {
+    throw new Error(`Missing base portfolio project: ${id}`);
+  }
+
+  return project;
+}
+
 const muminkTattooProject: PortfolioProject = {
   id: 'mumink-tattoo',
-  number: '04',
+  number: '01',
   name: 'Mumink Tattoo',
-  descriptor: 'A distinctive studio website backed by a custom media workflow.',
+  descriptor: 'Interactive tattoo portfolio and flashboard for a real studio.',
   summary:
     'A production website and lightweight CMS for a tattoo and permanent-makeup studio in Tczew. I designed and built the public experience, gallery management, Cloudflare Worker API, D1/R2 storage, deployment and local-search foundations.',
   evidence: [
@@ -141,6 +151,46 @@ const muminkTattooProject: PortfolioProject = {
   tone: 'dark',
 };
 
+const veldiaProject: PortfolioProject = {
+  ...findBaseProject('veldia'),
+  number: '02',
+  descriptor: 'Mobile scheduling product for small shift-based teams.',
+};
+
+const dovistaProject: PortfolioProject = {
+  ...findBaseProject('dovista'),
+  number: '03',
+  descriptor: 'OCR and SAP automation that cut reporting time by 40%.',
+};
+
+const llmPolskaProject: PortfolioProject = {
+  ...findBaseProject('llmpolska'),
+  number: '04',
+  descriptor: 'Community, academy and tools for practical AI builders.',
+};
+
+const roleTailorProject: PortfolioProject = {
+  id: 'roletailor',
+  number: '05',
+  name: 'RoleTailor',
+  descriptor:
+    'Local desktop app that turns one honest career profile into a focused CV for each role.',
+  summary:
+    'A local-first Linux desktop application that keeps career data and application workspaces on-device, uses Codex to tailor editable CVs from user-supplied facts and renders final PDFs through a trusted Chromium pipeline.',
+  evidence: [
+    'Local profile and isolated application workspaces',
+    'Codex tailoring grounded in user-supplied career facts',
+    'Trusted Chromium rendering for editable two-page PDFs',
+  ],
+  stack: ['Tauri', 'Rust', 'React', 'Codex'],
+  url: 'https://github.com/wojciechsacewicz/RoleTailor',
+  caseStudyUrl: 'https://github.com/wojciechsacewicz/RoleTailor',
+  image:
+    'https://raw.githubusercontent.com/wojciechsacewicz/RoleTailor/main/docs/screenshots/workspace.png',
+  imageAlt: 'RoleTailor desktop application workspace',
+  tone: 'slate',
+};
+
 const liveProductsProofPoint: ProofPoint = {
   value: '3 live',
   label: 'Products you can open',
@@ -149,20 +199,23 @@ const liveProductsProofPoint: ProofPoint = {
 
 export const portfolioContent: PortfolioContent = {
   ...baseContent,
-  lastModified: '2026-07-18',
+  lastModified: '2026-07-28',
   proofPoints: baseContent.proofPoints.map((point) =>
     point.label === liveProductsProofPoint.label ? liveProductsProofPoint : point,
   ),
   projects: [
-    ...baseContent.projects.filter((project) => project.id !== muminkTattooProject.id),
     muminkTattooProject,
+    veldiaProject,
+    dovistaProject,
+    llmPolskaProject,
+    roleTailorProject,
   ],
   faq: baseContent.faq.map((entry) =>
     entry.question === 'What evidence shows product and engineering ownership?'
       ? {
           ...entry,
           answer:
-            'Live products including Veldia, llmpolska and Mumink Tattoo, commercial work at IDEGO and a deployed DOVISTA automation that reduced report generation time by 40% for the scoped workflow.',
+            'Live products including Veldia, llmpolska and Mumink Tattoo, commercial work at IDEGO, a deployed DOVISTA automation that reduced report generation time by 40% for the scoped workflow and the actively developed RoleTailor desktop application.',
         }
       : entry,
   ),

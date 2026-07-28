@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f6f5f1" />
+    <meta name="theme-color" content="#f4f7f9" />
     <meta
       name="robots"
       content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
@@ -39,26 +39,39 @@
     <style id="static-fallback-style">
       .static-fallback {
         box-sizing: border-box;
+        width: min(calc(100% - 2rem), 820px);
         min-height: 100vh;
         display: grid;
-        place-content: center;
-        justify-items: center;
-        padding: clamp(5rem, 12vw, 10rem) clamp(1.25rem, 6vw, 6rem);
-        color: #10171f;
-        background: #f6f5f1;
+        align-content: center;
+        margin: 0 auto;
+        padding: 6rem 0;
+        color: #13202a;
+        background: #f4f7f9;
         font-family: system-ui, sans-serif;
-        text-align: center;
       }
-      .static-fallback p { max-width: 46rem; line-height: 1.55; }
+      .static-fallback p {
+        max-width: 42rem;
+        margin: 0;
+        color: #64727e;
+        line-height: 1.6;
+      }
       .static-fallback h1 {
         max-width: 12ch;
         margin: 1.5rem 0;
-        font-size: clamp(3.8rem, 10vw, 9rem);
-        line-height: .86;
-        letter-spacing: -.075em;
+        font-size: clamp(3rem, 13vw, 4.65rem);
+        line-height: .94;
+        letter-spacing: -.07em;
       }
-      .static-fallback nav { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 2rem; }
-      .static-fallback a { color: inherit; text-underline-offset: .3em; }
+      .static-fallback nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      .static-fallback a {
+        color: inherit;
+        text-underline-offset: .3em;
+      }
     </style>
     <title>Wojciech Sacewicz | AI-Native Product Engineer</title>
   </head>

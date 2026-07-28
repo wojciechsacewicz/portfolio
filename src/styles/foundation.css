@@ -13,23 +13,27 @@
 }
 
 :root {
-  color: #10171f;
-  background: #f6f5f1;
+  color: #13202a;
+  background: #f4f7f9;
   font-family: "Geist", system-ui, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  --paper: #f6f5f1;
-  --ink: #10171f;
-  --muted: #697681;
-  --line: rgba(16, 23, 31, 0.12);
-  --line-strong: rgba(16, 23, 31, 0.22);
-  --steel: #5d7fa3;
-  --steel-light: #d9e5f0;
-  --steel-mid: #7a95b1;
-  --steel-dark: #3d5874;
-  --surface: #ecece7;
+  --paper: #f4f7f9;
+  --ink: #13202a;
+  --muted: #64727e;
+  --muted-strong: #465663;
+  --line: rgba(19, 32, 42, 0.11);
+  --line-strong: rgba(19, 32, 42, 0.2);
+  --steel: #6484a3;
+  --steel-light: #dfeaf2;
+  --steel-mid: #819bb3;
+  --steel-dark: #3e607d;
+  --steel-soft: #eaf1f6;
+  --surface: #eaf0f3;
   --surface-raised: #ffffff;
-  --dark: #10171f;
+  --dark: #13202a;
+  --content-width: 820px;
+  --page-gutter: clamp(1rem, 4vw, 1.5rem);
 }
 
 * {
@@ -37,7 +41,8 @@
 }
 
 html {
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
   background: var(--paper);
 }
 
@@ -46,7 +51,16 @@ body {
   min-width: 320px;
   overflow-x: hidden;
   color: var(--ink);
-  background: var(--paper);
+  background:
+    radial-gradient(circle at 50% -10%, rgba(100, 132, 163, 0.1), transparent 34rem),
+    var(--paper);
+}
+
+body,
+button,
+input,
+textarea {
+  font-family: inherit;
 }
 
 a {
@@ -73,7 +87,7 @@ svg {
 
 ::selection {
   color: var(--ink);
-  background: #c7d8e8;
+  background: #c8dbe8;
 }
 
 :focus-visible {
