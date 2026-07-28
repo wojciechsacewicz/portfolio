@@ -23,6 +23,23 @@ describe('portfolio content model', () => {
     }
   });
 
+  it('keeps the featured work deliberately ordered', () => {
+    expect(projects.map((project) => project.id)).toEqual([
+      'mumink-tattoo',
+      'veldia',
+      'dovista',
+      'llmpolska',
+      'roletailor',
+    ]);
+    expect(projects.map((project) => project.number)).toEqual([
+      '01',
+      '02',
+      '03',
+      '04',
+      '05',
+    ]);
+  });
+
   it('includes the live Mumink Tattoo client project', () => {
     expect(projects.find((project) => project.id === 'mumink-tattoo')).toMatchObject({
       name: 'Mumink Tattoo',
@@ -32,9 +49,17 @@ describe('portfolio content model', () => {
     });
   });
 
+  it('includes RoleTailor as an actively developed desktop product', () => {
+    expect(projects.find((project) => project.id === 'roletailor')).toMatchObject({
+      name: 'RoleTailor',
+      url: 'https://github.com/wojciechsacewicz/RoleTailor',
+      stack: ['Tauri', 'Rust', 'React', 'Codex'],
+    });
+  });
+
   it('preserves the recruiter scan path', () => {
     expect(proofPoints.map((point) => point.value)).toEqual(['IDEGO', '40%', '3 live']);
-    expect(experience[0].company).toBe('IDEGO');
+    expect(experience.at(0)?.company).toBe('IDEGO');
     expect(workflow.at(-1)?.title).toBe('Deliver');
   });
 

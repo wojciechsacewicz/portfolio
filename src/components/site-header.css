@@ -2,25 +2,34 @@
   position: fixed;
   inset: 0 0 auto;
   z-index: 100;
-  padding: 0 clamp(1rem, 3vw, 2.5rem);
-  color: var(--ink);
-  background: rgba(246, 245, 241, 0.78);
-  border-bottom: 1px solid rgba(16, 23, 31, 0.08);
-  backdrop-filter: blur(18px) saturate(1.15);
+  padding: 0.75rem var(--page-gutter) 0;
+  pointer-events: none;
 }
 
 .site-header-inner {
-  width: min(100%, 1330px);
-  height: 70px;
+  width: min(100%, var(--content-width));
+  min-height: 52px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1rem;
   margin: 0 auto;
+  padding: 0.35rem 0.45rem 0.35rem 0.8rem;
+  color: var(--ink);
+  background: rgba(247, 250, 251, 0.82);
+  border: 1px solid rgba(19, 32, 42, 0.1);
+  border-radius: 1rem;
+  box-shadow: 0 12px 35px rgba(25, 43, 57, 0.08);
+  backdrop-filter: blur(18px) saturate(1.15);
+  pointer-events: auto;
 }
 
 .wordmark {
-  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding-inline: 0.25rem;
+  font-size: 0.84rem;
   font-weight: 720;
   letter-spacing: -0.04em;
 }
@@ -28,49 +37,44 @@
 .site-nav {
   display: flex;
   align-items: center;
-  gap: clamp(1rem, 2.3vw, 2rem);
-  font-size: 0.76rem;
+  gap: 0.15rem;
+  font-size: 0.7rem;
 }
 
 .site-nav a {
-  position: relative;
-  padding: 0.4rem 0;
-  color: #465462;
-  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 0.62rem;
+  color: var(--muted-strong);
+  border-radius: 0.7rem;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
 }
 
-.site-nav a::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.site-nav a:hover {
+.site-nav a:hover,
+.site-nav a:focus-visible {
   color: var(--ink);
+  background: rgba(100, 132, 163, 0.1);
 }
 
-.site-nav a:hover::after,
-.site-nav a:focus-visible::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
+@media (min-width: 600px) {
+  .site-header {
+    padding-top: 1rem;
+  }
 
-@media (max-width: 520px) {
   .site-header-inner {
-    height: 62px;
+    min-height: 56px;
+    padding-inline: 0.9rem 0.55rem;
   }
 
   .site-nav {
-    gap: 1rem;
-    font-size: 0.7rem;
+    gap: 0.25rem;
+    font-size: 0.75rem;
   }
 
-  .site-nav a:nth-child(2) {
-    display: none;
+  .site-nav a {
+    padding-inline: 0.8rem;
   }
 }
