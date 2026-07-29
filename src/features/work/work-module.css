@@ -189,7 +189,9 @@
   box-shadow: 0 1.4rem 3.5rem rgba(0, 0, 0, 0.34);
 }
 
-.project-frame img {
+.project-frame img,
+.project-frame video {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -200,8 +202,13 @@
   background: #111217;
 }
 
-.project-frame-mumink-tattoo img {
+.project-frame-mumink-tattoo img,
+.project-frame-mumink-tattoo video {
   object-position: center;
+}
+
+.project-frame-mumink-tattoo video {
+  background: #111217;
 }
 
 .project-frame-llmpolska {

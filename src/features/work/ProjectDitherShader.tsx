@@ -103,6 +103,7 @@ const fragmentShaderSource = `#version 300 es
     vec3 paper = mix(u_paper, u_hover_paper, u_hover);
     vec3 color = mix(u_dark, accent, quantized);
     color = mix(color, paper, smoothstep(.68, .98, quantized) * .48);
+    color = mix(color, paper, u_hover * .065);
 
     float vignette = smoothstep(1.16, .28, length(position) * .66);
     color *= .82 + vignette * .18;
@@ -236,7 +237,8 @@ export function ProjectDitherShader({
     let visible = true;
     let hoverAmount = activeRef.current ? 1 : 0;
     let animationFrame = 0;
-    const startedAt = performance.now();
+    let previousFrame = performance.now();
+    let shaderTime = 0;
 
     const resize = () => {
       const bounds = canvas.getBoundingClientRect();
@@ -276,14 +278,17 @@ export function ProjectDitherShader({
       if (visible) {
         const target = activeRef.current ? 1 : 0;
         hoverAmount += (target - hoverAmount) * (reducedMotion ? 1 : 0.055);
+        const elapsed = Math.min((now - previousFrame) * 0.001, 0.05);
+        shaderTime += reducedMotion ? 0 : elapsed * (1 + hoverAmount * 0.65);
 
         gl.useProgram(program);
         gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
-        gl.uniform1f(timeLocation, reducedMotion ? 0 : (now - startedAt) * 0.001);
+        gl.uniform1f(timeLocation, shaderTime);
         gl.uniform1f(hoverLocation, hoverAmount);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
       }
 
+      previousFrame = now;
       animationFrame = window.requestAnimationFrame(render);
     };
 
