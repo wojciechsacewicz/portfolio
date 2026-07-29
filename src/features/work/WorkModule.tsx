@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'motion/react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   isExternalUrl,
   projects,
@@ -173,9 +173,147 @@ function FramedProjectImage({ project }: { readonly project: PortfolioProject })
   );
 }
 
-function ProjectVisual({ project }: { readonly project: PortfolioProject }) {
+function MuminkProjectVideo({
+  active,
+  project,
+}: {
+  readonly active: boolean;
+  readonly project: PortfolioProject;
+}) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const reducedMotion = Boolean(useReducedMotion());
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!video) return;
+
+    const desktopQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+    let pauseTimer = 0;
+    let animationFrame = 0;
+    let cancelled = false;
+
+    const stop = () => {
+      window.clearTimeout(pauseTimer);
+      window.cancelAnimationFrame(animationFrame);
+      video.pause();
+    };
+
+    const reverse = (onComplete?: () => void) => {
+      stop();
+      const startTime = video.currentTime;
+      const startedAt = performance.now();
+      const duration = Math.max(450, (startTime / video.duration) * 4800);
+      let lastSeekAt = 0;
+
+      const tick = (now: number) => {
+        if (cancelled) return;
+
+        const progress = Math.min((now - startedAt) / duration, 1);
+        const eased =
+          progress < 0.5
+            ? 4 * progress * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+        if (now - lastSeekAt >= 1000 / 30 || progress === 1) {
+          video.currentTime = startTime * (1 - eased);
+          lastSeekAt = now;
+        }
+
+        if (progress < 1) {
+          animationFrame = window.requestAnimationFrame(tick);
+        } else {
+          onComplete?.();
+        }
+      };
+
+      animationFrame = window.requestAnimationFrame(tick);
+    };
+
+    const startMobileBoomerang = () => {
+      let forward: () => void;
+      const backward = () => {
+        if (cancelled) return;
+        reverse(() => {
+          pauseTimer = window.setTimeout(forward, 420);
+        });
+      };
+
+      forward = () => {
+        if (cancelled) return;
+        video.addEventListener(
+          'ended',
+          () => {
+            pauseTimer = window.setTimeout(backward, 380);
+          },
+          { once: true },
+        );
+        video.play().catch(() => undefined);
+      };
+
+      forward();
+    };
+
+    const syncPlayback = () => {
+      stop();
+
+      if (!Number.isFinite(video.duration) || video.duration <= 0) return;
+
+      if (reducedMotion) {
+        video.currentTime = 0;
+      } else if (desktopQuery.matches) {
+        if (active) {
+          video.play().catch(() => undefined);
+        } else if (video.currentTime > 0) {
+          reverse();
+        }
+      } else {
+        startMobileBoomerang();
+      }
+    };
+
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      syncPlayback();
+    } else {
+      video.addEventListener('loadeddata', syncPlayback, { once: true });
+    }
+    desktopQuery.addEventListener('change', syncPlayback);
+
+    return () => {
+      cancelled = true;
+      stop();
+      video.removeEventListener('loadeddata', syncPlayback);
+      desktopQuery.removeEventListener('change', syncPlayback);
+    };
+  }, [active, reducedMotion]);
+
+  return (
+    <div className="project-frame project-frame-mumink-tattoo">
+      <video
+        ref={videoRef}
+        src="/assets/projects/mumink-scroll-60fps.webm"
+        poster={project.image}
+        aria-label={project.imageAlt}
+        muted
+        playsInline
+        preload="auto"
+      />
+    </div>
+  );
+}
+
+function ProjectVisual({
+  active,
+  project,
+}: {
+  readonly active: boolean;
+  readonly project: PortfolioProject;
+}) {
   if (project.id === 'dovista') return <DovistaProcessVisual />;
   if (project.id === 'veldia') return <VeldiaProductVisual />;
+  if (project.id === 'mumink-tattoo') {
+    return <MuminkProjectVideo active={active} project={project} />;
+  }
 
   return <FramedProjectImage project={project} />;
 }
@@ -252,7 +390,7 @@ function ProjectCard({
         aria-label={`Open ${project.name}`}
       >
         <ProjectDitherShader active={isActive} palette={presentation.palette} />
-        <ProjectVisual project={project} />
+        <ProjectVisual active={isActive} project={project} />
       </a>
 
       <div className="project-card-copy">
