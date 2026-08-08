@@ -166,9 +166,21 @@ function caseStudyEntity(study) {
       '@type': 'WebSite',
       '@id': `${study.liveUrl}#website`,
       name: study.shortTitle,
+      ...(study.alternateName ? { alternateName: study.alternateName } : {}),
       url: study.liveUrl,
       description: study.description,
       inLanguage: 'pl',
+    };
+  }
+
+  if (study.entityType === 'Organization') {
+    return {
+      '@type': 'Organization',
+      '@id': `${study.liveUrl}#organization`,
+      name: study.shortTitle,
+      ...(study.alternateName ? { alternateName: study.alternateName } : {}),
+      url: study.liveUrl,
+      description: study.description,
     };
   }
 

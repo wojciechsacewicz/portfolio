@@ -55,6 +55,7 @@ export interface CaseStudy {
   readonly slug: string;
   readonly title: string;
   readonly shortTitle: string;
+  readonly alternateName?: string;
   readonly datePublished: string;
   readonly dateModified: string;
   readonly description: string;
@@ -72,7 +73,7 @@ export interface CaseStudy {
   readonly evidence: readonly EvidenceLink[];
   readonly liveUrl: string;
   readonly image: string;
-  readonly entityType: 'SoftwareApplication' | 'WebSite' | 'Article';
+  readonly entityType: 'SoftwareApplication' | 'WebSite' | 'Organization' | 'Article';
 }
 
 export interface PortfolioContent {
@@ -166,7 +167,7 @@ const dovistaProject: PortfolioProject = {
 const llmPolskaProject: PortfolioProject = {
   ...findBaseProject('llmpolska'),
   number: '04',
-  descriptor: 'Community, academy and tools for practical AI builders.',
+  descriptor: 'Web studio building websites, stores and web apps for Polish businesses.',
 };
 
 const roleTailorProject: PortfolioProject = {
@@ -199,7 +200,7 @@ const liveProductsProofPoint: ProofPoint = {
 
 export const portfolioContent: PortfolioContent = {
   ...baseContent,
-  lastModified: '2026-07-28',
+  lastModified: '2026-08-08',
   proofPoints: baseContent.proofPoints.map((point) =>
     point.label === liveProductsProofPoint.label ? liveProductsProofPoint : point,
   ),

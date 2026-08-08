@@ -265,7 +265,7 @@ export function CaseStudyPage({ slug }: CaseStudyPageProps) {
         <div className="indexed-page-actions">
           {study.liveUrl ? (
             <ActionLink variant="primary" href={study.liveUrl} target="_blank" rel="noreferrer">
-              Open live product
+              {study.slug === 'llmpolska' ? 'llmpolska' : 'Open live product'}
             </ActionLink>
           ) : null}
           <ActionLink variant="secondary" href="/resume">View resume</ActionLink>

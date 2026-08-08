@@ -175,12 +175,12 @@
       "id": "llmpolska",
       "number": "02",
       "name": "llmpolska",
-      "descriptor": "A Polish home for practical AI work.",
-      "summary": "A community, tools and education platform built around React Router and Cloudflare Workers. The work combines engineering, positioning, brand, product navigation and an AI helper workflow.",
+      "descriptor": "Web studio building websites, stores and web apps for Polish businesses.",
+      "summary": "A web studio building modern websites, online stores and web applications for Polish businesses. The work combines engineering, positioning, brand, conversion-focused product design and Cloudflare delivery.",
       "evidence": [
         "React Router SSR on Cloudflare",
-        "Community and AI-tool discovery surfaces",
-        "Product positioning and distribution"
+        "Web studio offer and service surfaces",
+        "Product positioning and conversion-focused UX"
       ],
       "stack": [
         "React Router",
@@ -427,41 +427,42 @@
     },
     {
       "slug": "llmpolska",
-      "title": "llmpolska — practical AI platform for Poland",
+      "title": "llmpolska — web studio for Polish businesses",
       "shortTitle": "llmpolska",
+      "alternateName": "LLM Polska",
       "datePublished": "2026-07-14",
-      "dateModified": "2026-07-14",
-      "description": "A Polish community, tools and education platform focused on practical AI work, product discovery and useful implementation knowledge.",
-      "context": "Polish AI practitioners need a focused place for practical tools, education and community rather than another generic AI news site. llmpolska is structured around useful discovery and implementation-oriented content.",
-      "roleAndBoundaries": "I work across product positioning, brand, information architecture, navigation, React Router implementation, Cloudflare delivery and AI-tool discovery surfaces. Public claims are limited to the live product and the implementation visible on the site.",
+      "dateModified": "2026-08-08",
+      "description": "A Polish web studio creating modern websites, online stores and web applications for businesses, built around clear positioning, strong product design and production-ready engineering.",
+      "context": "Polish small and medium-sized businesses need websites that explain the offer clearly, build trust and turn attention into useful enquiries or sales. llmpolska brings positioning, design and web engineering together in one studio rather than treating the website as a disconnected technical deliverable.",
+      "roleAndBoundaries": "I work across product positioning, brand, information architecture, conversion flows, React Router implementation and Cloudflare delivery. The public case study describes the studio, its own website and the engineering visible in the live product without inventing client outcomes or private commercial metrics.",
       "constraints": [
-        "The platform must be understandable to Polish users with different levels of AI experience.",
-        "Content and tool pages need crawlable server-rendered output for discovery and sharing.",
-        "Brand, navigation and distribution need to work as one product rather than separate marketing exercises."
+        "The studio offer must be understandable to business owners without requiring technical knowledge.",
+        "Service and portfolio pages need crawlable server-rendered output for search, sharing and direct visits.",
+        "Brand, offer, proof and contact paths need to work as one coherent acquisition experience rather than separate marketing pages."
       ],
       "implementation": [
         "React Router provides route-level rendering and application structure.",
         "Cloudflare Workers deliver server-rendered pages close to users.",
-        "TypeScript keeps product and content surfaces consistent.",
-        "Navigation and discovery surfaces connect community, tools and education."
+        "TypeScript keeps product, offer and content surfaces consistent.",
+        "The information architecture connects services, proof of work and contact paths around the needs of Polish businesses."
       ],
       "decisions": [
-        "Use server rendering so useful pages are available without waiting for client JavaScript.",
-        "Organize the platform around practical tasks and tools instead of a chronological news feed.",
-        "Treat positioning and distribution as part of the product architecture."
+        "Use server rendering so important studio and service pages are available without waiting for client JavaScript.",
+        "Keep the public identity focused on the web studio and make the services, proof and contact path immediately understandable.",
+        "Treat positioning, proof and conversion paths as part of the product architecture rather than as an afterthought."
       ],
       "aiWorkflow": [
-        "The platform includes AI-helper and tool-discovery concepts where they make navigation or implementation knowledge easier to use.",
-        "Coding agents support repository research and implementation, followed by normal review and verification."
+        "Coding agents support repository research, implementation and iteration while the product direction and final decisions remain human-reviewed.",
+        "AI-assisted development is part of the delivery workflow, not the public identity or primary service category of llmpolska."
       ],
       "verification": [
         "Server-rendered routes can be inspected directly in the page response.",
-        "The production site provides externally accessible evidence of the product, brand and navigation.",
+        "The production site provides externally accessible evidence of the studio, offer, brand and navigation.",
         "Deployment and browser checks are part of the release workflow."
       ],
-      "outcome": "A live server-rendered platform that combines engineering, distribution and product positioning.",
-      "measurement": "No traffic or community-size metric is claimed in this case study. The externally verifiable evidence is the live server-rendered platform and its public discovery surfaces.",
-      "limitations": "The platform is evolving; the case study does not present projected community growth as an achieved result.",
+      "outcome": "A live web-studio site presenting llmpolska as a provider of websites, online stores and web applications for Polish businesses.",
+      "measurement": "No traffic, lead-volume or client-revenue metric is claimed in this case study. The externally verifiable evidence is the live server-rendered studio website and the public work and offer it presents.",
+      "limitations": "The studio and its offer continue to evolve; the case study does not present projected lead growth or client business outcomes as achieved results.",
       "technologies": [
         "React Router",
         "TypeScript",
@@ -471,9 +472,9 @@
       ],
       "evidence": [
         {
-          "label": "Live llmpolska platform",
+          "label": "Live llmpolska website",
           "url": "https://llmpolska.pl/",
-          "kind": "live website"
+          "kind": "web studio"
         },
         {
           "label": "Public visual identity",
@@ -483,7 +484,7 @@
       ],
       "liveUrl": "https://llmpolska.pl/",
       "image": "https://llmpolska.pl/og-default.svg",
-      "entityType": "WebSite"
+      "entityType": "Organization"
     },
     {
       "slug": "dovista-automation",
