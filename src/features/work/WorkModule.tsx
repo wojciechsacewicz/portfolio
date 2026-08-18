@@ -55,6 +55,7 @@ const projectPresentation: Record<string, ProjectPresentation> = {
   llmpolska: {
     type: 'Platform',
     year: '2026',
+    status: 'Current focus',
     palette: {
       dark: [0.035, 0.047, 0.075],
       accent: [0.925, 0.153, 0.145],
@@ -66,7 +67,6 @@ const projectPresentation: Record<string, ProjectPresentation> = {
   roletailor: {
     type: 'Desktop app',
     year: '2026',
-    status: 'Currently building',
     palette: {
       dark: [0.02, 0.12, 0.14],
       accent: [0.33, 0.89, 0.78],
