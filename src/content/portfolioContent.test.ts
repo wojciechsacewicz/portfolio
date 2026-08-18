@@ -25,8 +25,8 @@ describe('portfolio content model', () => {
 
   it('keeps the featured work deliberately ordered', () => {
     expect(projects.map((project) => project.id)).toEqual([
-      'mumink-tattoo',
       'llmpolska',
+      'mumink-tattoo',
       'veldia',
       'dovista',
       'roletailor',

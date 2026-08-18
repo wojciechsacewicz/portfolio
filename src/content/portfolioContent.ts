@@ -133,7 +133,7 @@ function findBaseProject(id: string): PortfolioProject {
 
 const muminkTattooProject: PortfolioProject = {
   id: 'mumink-tattoo',
-  number: '01',
+  number: '02',
   name: 'Mumink Tattoo',
   descriptor: 'Interactive tattoo portfolio and flashboard for a real studio.',
   summary:
@@ -165,7 +165,7 @@ const dovistaProject: PortfolioProject = {
 
 const llmPolskaProject: PortfolioProject = {
   ...findBaseProject('llmpolska'),
-  number: '02',
+  number: '01',
   descriptor: 'My current focus: an AI-native studio and product ecosystem for Poland.',
   summary:
     'I am building llmpolska as an AI-native studio and product ecosystem: websites and web apps for Polish businesses, llmpolska Radar, community products and practical AI tools. I work across product, engineering, positioning, distribution and the Cloudflare-based platform.',
@@ -214,8 +214,8 @@ export const portfolioContent: PortfolioContent = {
     point.label === liveProductsProofPoint.label ? liveProductsProofPoint : point,
   ),
   projects: [
-    muminkTattooProject,
     llmPolskaProject,
+    muminkTattooProject,
     veldiaProject,
     dovistaProject,
     roleTailorProject,

@@ -353,15 +353,6 @@ function ProjectLink({
   );
 }
 
-function technologyMark(technology: string): string {
-  return technology
-    .split(/\s+/)
-    .map((part) => part.charAt(0))
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
-}
-
 function ProjectCard({
   project,
   index,
@@ -418,14 +409,6 @@ function ProjectCard({
 
         <div className="project-card-footer">
           <ProjectLink href={primaryDestination} project={project} />
-          <ul className="project-stack" aria-label={`${project.name} technology stack`}>
-            {project.stack.slice(0, 4).map((technology) => (
-              <li key={technology} title={technology}>
-                <span aria-hidden="true">{technologyMark(technology)}</span>
-                <span className="sr-only">{technology}</span>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </motion.article>
