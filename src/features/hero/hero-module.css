@@ -51,15 +51,6 @@
   font-size: 0.76rem;
 }
 
-.hero-status > span {
-  width: 0.42rem;
-  height: 0.42rem;
-  flex: 0 0 auto;
-  background: #4c8a68;
-  border-radius: 50%;
-  box-shadow: 0 0 0 0.22rem rgba(76, 138, 104, 0.12);
-}
-
 .hero h1 {
   max-width: 12ch;
   margin: 0;

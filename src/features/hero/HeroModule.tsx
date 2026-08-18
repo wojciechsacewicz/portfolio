@@ -31,10 +31,7 @@ export function HeroModule() {
           />
           <div>
             <p className="hero-kicker">AI-native product engineer · Tricity, Poland</p>
-            <p className="hero-status">
-              <span aria-hidden="true" />
-              Building at IDEGO
-            </p>
+            <p className="hero-status">Building at IDEGO</p>
           </div>
         </div>
 

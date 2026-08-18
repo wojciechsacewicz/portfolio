@@ -515,7 +515,7 @@
     border-right: 0;
   }
 
-  .project-card-roletailor {
+  .project-card-llmpolska {
     grid-column: 1 / -1;
     display: grid;
     grid-template-columns: minmax(0, 1.3fr) minmax(16rem, 0.7fr);
@@ -524,11 +524,11 @@
     border-right: 0 !important;
   }
 
-  .project-card-roletailor .project-card-media {
+  .project-card-llmpolska .project-card-media {
     aspect-ratio: 16 / 8.5;
   }
 
-  .project-card-roletailor .project-card-copy {
+  .project-card-llmpolska .project-card-copy {
     padding-top: 0;
   }
 }

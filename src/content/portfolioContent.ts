@@ -153,20 +153,30 @@ const muminkTattooProject: PortfolioProject = {
 
 const veldiaProject: PortfolioProject = {
   ...findBaseProject('veldia'),
-  number: '02',
+  number: '03',
   descriptor: 'Mobile scheduling product for small shift-based teams.',
 };
 
 const dovistaProject: PortfolioProject = {
   ...findBaseProject('dovista'),
-  number: '03',
+  number: '04',
   descriptor: 'OCR and SAP automation that cut reporting time by 40%.',
 };
 
 const llmPolskaProject: PortfolioProject = {
   ...findBaseProject('llmpolska'),
-  number: '04',
-  descriptor: 'Community, academy and tools for practical AI builders.',
+  number: '02',
+  descriptor: 'My current focus: an AI-native studio and product ecosystem for Poland.',
+  summary:
+    'I am building llmpolska as an AI-native studio and product ecosystem: websites and web apps for Polish businesses, llmpolska Radar, community products and practical AI tools. I work across product, engineering, positioning, distribution and the Cloudflare-based platform.',
+  evidence: [
+    'Websites and web apps for Polish businesses',
+    'llmpolska Radar, community and practical AI products',
+    'React Router SSR and Cloudflare Workers',
+  ],
+  stack: ['React Router', 'Cloudflare Workers', 'TypeScript'],
+  image: 'https://llmpolska.pl/og-default.png',
+  imageAlt: 'llmpolska open graph image',
 };
 
 const roleTailorProject: PortfolioProject = {
@@ -199,15 +209,15 @@ const liveProductsProofPoint: ProofPoint = {
 
 export const portfolioContent: PortfolioContent = {
   ...baseContent,
-  lastModified: '2026-07-28',
+  lastModified: '2026-08-18',
   proofPoints: baseContent.proofPoints.map((point) =>
     point.label === liveProductsProofPoint.label ? liveProductsProofPoint : point,
   ),
   projects: [
     muminkTattooProject,
+    llmPolskaProject,
     veldiaProject,
     dovistaProject,
-    llmPolskaProject,
     roleTailorProject,
   ],
   faq: baseContent.faq.map((entry) =>
